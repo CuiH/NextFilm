@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface CinemaDao {
 
-    CinemaEntity findById(Long id, boolean needFilms, boolean needHalls);
+    CinemaEntity findById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
     List<CinemaEntity> findByName(String name);
 
@@ -21,6 +21,6 @@ public interface CinemaDao {
 
     void doUpdate(CinemaEntity cinema);
 
-    List<CinemaEntity> findAll(boolean needFilms, boolean needHalls);
+    List<CinemaEntity> findAll(boolean needFilms, boolean needHalls, boolean needFcms);
 
 }

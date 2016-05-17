@@ -71,7 +71,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/show_all_cinema", method = RequestMethod.GET)
     public String showAllCinema(ModelMap modelMap) {
-        List<CinemaEntity> allCinemas = cinemaService.findAllCinemas(false, false);
+        List<CinemaEntity> allCinemas = cinemaService.findAllCinemas(false, false, false);
         modelMap.addAttribute("cinemas", allCinemas);
 
         return "show_all_cinema";
@@ -80,7 +80,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/edit_cinema/{id}", method = RequestMethod.GET)
     public String editCinema(@PathVariable Long id, ModelMap modelMap) {
-        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true, true);
+        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true, true, true);
 
         if (cinemaEditor == null) {
             return "redirect:/fail";
@@ -119,7 +119,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/delete_cinema/{id}", method = RequestMethod.GET)
     public String deleteCinema(@PathVariable Long id) {
-        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false, true);
+        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false, true, true);
         if (cinemaEntity == null) {
             return "redirect:/fail";
         }

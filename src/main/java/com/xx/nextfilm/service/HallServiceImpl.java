@@ -46,7 +46,7 @@ public class HallServiceImpl implements HallService {
 
 
     public boolean createHall(HallEditor hallEditor) {
-        CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false);
+        CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
         if (cinemaEntity == null) return false;
 
         HallEntity hallEntity = getEntityFromEditor(hallEditor, false);
@@ -59,7 +59,7 @@ public class HallServiceImpl implements HallService {
 
 
     public boolean updateHall(HallEditor hallEditor) {
-        CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false);
+        CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
         if (cinemaEntity == null) return false;
 
         HallEntity hallEntity = getEntityFromEditor(hallEditor, true);

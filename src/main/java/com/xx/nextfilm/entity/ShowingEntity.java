@@ -6,13 +6,16 @@ import java.util.Date;
 /**
  * Created by CuiH on 2016/5/17.
  */
-@Entity(name = "show")
-public class ShowEntity {
+@Entity(name = "showing")
+public class ShowingEntity {
 
     private Long id;
     private Date startTime;
     private Date endTime;
     private Double priceManual;
+
+    private FCMEntity fcm;
+    private HallEntity hall;
 
 
     @Id
@@ -60,12 +63,34 @@ public class ShowEntity {
     }
 
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "film_cinema_map_id")
+    public FCMEntity getFcm() {
+        return fcm;
+    }
+
+    public void setFcm(FCMEntity fcm) {
+        this.fcm = fcm;
+    }
+
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "hall_id")
+    public HallEntity getHall() {
+        return hall;
+    }
+
+    public void setHall(HallEntity hall) {
+        this.hall = hall;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShowEntity that = (ShowEntity) o;
+        ShowingEntity that = (ShowingEntity) o;
 
         if (id != that.id) return false;
 

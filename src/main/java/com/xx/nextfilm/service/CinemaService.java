@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface CinemaService {
 
-    CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls);
+    CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
-    CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls);
+    CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
     List<CinemaEntity> findCinemaByName(String name);
 
@@ -24,6 +24,6 @@ public interface CinemaService {
 
     void deleteCinema(CinemaEntity cinema);
 
-    List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls);
+    List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls, boolean needFcms);
 
 }

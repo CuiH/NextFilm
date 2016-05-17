@@ -15,7 +15,7 @@ import java.util.List;
 @Repository("cinemaDao")
 public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements CinemaDao {
 
-    public CinemaEntity findById(Long id, boolean needFilms, boolean needHalls) {
+    public CinemaEntity findById(Long id, boolean needFilms, boolean needHalls, boolean needFcms) {
         CinemaEntity cinema = getByKey(id);
 
         if (needFilms) {
@@ -27,6 +27,12 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
         if (needHalls) {
             if (cinema != null) {
                 Hibernate.initialize(cinema.getHalls());
+            }
+        }
+
+        if (needFcms) {
+            if (cinema != null) {
+                Hibernate.initialize(cinema.getFcms());
             }
         }
 
@@ -67,7 +73,7 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
     }
 
 
-    public List<CinemaEntity> findAll(boolean needFilms, boolean needHalls) {
+    public List<CinemaEntity> findAll(boolean needFilms, boolean needHalls, boolean needFcms) {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<CinemaEntity> cinemas = (List<CinemaEntity>) criteria.list();
@@ -82,6 +88,12 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
             if (needHalls) {
                 if (cinema != null) {
                     Hibernate.initialize(cinema.getHalls());
+                }
+            }
+
+            if (needFcms) {
+                if (cinema != null) {
+                    Hibernate.initialize(cinema.getFcms());
                 }
             }
         }

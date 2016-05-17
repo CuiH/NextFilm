@@ -4,9 +4,11 @@ import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.utils.Utils;
+import org.springframework.beans.factory.NamedBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +31,13 @@ public class CinemaServiceImpl implements CinemaService {
     FilmDao filmDao;
 
 
-    public CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls) {
-        return cinemaDao.findById(id, needFilms, needHalls);
+    public CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls, boolean needFcms) {
+        return cinemaDao.findById(id, needFilms, needHalls, needFcms);
     }
 
 
-    public CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls) {
-        CinemaEntity cinemaEntity = findCinemaById(id, needFilms, needHalls);
+    public CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls, boolean needFcms) {
+        CinemaEntity cinemaEntity = findCinemaById(id, needFilms, needHalls, needFcms);
 
         if (cinemaEntity == null) return null;
 
@@ -63,6 +65,12 @@ public class CinemaServiceImpl implements CinemaService {
             List<HallEntity> halls = cinemaEntity.getHalls();
             if (halls == null) cinemaEditor.setHalls(new ArrayList<HallEntity>());
             else cinemaEditor.setHalls(halls);
+        }
+
+        if (needFcms) {
+            List<FCMEntity> fcms = cinemaEntity.getFcms();
+            if (fcms == null) cinemaEditor.setFcms(new ArrayList<FCMEntity>());
+            else cinemaEditor.setFcms(fcms);
         }
 
         return cinemaEditor;
@@ -122,8 +130,8 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    public List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls) {
-        return cinemaDao.findAll(needFilms, needHalls);
+    public List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls, boolean needFcms) {
+        return cinemaDao.findAll(needFilms, needHalls, needFcms);
     }
 
 }

@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">validate</property>
@@ -16,6 +16,8 @@
 		<mapping class="com.xx.nextfilm.entity.ActorEntity"/>
 		<mapping class="com.xx.nextfilm.entity.CinemaEntity"/>
 		<mapping class="com.xx.nextfilm.entity.HallEntity"/>
-		<mapping class="com.xx.nextfilm.entity.ShowEntity"/>
+		<mapping class="com.xx.nextfilm.entity.ShowingEntity"/>
+		<mapping class="com.xx.nextfilm.entity.SeatEntity"/>
+		<mapping class="com.xx.nextfilm.entity.FCMEntity"/>
 	</session-factory>
 </hibernate-configuration>

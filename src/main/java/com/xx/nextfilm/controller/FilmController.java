@@ -59,7 +59,7 @@ public class FilmController {
         String onDate = filmEditor.getOnDate();
         if (!Utils.isDateValid(onDate)) {
             FieldError onDateError = new FieldError("filmEditor", "onDate",
-                    messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
+                    messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
             return "add_film";
@@ -108,7 +108,7 @@ public class FilmController {
         String onDate = filmEditor.getOnDate();
         if (!Utils.isDateValid(onDate)) {
             FieldError onDateError = new FieldError("filmEditor", "onDate",
-                    messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
+                    messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
             return "edit_film";

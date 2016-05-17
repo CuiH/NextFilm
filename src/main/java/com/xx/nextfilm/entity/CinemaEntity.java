@@ -22,8 +22,8 @@ public class CinemaEntity {
     private String description;
 
     private List<FilmEntity> films = new ArrayList<FilmEntity>();
-
     private List<HallEntity> halls = new ArrayList<HallEntity>();
+    private List<FCMEntity> fcms = new ArrayList<FCMEntity>();
 
 
     @Id
@@ -135,6 +135,16 @@ public class CinemaEntity {
 
     public void setHalls(List<HallEntity> halls) {
         this.halls = halls;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema", cascade = CascadeType.REMOVE)
+    public List<FCMEntity> getFcms() {
+        return fcms;
+    }
+
+    public void setFcms(List<FCMEntity> fcms) {
+        this.fcms = fcms;
     }
 
 

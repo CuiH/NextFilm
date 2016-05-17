@@ -1,7 +1,5 @@
 package com.xx.nextfilm.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +24,7 @@ public class FilmEntity {
 
     private List<ActorEntity> directors = new ArrayList<ActorEntity>();
     private List<ActorEntity> actors = new ArrayList<ActorEntity>();
+    private List<CinemaEntity> cinemas = new ArrayList<CinemaEntity>();
 
 
     @Id
@@ -162,6 +161,20 @@ public class FilmEntity {
 
     public void setDirectors(List<ActorEntity> directors) {
         this.directors = directors;
+    }
+
+
+    // 暂时只用于级联删除
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "film_cinema_map",
+            joinColumns = { @JoinColumn(name = "film_id") },
+            inverseJoinColumns = { @JoinColumn(name = "cinema_id") })
+    public List<CinemaEntity> getCinemas() {
+        return cinemas;
+    }
+
+    public void setCinemas(List<CinemaEntity> cinemas) {
+        this.cinemas = cinemas;
     }
 
 

@@ -109,5 +109,44 @@
 </table>
 <a href="/edit_cinema/${cinemaEditor.id}/add_hall">add hall</a>
 
+<br/><br/><br/>
+<p>Shows:</p>
+<c:forEach var="fcm" items="${cinemaEditor.fcms}">
+    filmname: ${fcm.film.name}
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>hall</th>
+            <th>start time</th>
+            <th>end time</th>
+            <th>price</th>
+            <th>hall</th>
+            <th>编辑</th>
+            <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="showing" items="${fcm.showings}">
+            <tr>
+                <td>${showing.id}</td>
+                <td>${showing.hall.name}</td>
+                <td>${showing.startTime}</td>
+                <td>${showing.endTime}</td>
+                <td>${showing.priceManual}</td>
+                <td>${showing.hall.name}</td>
+                <security:authorize access="hasRole('ROLE_ADMIN')">
+                    <td><a href="/edit_cinema/${cinemaEditor.id}/edit_hall/${hall.id}">edit</a></td>
+                    <td><a href="/delete_hall/${hall.id}">delete</a></td>
+                </security:authorize>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <br/>
+</c:forEach>
+<a href="/edit_cinema/${cinemaEditor.id}/add_show">add show</a>
+
+
 </body>
 </html>

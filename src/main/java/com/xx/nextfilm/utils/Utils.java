@@ -18,7 +18,7 @@ public class Utils {
                 return false;
             }
         } else {
-            return true;
+            return false;
         }
     }
 
@@ -45,6 +45,7 @@ public class Utils {
         }
     }
 
+
     public static String convertStringToGender(String str) {
         if (str != null) {
             if (str.equals("0")) {
@@ -58,6 +59,7 @@ public class Utils {
             return null;
         }
     }
+
 
     public static String convertGenderToString(String gender) {
         if (gender != null) {
@@ -83,12 +85,10 @@ public class Utils {
         }
     }
 
-
     // 待实现
     public static String convertCityToCityCode(String city) {
         return "100000";
     }
-
 
     // 待实现
     public static String convertCityCodeToCity(String cityCode) {
@@ -96,7 +96,7 @@ public class Utils {
     }
 
 
-    public static boolean isNumValid(String str) {
+    public static boolean isShortValid(String str) {
         if (null != str && !"".equals(str)) {
             try {
                 Short s = Short.parseShort(str);
@@ -109,11 +109,9 @@ public class Utils {
         }
     }
 
-
     public static String convertShortToString(Short s) {
         return ""+s;
     }
-
 
     public static Short convertStringToShort(String str) {
         if (null != str && !"".equals(str)) {
@@ -125,6 +123,37 @@ public class Utils {
             }
         } else {
             return 0;
+        }
+    }
+
+
+    public static boolean isDoubleValid(String str) {
+        if (null != str && !"".equals(str)) {
+            try {
+                Double d = Double.parseDouble(str);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static String convertDoubleToString(Double d) {
+        return ""+d;
+    }
+
+    public static Double convertStringToDouble(String str) {
+        if (null != str && !"".equals(str)) {
+            try {
+                Double d = Double.parseDouble(str);
+                return d;
+            } catch (Exception e) {
+                return 0.0;
+            }
+        } else {
+            return 0.0;
         }
     }
 

@@ -1,7 +1,6 @@
 package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.HallEditor;
-import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.HallService;
@@ -50,7 +49,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isNumValid(hallEditor.getRowNum())) {
+        if (!Utils.isShortValid(hallEditor.getRowNum())) {
             FieldError birthdayError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(birthdayError);
@@ -58,7 +57,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isNumValid(hallEditor.getColumnNum())) {
+        if (!Utils.isShortValid(hallEditor.getColumnNum())) {
             FieldError birthdayError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(birthdayError);
@@ -98,7 +97,7 @@ public class HallController {
             return "edit_hall";
         }
 
-        if (!Utils.isNumValid(hallEditor.getRowNum())) {
+        if (!Utils.isShortValid(hallEditor.getRowNum())) {
             FieldError birthdayError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(birthdayError);
@@ -106,7 +105,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isNumValid(hallEditor.getColumnNum())) {
+        if (!Utils.isShortValid(hallEditor.getColumnNum())) {
             FieldError birthdayError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(birthdayError);
