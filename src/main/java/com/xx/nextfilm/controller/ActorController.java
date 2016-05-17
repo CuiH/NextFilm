@@ -48,14 +48,12 @@ public class ActorController {
 
         // 检查birthday是否合法
         String birthday = actorEditor.getBirthday();
-        if (null != birthday && !"".equals(birthday)) {
-            if (!Utils.isDateValid(birthday)) {
-                FieldError birthdayError = new FieldError("actorEditor", "birthday",
-                        messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
-                result.addError(birthdayError);
+        if (!Utils.isDateValid(birthday)) {
+            FieldError birthdayError = new FieldError("actorEditor", "birthday",
+                    messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
+            result.addError(birthdayError);
 
-                return "add_actor";
-            }
+            return "add_actor";
         }
 
         actorService.createActor(actorEditor);
@@ -96,14 +94,12 @@ public class ActorController {
 
         // 检查birthday是否合法
         String birthday = actorEditor.getBirthday();
-        if (null != birthday && !"".equals(birthday)) {
-            if (!Utils.isDateValid(birthday)) {
-                FieldError birthdayError = new FieldError("actorEditor", "birthday",
-                        messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
-                result.addError(birthdayError);
+        if (!Utils.isDateValid(birthday)) {
+            FieldError birthdayError = new FieldError("actorEditor", "birthday",
+                    messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
+            result.addError(birthdayError);
 
-                return "edit_actor";
-            }
+            return "edit_actor";
         }
 
         actorService.updateActor(actorEditor);

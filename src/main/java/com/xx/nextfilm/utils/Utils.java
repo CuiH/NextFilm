@@ -95,4 +95,37 @@ public class Utils {
         return "广州";
     }
 
+
+    public static boolean isNumValid(String str) {
+        if (null != str && !"".equals(str)) {
+            try {
+                Short s = Short.parseShort(str);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
+    public static String convertShortToString(Short s) {
+        return ""+s;
+    }
+
+
+    public static Short convertStringToShort(String str) {
+        if (null != str && !"".equals(str)) {
+            try {
+                Short s = Short.parseShort(str);
+                return s;
+            } catch (Exception e) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
 }

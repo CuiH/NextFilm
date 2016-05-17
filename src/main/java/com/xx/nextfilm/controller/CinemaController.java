@@ -48,7 +48,7 @@ public class CinemaController {
     }
 
     @RequestMapping(value = "/add_cinema", method = RequestMethod.POST)
-    public String addActorHandler(@Valid CinemaEditor cinemaEditor, BindingResult result) {
+    public String addCinemaHandler(@Valid CinemaEditor cinemaEditor, BindingResult result) {
         if (result.hasErrors()) {
             return "add_cinema";
         }
@@ -70,8 +70,8 @@ public class CinemaController {
 
 
     @RequestMapping(value = "/show_all_cinema", method = RequestMethod.GET)
-    public String showAllActor(ModelMap modelMap) {
-        List<CinemaEntity> allCinemas = cinemaService.findAllCinemas();
+    public String showAllCinema(ModelMap modelMap) {
+        List<CinemaEntity> allCinemas = cinemaService.findAllCinemas(false, false);
         modelMap.addAttribute("cinemas", allCinemas);
 
         return "show_all_cinema";
@@ -80,7 +80,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/edit_cinema/{id}", method = RequestMethod.GET)
     public String editCinema(@PathVariable Long id, ModelMap modelMap) {
-        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true);
+        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true, true);
 
         if (cinemaEditor == null) {
             return "redirect:/fail";
@@ -119,7 +119,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/delete_cinema/{id}", method = RequestMethod.GET)
     public String deleteCinema(@PathVariable Long id) {
-        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false);
+        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false, true);
         if (cinemaEntity == null) {
             return "redirect:/fail";
         }

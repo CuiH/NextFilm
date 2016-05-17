@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Edit Cinema</title>
+    <link href="/res/css/semantic.css" rel="stylesheet">
 </head>
 <body>
 <form:form modelAttribute="cinemaEditor" action="/edit_cinema" method="post">
@@ -74,6 +76,38 @@
         <input id="submit" type="submit" value="Submit">
     </p>
 </form:form>
+
+<br/>
+<p>Halls:</p>
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>type</th>
+        <th>row num</th>
+        <th>column num</th>
+        <th>编辑</th>
+        <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="hall" items="${cinemaEditor.halls}">
+        <tr>
+            <td>${hall.id}</td>
+            <td>${hall.name}</td>
+            <td>${hall.type}</td>
+            <td>${hall.rowNum}</td>
+            <td>${hall.columnNum}</td>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <td><a href="/edit_cinema/${cinemaEditor.id}/edit_hall/${hall.id}">edit</a></td>
+                <td><a href="/delete_hall/${hall.id}">delete</a></td>
+            </security:authorize>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+<a href="/edit_cinema/${cinemaEditor.id}/add_hall">add hall</a>
 
 </body>
 </html>

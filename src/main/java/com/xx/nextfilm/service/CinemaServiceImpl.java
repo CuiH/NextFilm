@@ -5,6 +5,7 @@ import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FilmEntity;
+import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,13 @@ public class CinemaServiceImpl implements CinemaService {
     FilmDao filmDao;
 
 
-    public CinemaEntity findCinemaById(Long id, boolean needFilms) {
-        return cinemaDao.findById(id, needFilms);
+    public CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls) {
+        return cinemaDao.findById(id, needFilms, needHalls);
     }
 
 
-    public CinemaEditor getCinemaEditorById(Long id, boolean needFilms) {
-        CinemaEntity cinemaEntity = findCinemaById(id, needFilms);
+    public CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls) {
+        CinemaEntity cinemaEntity = findCinemaById(id, needFilms, needHalls);
 
         if (cinemaEntity == null) return null;
 
@@ -57,6 +58,12 @@ public class CinemaServiceImpl implements CinemaService {
             }
         }
         cinemaEditor.setFilms(a);
+
+        if (needHalls) {
+            List<HallEntity> halls = cinemaEntity.getHalls();
+            if (halls == null) cinemaEditor.setHalls(new ArrayList<HallEntity>());
+            else cinemaEditor.setHalls(halls);
+        }
 
         return cinemaEditor;
     }
@@ -115,8 +122,8 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    public List<CinemaEntity> findAllCinemas() {
-        return cinemaDao.findAll();
+    public List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls) {
+        return cinemaDao.findAll(needFilms, needHalls);
     }
 
 }

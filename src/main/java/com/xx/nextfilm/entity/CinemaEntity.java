@@ -1,6 +1,9 @@
 package com.xx.nextfilm.entity;
 
+import com.xx.nextfilm.dto.HallEditor;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +21,9 @@ public class CinemaEntity {
     private String imageUrl;
     private String description;
 
-    private List<FilmEntity> films;
+    private List<FilmEntity> films = new ArrayList<FilmEntity>();
+
+    private List<HallEntity> halls = new ArrayList<HallEntity>();
 
 
     @Id
@@ -120,6 +125,16 @@ public class CinemaEntity {
 
     public void setFilms(List<FilmEntity> films) {
         this.films = films;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema", cascade = CascadeType.REMOVE)
+    public List<HallEntity> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<HallEntity> halls) {
+        this.halls = halls;
     }
 
 

@@ -1,5 +1,7 @@
 package com.xx.nextfilm.dto;
 
+import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.HallEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class CinemaEditor {
     private String description;
 
     private List<Long> films = new ArrayList<Long>();
+
+    private List<HallEntity> halls = new ArrayList<HallEntity>();
 
 
     public Long getId() {
@@ -108,6 +112,15 @@ public class CinemaEditor {
 
     public void setFilms(List<Long> films) {
         this.films = films;
+    }
+
+
+    public List<HallEntity> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<HallEntity> halls) {
+        this.halls = halls;
     }
 
 }

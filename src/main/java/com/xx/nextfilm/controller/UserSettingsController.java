@@ -89,14 +89,12 @@ public class UserSettingsController {
 
         // 检查birthday是否合法
         String birthday = userDetailEditor.getBirthday();
-        if (null != birthday && !"".equals(birthday)) {
-            if (!Utils.isDateValid(birthday)) {
-                FieldError birthdayError = new FieldError("userDetailEditor", "birthday",
-                        messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
-                result.addError(birthdayError);
+        if (!Utils.isDateValid(birthday)) {
+            FieldError birthdayError = new FieldError("userDetailEditor", "birthday",
+                    messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
+            result.addError(birthdayError);
 
-                return "edit_detail";
-            }
+            return "edit_detail";
         }
 
         UserEntity nowUser = getCurrentUser();

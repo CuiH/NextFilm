@@ -57,14 +57,12 @@ public class FilmController {
 
         // 检查onDate是否合法
         String onDate = filmEditor.getOnDate();
-        if (null != onDate && !"".equals(onDate)) {
-            if (!Utils.isDateValid(onDate)) {
-                FieldError onDateError = new FieldError("filmEditor", "onDate",
-                        messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
-                result.addError(onDateError);
+        if (!Utils.isDateValid(onDate)) {
+            FieldError onDateError = new FieldError("filmEditor", "onDate",
+                    messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
+            result.addError(onDateError);
 
-                return "add_film";
-            }
+            return "add_film";
         }
 
         filmService.createFilm(filmEditor);
@@ -108,14 +106,12 @@ public class FilmController {
 
         // 检查birthday是否合法
         String onDate = filmEditor.getOnDate();
-        if (null != onDate && !"".equals(onDate)) {
-            if (!Utils.isDateValid(onDate)) {
-                FieldError onDateError = new FieldError("filmEditor", "onDate",
-                        messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
-                result.addError(onDateError);
+        if (!Utils.isDateValid(onDate)) {
+            FieldError onDateError = new FieldError("filmEditor", "onDate",
+                    messageSource.getMessage("CH.invalid.onDate", null, Locale.getDefault()));
+            result.addError(onDateError);
 
-                return "edit_film";
-            }
+            return "edit_film";
         }
 
         filmService.updateFilm(filmEditor);
