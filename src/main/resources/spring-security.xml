@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<!-- 自定义UserDetailService -->
+	<beans:bean id="customUserDetailsService" class="com.xx.nextfilm.service.CustomUserDetailsService"/>
+
+
+	<!-- 自定义authenticationSuccessHandler -->
+	<beans:bean id="authenticationSuccessHandler" class="com.xx.nextfilm.handler.CustomAuthenticationSuccessHandler">
+		<beans:property name="useReferer" value="true" />
+		<beans:property name="defaultTargetUrl" value="/home"/>
+		<beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+	</beans:bean>
+
+
+	<!-- csrf相关，不验证的url -->
+	<beans:bean id="csrfSecurityRequestMatcher" class="com.xx.nextfilm.utils.CustomRequiresCsrfMatcher">
+		<beans:property name="excludeUrls">
+			<beans:list>
+				<beans:value>/login</beans:value>
+				<beans:value>/logout</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+
+	<http auto-config="true">
+		<!-- 拦截的url -->
+		<intercept-url pattern="/home" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/change_password" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/edit_detail" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/add_actor" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/edit_actor/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/delete_actor/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/add_cinema" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/edit_cinema/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/delete_cinema/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/add_film" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/edit_film/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/delete_film/**" access="hasRole('ROLE_ADMIN')" />
+
+		<!-- csrf相关 -->
+		<csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
+
+		<!-- login -->
+		<form-login
+			login-page="/login"
+			login-processing-url="/login"
+			username-parameter="username"
+			password-parameter="password"
+			authentication-success-handler-ref="authenticationSuccessHandler"
+			authentication-failure-url="/fail" />
+
+		<!-- logout -->
+		<logout
+			invalidate-session="true"
+			logout-url="/logout"
+			logout-success-url="/login" />
+	</http>
+
+
+	<!-- 声明认证provider -->
+	<authentication-manager id="authenticationManager">
+		<authentication-provider user-service-ref="customUserDetailsService">
+			<password-encoder hash="plaintext"/>
+		</authentication-provider>
+	</authentication-manager>
+
+
+</beans:beans>

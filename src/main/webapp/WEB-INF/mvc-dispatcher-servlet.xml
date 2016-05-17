@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- spring security的配置文件 -->
+	<import resource="classpath:spring-security.xml"/>
+
+
+	<!-- DB properties -->
+	<context:property-placeholder location="classpath:db.properties"/>
+
+
+	<!--  开启注解扫描 -->
+	<context:component-scan base-package="com.xx.*"/>
+
+
+	<!-- 开启mvc注解 -->
+	<mvc:annotation-driven/>
+
+
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven/>
+
+
+	<!-- 静态资源(js、image等)的访问 -->
+	<!--<mvc:default-servlet-handler/>-->
+	<mvc:resources location="/resources/" mapping="/res/**"/>
+
+
+	<!-- validator的对应说明 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>messages</value>
+		</property>
+	</bean>
+
+
+	<!-- 视图解析器 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+
+		<property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+	</bean>
+
+
+	<!-- 配置 Hibernate 的 SessionFactory 实例 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+
+
+	<!-- 配置 hibernate 的事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+</beans>
+
