@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,8 +42,7 @@ public class FilmController {
         FilmEditor filmEditor = new FilmEditor();
         modelMap.addAttribute("filmEditor", filmEditor);
 
-        List<ActorEntity> actors = actorService.findAllActors();
-
+        HashMap<Long, String> actors = actorService.getAllActorsWithMap();
         modelMap.addAttribute("actors", actors);
         modelMap.addAttribute("directors", actors);
 
@@ -76,7 +76,6 @@ public class FilmController {
     @RequestMapping(value = "/show_all_film", method = RequestMethod.GET)
     public String showAllFilm(ModelMap modelMap) {
         List<FilmEntity> allFilms = filmService.findAllFilms();
-
         modelMap.addAttribute("films", allFilms);
 
         return "show_all_film";
@@ -85,7 +84,7 @@ public class FilmController {
 
     @RequestMapping(value = "/edit_film/{id}", method = RequestMethod.GET)
     public String editFilm(@PathVariable Long id, ModelMap modelMap) {
-        FilmEditor filmEditor = filmService.getEditorById(id);
+        FilmEditor filmEditor = filmService.getFilmEditorById(id, true, true);
 
         if (filmEditor == null) {
             return "redirect:/fail";
@@ -93,8 +92,7 @@ public class FilmController {
 
         modelMap.addAttribute("filmEditor", filmEditor);
 
-        List<ActorEntity> actors = actorService.findAllActors();
-
+        HashMap<Long, String> actors = actorService.getAllActorsWithMap();
         modelMap.addAttribute("actors", actors);
         modelMap.addAttribute("directors", actors);
 

@@ -34,9 +34,7 @@ public class FilmEditor {
     @NotEmpty
     private String type;
 
-    @NotEmpty
     private List<Long> actors = new ArrayList<Long>();
-    @NotEmpty
     private List<Long> directors = new ArrayList<Long>();
 
 

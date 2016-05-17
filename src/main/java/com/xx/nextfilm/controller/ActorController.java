@@ -76,7 +76,7 @@ public class ActorController {
 
     @RequestMapping(value = "/edit_actor/{id}", method = RequestMethod.GET)
     public String editActor(@PathVariable Long id, ModelMap modelMap) {
-        ActorEditor actorEditor = actorService.getEditorById(id);
+        ActorEditor actorEditor = actorService.getActorEditorById(id);
 
         if (actorEditor == null) {
             return "redirect:/fail";

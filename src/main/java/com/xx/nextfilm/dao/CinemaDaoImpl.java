@@ -2,6 +2,7 @@ package com.xx.nextfilm.dao;
 
 import com.xx.nextfilm.entity.CinemaEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,16 @@ import java.util.List;
 @Repository("cinemaDao")
 public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements CinemaDao {
 
-    public CinemaEntity findById(Long id) {
-        return getByKey(id);
+    public CinemaEntity findById(Long id, boolean needFilms) {
+        CinemaEntity cinema = getByKey(id);
+
+        if (needFilms) {
+            if (cinema != null) {
+                Hibernate.initialize(cinema.getFilms());
+            }
+        }
+
+        return cinema;
     }
 
 

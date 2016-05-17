@@ -1,6 +1,7 @@
 package com.xx.nextfilm.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/15.
@@ -16,6 +17,8 @@ public class CinemaEntity {
     private String brief;
     private String imageUrl;
     private String description;
+
+    private List<FilmEntity> films;
 
 
     @Id
@@ -104,6 +107,19 @@ public class CinemaEntity {
 
     public void setDescription(String discription) {
         this.description = discription;
+    }
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "film_cinema_map",
+            joinColumns = { @JoinColumn(name = "cinema_id") },
+            inverseJoinColumns = { @JoinColumn(name = "film_id") })
+    public List<FilmEntity> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<FilmEntity> films) {
+        this.films = films;
     }
 
 

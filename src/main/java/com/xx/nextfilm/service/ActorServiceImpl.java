@@ -29,7 +29,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
 
-    public ActorEditor getEditorById(Long id) {
+    public ActorEditor getActorEditorById(Long id) {
         ActorEntity actorEntity = findActorById(id);
 
         if (actorEntity == null) return null;
@@ -52,27 +52,12 @@ public class ActorServiceImpl implements ActorService {
 
 
     public void createActor(ActorEditor actorEditor) {
-        ActorEntity actorEntity = new ActorEntity();
-
-        actorEntity.setName(actorEditor.getName());
-        actorEntity.setBrief(actorEditor.getBrief());
-        actorEntity.setImageUrl(actorEditor.getImageUrl());
-        actorEntity.setBirthday(Utils.convertStringToDate(actorEditor.getBirthday()));
-
-        dao.doSave(actorEntity);
+        dao.doSave(getEntityFromEditor(actorEditor, false));
     }
 
 
     public void updateActor(ActorEditor actorEditor) {
-        ActorEntity actorEntity = new ActorEntity();
-
-        actorEntity.setId(actorEditor.getId());
-        actorEntity.setName(actorEditor.getName());
-        actorEntity.setBrief(actorEditor.getBrief());
-        actorEntity.setImageUrl(actorEditor.getImageUrl());
-        actorEntity.setBirthday(Utils.convertStringToDate(actorEditor.getBirthday()));
-
-        dao.doUpdate(actorEntity);
+        dao.doUpdate(getEntityFromEditor(actorEditor, true));
     }
 
 
@@ -88,6 +73,34 @@ public class ActorServiceImpl implements ActorService {
 
     public List<ActorEntity> findAllActors() {
         return dao.findAll();
+    }
+
+
+    private ActorEntity getEntityFromEditor(ActorEditor actorEditor, boolean needId) {
+        ActorEntity actorEntity = new ActorEntity();
+
+        if (needId) {
+            actorEntity.setId(actorEditor.getId());
+        }
+
+        actorEntity.setName(actorEditor.getName());
+        actorEntity.setBrief(actorEditor.getBrief());
+        actorEntity.setImageUrl(actorEditor.getImageUrl());
+        actorEntity.setBirthday(Utils.convertStringToDate(actorEditor.getBirthday()));
+
+        return actorEntity;
+    }
+
+
+    public HashMap<Long, String> getAllActorsWithMap() {
+        List<ActorEntity> allActors = findAllActors();
+
+        HashMap<Long, String> map = new HashMap<Long, String>();
+        for (ActorEntity actor: allActors) {
+            map.put(actor.getId(), actor.getName());
+        }
+
+        return map;
     }
 
 }

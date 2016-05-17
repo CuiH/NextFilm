@@ -13,7 +13,7 @@ public interface ActorService {
 
     ActorEntity findActorById(Long id);
 
-    ActorEditor getEditorById(Long id);
+    ActorEditor getActorEditorById(Long id);
 
     List<ActorEntity> findActorByName(String name);
 
@@ -26,5 +26,7 @@ public interface ActorService {
     boolean deleteActorById(Long id);
 
     List<ActorEntity> findAllActors();
+
+    HashMap<Long, String> getAllActorsWithMap();
 
 }

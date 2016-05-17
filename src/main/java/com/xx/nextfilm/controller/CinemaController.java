@@ -3,6 +3,7 @@ package com.xx.nextfilm.controller;
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.service.CinemaService;
+import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,12 +30,19 @@ public class CinemaController {
     CinemaService cinemaService;
 
     @Autowired
+    FilmService filmService;
+
+
+    @Autowired
     MessageSource messageSource;
 
     @RequestMapping(value = "/add_cinema", method = RequestMethod.GET)
     public String addCinema(ModelMap modelMap) {
         CinemaEditor cinemaEditor = new CinemaEditor();
-        modelMap.addAttribute(cinemaEditor);
+        modelMap.addAttribute("cinemaEditor", cinemaEditor);
+
+        HashMap<Long, String> films = filmService.getAllFilmsWithMap();
+        modelMap.addAttribute("films", films);
 
         return "add_cinema";
     }
@@ -63,7 +72,6 @@ public class CinemaController {
     @RequestMapping(value = "/show_all_cinema", method = RequestMethod.GET)
     public String showAllActor(ModelMap modelMap) {
         List<CinemaEntity> allCinemas = cinemaService.findAllCinemas();
-
         modelMap.addAttribute("cinemas", allCinemas);
 
         return "show_all_cinema";
@@ -72,13 +80,16 @@ public class CinemaController {
 
     @RequestMapping(value = "/edit_cinema/{id}", method = RequestMethod.GET)
     public String editCinema(@PathVariable Long id, ModelMap modelMap) {
-        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id);
+        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true);
 
         if (cinemaEditor == null) {
             return "redirect:/fail";
         }
 
-        modelMap.addAttribute(cinemaEditor);
+        modelMap.addAttribute("cinemaEditor", cinemaEditor);
+
+        HashMap<Long, String> films = filmService.getAllFilmsWithMap();
+        modelMap.addAttribute("films", films);
 
         return "edit_cinema";
     }
@@ -108,7 +119,7 @@ public class CinemaController {
 
     @RequestMapping(value = "/delete_cinema/{id}", method = RequestMethod.GET)
     public String deleteCinema(@PathVariable Long id) {
-        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id);
+        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false);
         if (cinemaEntity == null) {
             return "redirect:/fail";
         }

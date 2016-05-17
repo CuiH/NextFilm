@@ -2,6 +2,9 @@ package com.xx.nextfilm.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by CuiH on 2016/5/16.
  */
@@ -23,6 +26,8 @@ public class CinemaEditor {
     private String imageUrl;
     @NotEmpty
     private String description;
+
+    private List<Long> films = new ArrayList<Long>();
 
 
     public Long getId() {
@@ -94,6 +99,15 @@ public class CinemaEditor {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    public List<Long> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Long> films) {
+        this.films = films;
     }
 
 }

@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface CinemaService {
 
-    CinemaEntity findCinemaById(Long id);
+    CinemaEntity findCinemaById(Long id, boolean needFilms);
 
-    CinemaEditor getCinemaEditorById(Long id);
+    CinemaEditor getCinemaEditorById(Long id, boolean needFilms);
 
     List<CinemaEntity> findCinemaByName(String name);
 

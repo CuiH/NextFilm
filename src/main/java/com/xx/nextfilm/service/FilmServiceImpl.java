@@ -33,8 +33,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public FilmEditor getEditorById(Long id) {
-        FilmEntity filmEntity = findFilmById(id, true, true);
+    public FilmEditor getFilmEditorById(Long id, boolean needDirectors, boolean needActors) {
+        FilmEntity filmEntity = findFilmById(id, needDirectors, needActors);
 
         if (filmEntity == null) return null;
 
@@ -51,21 +51,25 @@ public class FilmServiceImpl implements FilmService {
         filmEditor.setCategory(filmEntity.getCategory());
         filmEditor.setType(filmEntity.getType());
 
-        List<ActorEntity> actors = filmEntity.getActors();
         List<Long> a = new ArrayList<Long>();
-        for (ActorEntity actor: actors) {
-            a.add(actor.getId());
+        List<ActorEntity> actors = filmEntity.getActors();
+        if (needActors && actors != null) {
+            for (ActorEntity actor: actors) {
+                a.add(actor.getId());
+            }
         }
         filmEditor.setActors(a);
 
-        List<ActorEntity> directors = filmEntity.getDirectors();
         List<Long> d = new ArrayList<Long>();
-        for (ActorEntity director: directors) {
-            d.add(director.getId());
+        List<ActorEntity> directors = filmEntity.getDirectors();
+        if (needDirectors && directors != null) {
+            for (ActorEntity director: directors) {
+                d.add(director.getId());
+            }
         }
         filmEditor.setDirectors(d);
 
-        return  filmEditor;
+        return filmEditor;
     }
 
 
@@ -90,63 +94,12 @@ public class FilmServiceImpl implements FilmService {
 
 
     public void createFilm(FilmEditor filmEditor) {
-        FilmEntity filmEntity = new FilmEntity();
-
-        filmEntity.setName(filmEditor.getName());
-        filmEntity.setAlias(filmEditor.getAlias());
-        filmEntity.setBrief(filmEditor.getBrief());
-        filmEntity.setLanguage(filmEditor.getLanguage());
-        filmEntity.setLength(filmEditor.getLength());
-        filmEntity.setOnDate(Utils.convertStringToDate(filmEditor.getOnDate()));
-        filmEntity.setImageUrl(filmEditor.getImageUrl());
-        filmEntity.setCategory(filmEditor.getCategory());
-        filmEntity.setType(filmEditor.getType());
-
-        List<ActorEntity> directors = new ArrayList<ActorEntity>();
-        for (Long id: filmEditor.getDirectors()) {
-            directors.add(actorDao.findById(id));
-        }
-        filmEntity.setDirectors(directors);
-
-        List<ActorEntity> actors = new ArrayList<ActorEntity>();
-        for (Long id: filmEditor.getActors()) {
-            actors.add(actorDao.findById(id));
-        }
-        filmEntity.setActors(actors);
-
-        filmDao.doSave(filmEntity);
+        filmDao.doSave(getEntityFromEditor(filmEditor, false));
     }
 
 
     public void updateFilm(FilmEditor filmEditor) {
-        FilmEntity filmEntity = new FilmEntity();
-
-        filmEntity.setId(filmEditor.getId());
-        filmEntity.setName(filmEditor.getName());
-        filmEntity.setAlias(filmEditor.getAlias());
-        filmEntity.setBrief(filmEditor.getBrief());
-        filmEntity.setLanguage(filmEditor.getLanguage());
-        filmEntity.setLength(filmEditor.getLength());
-        filmEntity.setOnDate(Utils.convertStringToDate(filmEditor.getOnDate()));
-        filmEntity.setImageUrl(filmEditor.getImageUrl());
-        filmEntity.setCategory(filmEditor.getCategory());
-        filmEntity.setType(filmEditor.getType());
-
-        List<ActorEntity> directors = new ArrayList<ActorEntity>();
-        for (Long id: filmEditor.getDirectors()) {
-            directors.add(actorDao.findById(id));
-            System.out.println("sss");
-        }
-        filmEntity.setDirectors(directors);
-
-        List<ActorEntity> actors = new ArrayList<ActorEntity>();
-        for (Long id: filmEditor.getActors()) {
-            actors.add(actorDao.findById(id));
-            System.out.println("ddd");
-        }
-        filmEntity.setActors(actors);
-
-        filmDao.doUpdate(filmEntity);
+        filmDao.doUpdate(getEntityFromEditor(filmEditor, true));
     }
 
 
@@ -157,6 +110,57 @@ public class FilmServiceImpl implements FilmService {
 
     public List<FilmEntity> findAllFilms() {
         return filmDao.findAll();
+    }
+
+
+    private FilmEntity getEntityFromEditor(FilmEditor filmEditor, boolean needId) {
+        FilmEntity filmEntity = new FilmEntity();
+
+        if (needId) {
+            filmEntity.setId(filmEditor.getId());
+        }
+
+        filmEntity.setName(filmEditor.getName());
+        filmEntity.setAlias(filmEditor.getAlias());
+        filmEntity.setBrief(filmEditor.getBrief());
+        filmEntity.setLanguage(filmEditor.getLanguage());
+        filmEntity.setLength(filmEditor.getLength());
+        filmEntity.setOnDate(Utils.convertStringToDate(filmEditor.getOnDate()));
+        filmEntity.setImageUrl(filmEditor.getImageUrl());
+        filmEntity.setCategory(filmEditor.getCategory());
+        filmEntity.setType(filmEditor.getType());
+
+        List<ActorEntity> directors = new ArrayList<ActorEntity>();
+        List<Long> editorDirectors = filmEditor.getDirectors();
+        if (editorDirectors != null) {
+            for (Long id: editorDirectors) {
+                directors.add(actorDao.findById(id));
+            }
+        }
+        filmEntity.setDirectors(directors);
+
+        List<ActorEntity> actors = new ArrayList<ActorEntity>();
+        List<Long> editorActors = filmEditor.getActors();
+        if (editorActors != null) {
+            for (Long id: editorActors) {
+                actors.add(actorDao.findById(id));
+            }
+        }
+        filmEntity.setActors(actors);
+
+        return filmEntity;
+    }
+
+
+    public HashMap<Long, String> getAllFilmsWithMap() {
+        List<FilmEntity> allFilms = findAllFilms();
+
+        HashMap<Long, String> map = new HashMap<Long, String>();
+        for (FilmEntity film: allFilms) {
+            map.put(film.getId(), film.getName());
+        }
+
+        return map;
     }
 
 }

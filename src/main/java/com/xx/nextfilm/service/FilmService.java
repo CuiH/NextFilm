@@ -3,6 +3,7 @@ package com.xx.nextfilm.service;
 import com.xx.nextfilm.dto.FilmEditor;
 import com.xx.nextfilm.entity.FilmEntity;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public interface FilmService {
 
     FilmEntity findFilmById(Long id, boolean needDirectors, boolean needActors);
 
-    FilmEditor getEditorById(Long id);
+    FilmEditor getFilmEditorById(Long id, boolean needDirectors, boolean needActors);
 
     List<FilmEntity> findFilmByName(String name);
 
@@ -27,5 +28,7 @@ public interface FilmService {
     void deleteFilm(FilmEntity film);
 
     List<FilmEntity> findAllFilms();
+
+    HashMap<Long, String> getAllFilmsWithMap();
 
 }
