@@ -30,14 +30,17 @@ public class ShowingServiceImpl implements ShowingService {
     @Autowired
     FilmDao filmDao;
 
+    @Autowired
+    SeatDao seatDao;
 
-    public ShowingEntity findShowingById(Long id, boolean needFcm) {
-        return showingDao.findById(id, needFcm);
+
+    public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats) {
+        return showingDao.findById(id, needFcm, needSeats);
     }
 
 
-    public ShowingEditor getShowingEditorById(Long id, boolean needFcm) {
-        ShowingEntity showingEntity = findShowingById(id, needFcm);
+    public ShowingEditor getShowingEditorById(Long id, boolean needFcm, boolean needSeats) {
+        ShowingEntity showingEntity = findShowingById(id, needFcm, needSeats);
 
         if (showingEntity == null) return null;
 
@@ -51,6 +54,10 @@ public class ShowingServiceImpl implements ShowingService {
 
         if (needFcm && showingEntity.getFcm() != null) {
             showingEditor.setFilmId(showingEntity.getFcm().getFilm().getId());
+        }
+
+        if (needSeats) {
+            showingEditor.setSeats(showingEntity.getSeats());
         }
 
         return showingEditor;
@@ -77,6 +84,20 @@ public class ShowingServiceImpl implements ShowingService {
         ShowingEntity showingEntity = getEntityFromEditor(showingEditor, false);
         showingEntity.setHall(hall);
         showingEntity.setFcm(fcm);
+
+        // 添加座位信息
+        Short rowNum = hall.getRowNum();
+        Short columnNum = hall.getColumnNum();
+        for (Short row = 1; row <= rowNum; row++) {
+            for (Short column = 1; column <= columnNum; column++) {
+                SeatEntity seat = new SeatEntity();
+                seat.setRowPos(row);
+                seat.setColumnPos(column);
+                seat.setShowing(showingEntity);
+                seat.setStatus("1");
+                seatDao.doSave(seat);
+            }
+        }
 
         showingDao.doSave(showingEntity);
 

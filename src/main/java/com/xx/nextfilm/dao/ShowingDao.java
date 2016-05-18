@@ -7,7 +7,7 @@ import com.xx.nextfilm.entity.ShowingEntity;
  */
 public interface ShowingDao {
 
-    ShowingEntity findById(Long id, boolean needFcm);
+    ShowingEntity findById(Long id, boolean needFcm, boolean needSeats);
 
     void doSave(ShowingEntity show);
 

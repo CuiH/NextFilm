@@ -2,6 +2,7 @@ package com.xx.nextfilm.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -18,6 +19,8 @@ public class ShowingEntity {
     private FCMEntity fcm;
     // 同时加载放映厅信息
     private HallEntity hall;
+    // 所有座位信息
+    private List<SeatEntity> seats;
 
 
     @Id
@@ -84,6 +87,16 @@ public class ShowingEntity {
 
     public void setHall(HallEntity hall) {
         this.hall = hall;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "showing" ,cascade = CascadeType.REMOVE)
+    public List<SeatEntity> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<SeatEntity> seats) {
+        this.seats = seats;
     }
 
 

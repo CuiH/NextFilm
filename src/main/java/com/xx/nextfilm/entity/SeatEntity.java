@@ -9,11 +9,17 @@ import javax.persistence.*;
 public class SeatEntity {
 
     private Long id;
-    private String serialNum;
+    private Short rowPos;
+    private Short columnPos;
+    // 1-未售，0-已售
+    private String status;
+
+    private ShowingEntity showing;
 
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -24,13 +30,46 @@ public class SeatEntity {
 
 
     @Basic
-    @Column(name = "serial_num")
-    public String getSerialNum() {
-        return serialNum;
+    @Column(name = "row_pos")
+    public Short getRowPos() {
+        return rowPos;
     }
 
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
+    public void setRowPos(Short rowPos) {
+        this.rowPos = rowPos;
+    }
+
+
+    @Basic
+    @Column(name = "column_pos")
+    public Short getColumnPos() {
+        return columnPos;
+    }
+
+    public void setColumnPos(Short columnPos) {
+        this.columnPos = columnPos;
+    }
+
+
+    @Basic
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "showing_id")
+    public ShowingEntity getShowing() {
+        return showing;
+    }
+
+    public void setShowing(ShowingEntity showing) {
+        this.showing = showing;
     }
 
 

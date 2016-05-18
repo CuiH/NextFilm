@@ -1,8 +1,10 @@
 package com.xx.nextfilm.dto;
 
+import com.xx.nextfilm.entity.SeatEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -20,6 +22,8 @@ public class ShowingEditor {
     private Long cinemaId;
     private Long hallId;
     private Long filmId;
+
+    private List<SeatEntity> seats;
 
 
     public Long getCinemaId() {
@@ -82,6 +86,15 @@ public class ShowingEditor {
 
     public void setPriceManual(String priceManual) {
         this.priceManual = priceManual;
+    }
+
+
+    public List<SeatEntity> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<SeatEntity> seats) {
+        this.seats = seats;
     }
 
 }

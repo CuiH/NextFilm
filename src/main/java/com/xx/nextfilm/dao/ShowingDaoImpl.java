@@ -13,7 +13,7 @@ import java.util.List;
 @Repository("showDao")
 public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements ShowingDao {
 
-    public ShowingEntity findById(Long id, boolean needFcm) {
+    public ShowingEntity findById(Long id, boolean needFcm, boolean needSeats) {
         ShowingEntity showingEntity = getByKey(id);
 
         if (needFcm && showingEntity != null) {
@@ -22,6 +22,10 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
             //　同时加载FCM中电影信息
             FCMEntity fcm = showingEntity.getFcm();
             Hibernate.initialize(fcm.getFilm());
+        }
+
+        if (needSeats && showingEntity != null) {
+            Hibernate.initialize(showingEntity.getSeats());
         }
 
         return showingEntity;

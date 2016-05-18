@@ -93,7 +93,7 @@ public class ShowingController {
 
     @RequestMapping(value = "/edit_cinema/{cinemaId}/edit_showing/{showingId}", method = RequestMethod.GET)
     public String editShowing(@PathVariable Long cinemaId, @PathVariable Long showingId, ModelMap modelMap) {
-        ShowingEditor showingEditor = showingService.getShowingEditorById(showingId, true);
+        ShowingEditor showingEditor = showingService.getShowingEditorById(showingId, true, true);
 
         if (showingEditor == null) {
             return "redirect:/fail";
@@ -140,7 +140,7 @@ public class ShowingController {
 
     @RequestMapping(value = "/delete_showing/{id}", method = RequestMethod.GET)
     public String deleteHall(@PathVariable Long id) {
-        ShowingEntity showingEntity = showingService.findShowingById(id, false);
+        ShowingEntity showingEntity = showingService.findShowingById(id, false, false);
         if (showingEntity == null) {
             return "redirect:/fail";
         }
