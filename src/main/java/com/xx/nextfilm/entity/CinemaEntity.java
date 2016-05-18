@@ -21,8 +21,11 @@ public class CinemaEntity {
     private String imageUrl;
     private String description;
 
-    private List<FilmEntity> films = new ArrayList<FilmEntity>();
+    // 该影院的所有大厅
     private List<HallEntity> halls = new ArrayList<HallEntity>();
+    // 该影院的所有电影
+    private List<FilmEntity> films = new ArrayList<FilmEntity>();
+    // 该影院所有的上映信息
     private List<FCMEntity> fcms = new ArrayList<FCMEntity>();
 
 
@@ -115,6 +118,26 @@ public class CinemaEntity {
     }
 
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
+    public List<HallEntity> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(List<HallEntity> halls) {
+        this.halls = halls;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
+    public List<FCMEntity> getFcms() {
+        return fcms;
+    }
+
+    public void setFcms(List<FCMEntity> fcms) {
+        this.fcms = fcms;
+    }
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "film_cinema_map",
             joinColumns = { @JoinColumn(name = "cinema_id") },
@@ -125,26 +148,6 @@ public class CinemaEntity {
 
     public void setFilms(List<FilmEntity> films) {
         this.films = films;
-    }
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema", cascade = CascadeType.REMOVE)
-    public List<HallEntity> getHalls() {
-        return halls;
-    }
-
-    public void setHalls(List<HallEntity> halls) {
-        this.halls = halls;
-    }
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema", cascade = CascadeType.REMOVE)
-    public List<FCMEntity> getFcms() {
-        return fcms;
-    }
-
-    public void setFcms(List<FCMEntity> fcms) {
-        this.fcms = fcms;
     }
 
 

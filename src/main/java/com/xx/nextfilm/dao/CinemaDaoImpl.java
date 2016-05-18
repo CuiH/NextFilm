@@ -1,6 +1,7 @@
 package com.xx.nextfilm.dao;
 
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FCMEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -33,6 +34,15 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
         if (needFcms) {
             if (cinema != null) {
                 Hibernate.initialize(cinema.getFcms());
+
+                //　同时加载FCM中所有上映信息
+                List<FCMEntity> fcms = cinema.getFcms();
+                if (fcms != null) {
+                    for (FCMEntity fcm: fcms) {
+                        Hibernate.initialize(fcm.getFilm());
+                        Hibernate.initialize(fcm.getShowings());
+                    }
+                }
             }
         }
 

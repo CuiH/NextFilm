@@ -2,8 +2,10 @@ package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.FilmService;
+import com.xx.nextfilm.service.HallService;
 import com.xx.nextfilm.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -32,9 +34,12 @@ public class CinemaController {
     @Autowired
     FilmService filmService;
 
+    @Autowired
+    HallService hallService;
 
     @Autowired
     MessageSource messageSource;
+
 
     @RequestMapping(value = "/add_cinema", method = RequestMethod.GET)
     public String addCinema(ModelMap modelMap) {
@@ -117,14 +122,26 @@ public class CinemaController {
     }
 
 
+
     @RequestMapping(value = "/delete_cinema/{id}", method = RequestMethod.GET)
     public String deleteCinema(@PathVariable Long id) {
-        CinemaEntity cinemaEntity = cinemaService.findCinemaById(id, false, true, true);
-        if (cinemaEntity == null) {
+        // 要获取hall手动删除
+        CinemaEntity cinema = cinemaService.findCinemaById(id, false, true, false);
+
+        if (cinema == null) {
             return "redirect:/fail";
         }
 
-        cinemaService.deleteCinema(cinemaEntity);
+        // 要先删hall信息，再删FCM的条目，但是hibernate删除的顺序有问题，只好手动删除
+        // 而且如果放在service里做也不行，不知道为什么
+        List<HallEntity> halls = cinema.getHalls();
+        if (halls != null) {
+            for (HallEntity hall: halls) {
+                hallService.deleteHall(hall);
+            }
+        }
+
+        cinemaService.deleteCinema(cinema);
 
         return "redirect:/success";
     }

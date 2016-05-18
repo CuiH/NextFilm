@@ -1,6 +1,7 @@
 package com.xx.nextfilm.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -14,7 +15,10 @@ public class HallEntity {
     private Short rowNum;
     private Short columnNum;
 
+    // 该hall的所属cinema，保存用
     private CinemaEntity cinema;
+    // 该hall的所有排片场次，级联删除用
+    private List<ShowingEntity> showings;
 
 
     @Id
@@ -81,6 +85,16 @@ public class HallEntity {
 
     public void setCinema(CinemaEntity cinema) {
         this.cinema = cinema;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall", cascade = CascadeType.REMOVE)
+    public List<ShowingEntity> getShowings() {
+        return showings;
+    }
+
+    public void setShowings(List<ShowingEntity> showings) {
+        this.showings = showings;
     }
 
 

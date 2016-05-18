@@ -31,28 +31,33 @@ public class ShowingServiceImpl implements ShowingService {
     FilmDao filmDao;
 
 
-    public ShowingEntity findShowById(Long id) {
-        return showingDao.findById(id);
+    public ShowingEntity findShowingById(Long id, boolean needFcm) {
+        return showingDao.findById(id, needFcm);
     }
 
 
-    public ShowingEntity getShowEditorById(Long id) {
-        ShowingEntity showingEntity = findShowById(id);
+    public ShowingEditor getShowingEditorById(Long id, boolean needFcm) {
+        ShowingEntity showingEntity = findShowingById(id, needFcm);
 
         if (showingEntity == null) return null;
 
         ShowingEditor showingEditor = new ShowingEditor();
 
         showingEditor.setId(showingEntity.getId());
+        showingEditor.setHallId(showingEntity.getHall().getId());
         showingEditor.setStartTime(Utils.convertDateToString(showingEntity.getStartTime()));
         showingEditor.setEndTime(Utils.convertDateToString(showingEntity.getEndTime()));
         showingEditor.setPriceManual(Utils.convertDoubleToString(showingEntity.getPriceManual()));
 
-        return showingEntity;
+        if (needFcm && showingEntity.getFcm() != null) {
+            showingEditor.setFilmId(showingEntity.getFcm().getFilm().getId());
+        }
+
+        return showingEditor;
     }
 
 
-    public boolean createShow(ShowingEditor showingEditor) {
+    public boolean createShowing(ShowingEditor showingEditor) {
         HallEntity hall = hallDao.findById(showingEditor.getHallId());
 
         if (hall == null) return false;
@@ -65,7 +70,7 @@ public class ShowingServiceImpl implements ShowingService {
 
         if (cinema == null) return false;
 
-        FCMEntity fcm = fcmDao.findByFilmAndCinema(film.getId(), cinema.getId());
+        FCMEntity fcm = fcmDao.findByFilmAndCinema(film, cinema);
 
         if (fcm == null) return false;
 
@@ -79,12 +84,34 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
-    public boolean updateShow(ShowingEditor showingEditor) {
-        return false;
+    public boolean updateShowing(ShowingEditor showingEditor) {
+        HallEntity hall = hallDao.findById(showingEditor.getHallId());
+
+        if (hall == null) return false;
+
+        FilmEntity film = filmDao.findById(showingEditor.getFilmId(), false, false);
+
+        if (film == null) return false;
+
+        CinemaEntity cinema = cinemaDao.findById(showingEditor.getCinemaId(), false, false, false);
+
+        if (cinema == null) return false;
+
+        FCMEntity fcm = fcmDao.findByFilmAndCinema(film, cinema);
+
+        if (fcm == null) return false;
+
+        ShowingEntity showingEntity = getEntityFromEditor(showingEditor, true);
+        showingEntity.setHall(hall);
+        showingEntity.setFcm(fcm);
+
+        showingDao.doUpdate(showingEntity);
+
+        return true;
     }
 
 
-    public void deleteShow(ShowingEntity showingEntity) {
+    public void deleteShowing(ShowingEntity showingEntity) {
         showingDao.doDelete(showingEntity);
     }
 
@@ -93,7 +120,7 @@ public class ShowingServiceImpl implements ShowingService {
         ShowingEntity showingEntity = new ShowingEntity();
 
         if (needId) {
-            showingEditor.setId(showingEditor.getId());
+            showingEntity.setId(showingEditor.getId());
         }
 
         showingEntity.setStartTime(Utils.convertStringToDate(showingEditor.getStartTime()));

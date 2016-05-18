@@ -1,9 +1,8 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: CuiH
   Date: 2016/5/18
-  Time: 0:48
+  Time: 15:36
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,30 +10,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Add Show</title>
+    <title>Edit Showing</title>
 </head>
 <body>
-<form:form modelAttribute="showingEditor" action="/add_show" method="post">
+<form:form modelAttribute="showingEditor" action="/edit_showing" method="post">
     <p>
-        <label for="filmId">films: </label>
-        <c:forEach items="${films}" var="film">
-            <form:radiobutton path="filmId" value="${film.id}"/>${film.name}
-        </c:forEach>
+        <label for="filmId">film id: </label>
+        <form:input type="text" id="filmId" path="filmId" readonly="true"/>
         <form:errors path="filmId" cssClass="error"/>
     </p>
 
     <p>
-        <label for="hallId">halls: </label>
-        <c:forEach items="${halls}" var="hall">
-            <form:radiobutton path="hallId" value="${hall.id}"/>${hall.name}
-        </c:forEach>
+        <label for="hallId">hall id: </label>
+        <form:input type="text" id="hallId" path="hallId" readonly="true"/>
         <form:errors path="hallId" cssClass="error"/>
     </p>
 
     <p>
-        <label for="cinemaId">cinema_id: </label>
+        <label for="cinemaId">cinema id: </label>
         <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
         <form:errors path="cinemaId" cssClass="error"/>
+    </p>
+
+    <p>
+        <label for="id">showing id: </label>
+        <form:input type="text" id="id" path="id" readonly="true"/>
+        <form:errors path="id" cssClass="error"/>
     </p>
 
     <p>
@@ -59,7 +60,6 @@
         <input id="submit" type="submit" value="Submit">
     </p>
 </form:form>
-
 
 </body>
 </html>

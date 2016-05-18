@@ -16,8 +16,7 @@ import java.util.List;
 public class ActorDaoImpl extends AbstractDao<Long, ActorEntity> implements ActorDao {
 
     public ActorEntity findById(Long id) {
-        if (id == null) return null;
-        else return getByKey(id);
+        return getByKey(id);
     }
 
 

@@ -4,6 +4,7 @@ import com.xx.nextfilm.dto.ShowingEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.HallEntity;
+import com.xx.nextfilm.entity.ShowingEntity;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.ShowingService;
 import com.xx.nextfilm.utils.Utils;
@@ -28,7 +29,7 @@ import java.util.Locale;
 public class ShowingController {
 
     @Autowired
-    ShowingService showService;
+    ShowingService showingService;
 
     @Autowired
     CinemaService cinemaService;
@@ -37,8 +38,8 @@ public class ShowingController {
     MessageSource messageSource;
 
 
-    @RequestMapping(value = "/edit_cinema/{cinemaId}/add_show", method = RequestMethod.GET)
-    public String addShow(@PathVariable Long cinemaId, ModelMap modelMap) {
+    @RequestMapping(value = "/edit_cinema/{cinemaId}/add_showing", method = RequestMethod.GET)
+    public String addShowing(@PathVariable Long cinemaId, ModelMap modelMap) {
         CinemaEntity cinemaEntity = cinemaService.findCinemaById(cinemaId, true, true ,false);
 
         if (cinemaEntity == null) {
@@ -54,14 +55,14 @@ public class ShowingController {
         List<HallEntity> halls = cinemaEntity.getHalls();
         modelMap.addAttribute("halls", halls);
 
-        return "add_show";
+        return "add_showing";
     }
 
 
-    @RequestMapping(value = "/add_show", method = RequestMethod.POST)
-    public String addShowHandler(@Valid ShowingEditor showingEditor, BindingResult result) {
+    @RequestMapping(value = "/add_showing", method = RequestMethod.POST)
+    public String addShowingHandler(@Valid ShowingEditor showingEditor, BindingResult result) {
         if (result.hasErrors()) {
-            return "add_show";
+            return "add_showing";
         }
 
         if (!Utils.isDateValid(showingEditor.getStartTime())) {
@@ -69,7 +70,7 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(startTimeError);
 
-            return "add_show";
+            return "add_showing";
         }
 
         if (!Utils.isDateValid(showingEditor.getEndTime())) {
@@ -77,16 +78,76 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(endTimeError);
 
-            return "add_show";
+            return "add_showing";
         }
 
-        boolean r = showService.createShow(showingEditor);
+        boolean r = showingService.createShowing(showingEditor);
 
         if (r == true) {
             return "redirect:/success";
         } else {
             return "redirect:/fail";
         }
+    }
+
+
+    @RequestMapping(value = "/edit_cinema/{cinemaId}/edit_showing/{showingId}", method = RequestMethod.GET)
+    public String editShowing(@PathVariable Long cinemaId, @PathVariable Long showingId, ModelMap modelMap) {
+        ShowingEditor showingEditor = showingService.getShowingEditorById(showingId, true);
+
+        if (showingEditor == null) {
+            return "redirect:/fail";
+        }
+
+        showingEditor.setCinemaId(cinemaId);
+
+        modelMap.addAttribute(showingEditor);
+
+        return "edit_showing";
+    }
+
+
+    @RequestMapping(value = "/edit_showing", method = RequestMethod.POST)
+    public String editShowingHandler(@Valid ShowingEditor showingEditor, BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit_showing";
+        }
+
+        if (!Utils.isDateValid(showingEditor.getStartTime())) {
+            FieldError startTimeError = new FieldError("showingEditor", "startTime",
+                    messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
+            result.addError(startTimeError);
+
+            return "add_showing";
+        }
+
+        if (!Utils.isDateValid(showingEditor.getEndTime())) {
+            FieldError endTimeError = new FieldError("showingEditor", "endTime",
+                    messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
+            result.addError(endTimeError);
+
+            return "add_showing";
+        }
+
+        boolean r = showingService.updateShowing(showingEditor);
+
+        if (r) {
+            return "redirect:/success";
+        } else {
+            return "redirect:/fail";
+        }
+    }
+
+    @RequestMapping(value = "/delete_showing/{id}", method = RequestMethod.GET)
+    public String deleteHall(@PathVariable Long id) {
+        ShowingEntity showingEntity = showingService.findShowingById(id, false);
+        if (showingEntity == null) {
+            return "redirect:/fail";
+        }
+
+        showingService.deleteShowing(showingEntity);
+
+        return "redirect:/success";
     }
 
 }

@@ -1,5 +1,6 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,7 @@ public class HallDaoImpl extends AbstractDao<Long, HallEntity> implements HallDa
     public void doUpdate(HallEntity hall) {
         update(hall);
     }
+
 
     public void doDelete(HallEntity hall) {
         delete(hall);

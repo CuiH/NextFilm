@@ -8,14 +8,14 @@ import com.xx.nextfilm.entity.ShowingEntity;
  */
 public interface ShowingService {
 
-    ShowingEntity findShowById(Long id);
+    ShowingEntity findShowingById(Long id, boolean needFcm);
 
-    ShowingEntity getShowEditorById(Long id);
+    ShowingEditor getShowingEditorById(Long id, boolean needFcm);
 
-    boolean createShow(ShowingEditor showingEditor);
+    boolean createShowing(ShowingEditor showingEditor);
 
-    boolean updateShow(ShowingEditor showingEditor);
+    boolean updateShowing(ShowingEditor showingEditor);
 
-    void deleteShow(ShowingEntity showingEntity);
+    void deleteShowing(ShowingEntity showingEntity);
 
 }

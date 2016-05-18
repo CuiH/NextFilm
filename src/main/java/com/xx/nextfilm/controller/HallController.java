@@ -50,17 +50,17 @@ public class HallController {
         }
 
         if (!Utils.isShortValid(hallEditor.getRowNum())) {
-            FieldError birthdayError = new FieldError("hallEditor", "rowNum",
+            FieldError rowNumError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
-            result.addError(birthdayError);
+            result.addError(rowNumError);
 
             return "add_hall";
         }
 
         if (!Utils.isShortValid(hallEditor.getColumnNum())) {
-            FieldError birthdayError = new FieldError("hallEditor", "columnNum",
+            FieldError columnNumError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
-            result.addError(birthdayError);
+            result.addError(columnNumError);
 
             return "add_hall";
         }
@@ -98,24 +98,28 @@ public class HallController {
         }
 
         if (!Utils.isShortValid(hallEditor.getRowNum())) {
-            FieldError birthdayError = new FieldError("hallEditor", "rowNum",
+            FieldError rowNumError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
-            result.addError(birthdayError);
+            result.addError(rowNumError);
 
             return "add_hall";
         }
 
         if (!Utils.isShortValid(hallEditor.getColumnNum())) {
-            FieldError birthdayError = new FieldError("hallEditor", "columnNum",
+            FieldError columnNumError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
-            result.addError(birthdayError);
+            result.addError(columnNumError);
 
             return "add_hall";
         }
 
         boolean r = hallService.updateHall(hallEditor);
 
-        return "redirect:/success";
+        if (r) {
+            return "redirect:/success";
+        } else {
+            return "redirect:/fail";
+        }
     }
 
 

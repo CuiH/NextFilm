@@ -117,7 +117,6 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>hall</th>
             <th>start time</th>
             <th>end time</th>
             <th>price</th>
@@ -130,14 +129,13 @@
         <c:forEach var="showing" items="${fcm.showings}">
             <tr>
                 <td>${showing.id}</td>
-                <td>${showing.hall.name}</td>
                 <td>${showing.startTime}</td>
                 <td>${showing.endTime}</td>
                 <td>${showing.priceManual}</td>
                 <td>${showing.hall.name}</td>
                 <security:authorize access="hasRole('ROLE_ADMIN')">
-                    <td><a href="/edit_cinema/${cinemaEditor.id}/edit_hall/${hall.id}">edit</a></td>
-                    <td><a href="/delete_hall/${hall.id}">delete</a></td>
+                    <td><a href="/edit_cinema/${cinemaEditor.id}/edit_showing/${showing.id}">edit</a></td>
+                    <td><a href="/delete_showing/${showing.id}">delete</a></td>
                 </security:authorize>
             </tr>
         </c:forEach>
@@ -145,7 +143,7 @@
     </table>
     <br/>
 </c:forEach>
-<a href="/edit_cinema/${cinemaEditor.id}/add_show">add show</a>
+<a href="/edit_cinema/${cinemaEditor.id}/add_showing">add showing</a>
 
 
 </body>

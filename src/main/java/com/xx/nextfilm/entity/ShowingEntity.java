@@ -14,7 +14,9 @@ public class ShowingEntity {
     private Date endTime;
     private Double priceManual;
 
+    // FCMEntity中对应项目，保存时用
     private FCMEntity fcm;
+    // 同时加载放映厅信息
     private HallEntity hall;
 
 

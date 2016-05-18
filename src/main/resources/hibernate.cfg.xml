@@ -12,11 +12,11 @@
 		<mapping class="com.xx.nextfilm.entity.UserEntity"/>
 		<mapping class="com.xx.nextfilm.entity.UserDetailEntity"/>
 		<mapping class="com.xx.nextfilm.entity.UserProfileEntity"/>
-		<mapping class="com.xx.nextfilm.entity.FilmEntity"/>
 		<mapping class="com.xx.nextfilm.entity.ActorEntity"/>
 		<mapping class="com.xx.nextfilm.entity.CinemaEntity"/>
 		<mapping class="com.xx.nextfilm.entity.HallEntity"/>
 		<mapping class="com.xx.nextfilm.entity.ShowingEntity"/>
+		<mapping class="com.xx.nextfilm.entity.FilmEntity"/>
 		<mapping class="com.xx.nextfilm.entity.SeatEntity"/>
 		<mapping class="com.xx.nextfilm.entity.FCMEntity"/>
 	</session-factory>

@@ -11,15 +11,17 @@ public class FCMEntity {
 
     private Long id;
 
+    // 查询影院详情的时候加载，在CinemaDao中
     private FilmEntity film;
-
-    private List<ShowingEntity> showings;
-
+    // 未使用，只是CinemaEntity中的对应项
     private CinemaEntity cinema;
+    // 查询影院详情的时候加载，在CinemaDao中
+    private List<ShowingEntity> showings;
 
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -29,7 +31,7 @@ public class FCMEntity {
     }
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "film_id")
     public FilmEntity getFilm() {
         return film;
@@ -37,16 +39,6 @@ public class FCMEntity {
 
     public void setFilm(FilmEntity film) {
         this.film = film;
-    }
-
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "fcm")
-    public List<ShowingEntity> getShowings() {
-        return showings;
-    }
-
-    public void setShowings(List<ShowingEntity> showings) {
-        this.showings = showings;
     }
 
 
@@ -58,6 +50,16 @@ public class FCMEntity {
 
     public void setCinema(CinemaEntity cinema) {
         this.cinema = cinema;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fcm")
+    public List<ShowingEntity> getShowings() {
+        return showings;
+    }
+
+    public void setShowings(List<ShowingEntity> showings) {
+        this.showings = showings;
     }
 
 

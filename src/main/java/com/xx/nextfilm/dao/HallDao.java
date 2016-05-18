@@ -1,5 +1,6 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 
 /**

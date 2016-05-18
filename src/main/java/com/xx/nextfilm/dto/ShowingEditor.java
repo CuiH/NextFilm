@@ -18,7 +18,6 @@ public class ShowingEditor {
     private String priceManual;
 
     private Long cinemaId;
-
     private Long hallId;
     private Long filmId;
 

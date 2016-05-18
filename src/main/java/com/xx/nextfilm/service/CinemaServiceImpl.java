@@ -2,6 +2,7 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.FilmDao;
+import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FCMEntity;
@@ -26,6 +27,8 @@ public class CinemaServiceImpl implements CinemaService {
     @Autowired
     CinemaDao cinemaDao;
 
+    @Autowired
+    HallDao hallDao;
 
     @Autowired
     FilmDao filmDao;
@@ -123,6 +126,7 @@ public class CinemaServiceImpl implements CinemaService {
 
         return cinemaEntity;
     }
+
 
 
     public void deleteCinema(CinemaEntity cinema) {
