@@ -15,36 +15,37 @@
 <form:form modelAttribute="userDetailEditor" action="/edit_detail" method="post">
     <p>
         <label for="firstName">First Name: </label>
-        <form:input type="text" id="firstName" path="firstName"
-                    tabindex="1"/>
+        <form:input type="text" id="firstName" path="firstName"/>
         <form:errors path="firstName" cssClass="error"/>
     </p>
 
     <p>
         <label for="lastName">Last Name: </label>
-        <form:input type="text" id="lastName" path="lastName"
-                    tabindex="2"/>
+        <form:input type="text" id="lastName" path="lastName"/>
         <form:errors path="lastName" cssClass="error"/>
     </p>
 
     <p>
         <label for="gender">Gender: </label>
-        <form:radiobuttons id="gender" path="gender" items="${genders}"
-                    tabindex="3"/>
+        <form:radiobuttons id="gender" path="gender" items="${genders}"/>
         <form:errors path="gender" cssClass="error"/>
     </p>
 
     <p>
         <label for="birthday">Birthday: </label>
-        <form:input type="text" id="birthday" path="birthday"
-                    tabindex="4"/>
+        <form:input type="text" id="birthday" path="birthday"/>
         (XXXX-XX-XX)
         <form:errors path="birthday" cssClass="error"/>
     </p>
 
     <p>
-        <input id="submit" type="submit" tabindex="5"
-               value="Submit">
+        <label for="city">City: </label>
+        <form:input type="text" id="city" path="city"/>
+        <form:errors path="city" cssClass="error"/>
+    </p>
+
+    <p>
+        <input id="submit" type="submit" value="Submit">
     </p>
 </form:form>
 

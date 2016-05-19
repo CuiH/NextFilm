@@ -2,7 +2,9 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dao.FilmDao;
+import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.dto.FilmEditor;
+import com.xx.nextfilm.dto.FilmShower1;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.utils.Utils;
@@ -108,8 +110,58 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public List<FilmEntity> findAllFilms() {
-        return filmDao.findAll();
+    public List<FilmEntity> findAllFilms(boolean needDirectors, boolean needActors) {
+        return filmDao.findAll(needDirectors, needActors);
+    }
+
+
+    public List<FilmShower1> findAllFilmsWithShower1() {
+        List<FilmEntity> filmEntities = findAllFilms(true, true);
+
+        if (filmEntities == null) return new ArrayList<FilmShower1>();
+
+        List<FilmShower1> films = new ArrayList<FilmShower1>();
+        for (FilmEntity filmEntity: filmEntities) {
+            FilmShower1 film = new FilmShower1();
+
+            List<ActorEntity> directors = filmEntity.getDirectors();
+            if (directors == null) {
+                film.setDirectors(new ArrayList<ActorShower2>());
+            } else {
+                List<ActorShower2> actorShower2s = new ArrayList<ActorShower2>();
+                for (ActorEntity director: directors) {
+                    actorShower2s.add(getActorShower2FromActorEntity(director));
+                }
+                film.setDirectors(actorShower2s);
+            }
+
+
+            List<ActorEntity> actors = filmEntity.getActors();
+            if (actors == null) {
+                film.setActors(new ArrayList<ActorShower2>());
+            } else {
+                List<ActorShower2>  actorShower2s = new ArrayList<ActorShower2>();
+                for (ActorEntity actor: actors) {
+                    actorShower2s.add(getActorShower2FromActorEntity(actor));
+                }
+                film.setActors(actorShower2s);
+            }
+
+            film.setId(filmEntity.getId());
+            film.setName(filmEntity.getName());
+            film.setAlias(filmEntity.getAlias());
+            film.setBrief(filmEntity.getBrief());
+            film.setLanguage(filmEntity.getLanguage());
+            film.setLength(filmEntity.getLength());
+            film.setOnDate(Utils.convertDateToString(filmEntity.getOnDate()));
+            film.setImageUrl(filmEntity.getImageUrl());
+            film.setCategory(filmEntity.getCategory());
+            film.setType(filmEntity.getType());
+
+            films.add(film);
+        }
+
+        return films;
     }
 
 
@@ -152,15 +204,14 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public HashMap<Long, String> getAllFilmsWithMap() {
-        List<FilmEntity> allFilms = findAllFilms();
+    private ActorShower2 getActorShower2FromActorEntity(ActorEntity actor) {
+        ActorShower2 actorShower2 = new ActorShower2();
 
-        HashMap<Long, String> map = new HashMap<Long, String>();
-        for (FilmEntity film: allFilms) {
-            map.put(film.getId(), film.getName());
-        }
+        actorShower2.setId(actor.getId());
+        actorShower2.setName(actor.getName());
+        actorShower2.setImageUrl(actor.getImageUrl());
 
-        return map;
+        return  actorShower2;
     }
 
 }

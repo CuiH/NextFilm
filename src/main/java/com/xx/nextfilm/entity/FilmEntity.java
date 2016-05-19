@@ -22,9 +22,9 @@ public class FilmEntity {
     private String category;
     private String type;
 
-    private List<ActorEntity> directors = new ArrayList<ActorEntity>();
-    private List<ActorEntity> actors = new ArrayList<ActorEntity>();
-    private List<CinemaEntity> cinemas = new ArrayList<CinemaEntity>();
+    private List<ActorEntity> directors;
+    private List<ActorEntity> actors;
+    private List<FCMEntity> fcms;                // 用于级联删除
 
 
     @Id
@@ -164,17 +164,13 @@ public class FilmEntity {
     }
 
 
-    // 暂时只用于级联删除
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "film_cinema_map",
-            joinColumns = { @JoinColumn(name = "film_id") },
-            inverseJoinColumns = { @JoinColumn(name = "cinema_id") })
-    public List<CinemaEntity> getCinemas() {
-        return cinemas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film" ,cascade = CascadeType.REMOVE)
+    public List<FCMEntity> getFcms() {
+        return fcms;
     }
 
-    public void setCinemas(List<CinemaEntity> cinemas) {
-        this.cinemas = cinemas;
+    public void setFcms(List<FCMEntity> fcms) {
+        this.fcms = fcms;
     }
 
 

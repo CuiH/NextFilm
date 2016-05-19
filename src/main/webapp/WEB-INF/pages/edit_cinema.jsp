@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Edit Cinema</title>
-    <link href="/res/css/semantic.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
 </head>
 <body>
 <form:form modelAttribute="cinemaEditor" action="/edit_cinema" method="post">
@@ -100,14 +100,14 @@
             <td>${hall.rowNum}</td>
             <td>${hall.columnNum}</td>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <td><a href="/edit_cinema/${cinemaEditor.id}/edit_hall/${hall.id}">edit</a></td>
-                <td><a href="/delete_hall/${hall.id}">delete</a></td>
+                <td><a href="/edit_hall?id=${hall.id}">edit</a></td>
+                <td><a href="/delete_hall?id=${hall.id}">delete</a></td>
             </security:authorize>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<a href="/edit_cinema/${cinemaEditor.id}/add_hall">add hall</a>
+<a href="/add_hall?cinemaId=${cinemaEditor.id}">add hall</a>
 
 <br/><br/><br/>
 <p>Shows:</p>

@@ -23,13 +23,13 @@ public class HallServiceImpl implements HallService {
     @Autowired
     CinemaDao cinemaDao;
 
-    public HallEntity findHallById(Long id) {
-        return hallDao.findById(id);
+    public HallEntity findHallById(Long id, boolean needCinema) {
+        return hallDao.findById(id, needCinema);
     }
 
 
-    public HallEditor getHallEditorById(Long id) {
-        HallEntity hallEntity = findHallById(id);
+    public HallEditor getHallEditorById(Long id, boolean needCinema) {
+        HallEntity hallEntity = findHallById(id, needCinema);
 
         if (hallEntity == null) return null;
 
@@ -45,6 +45,7 @@ public class HallServiceImpl implements HallService {
     }
 
 
+    // 如果cinema不存在，返回false
     public boolean createHall(HallEditor hallEditor) {
         CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
         if (cinemaEntity == null) return false;
@@ -58,16 +59,9 @@ public class HallServiceImpl implements HallService {
     }
 
 
+    // 只可改变hall信息，不可改变其所属cinema
     public boolean updateHall(HallEditor hallEditor) {
-        CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
-        if (cinemaEntity == null) return false;
-
-        HallEntity hallEntity = getEntityFromEditor(hallEditor, true);
-        hallEntity.setCinema(cinemaEntity);
-
-        hallDao.doUpdate(hallEntity);
-
-        return true;
+        return hallDao.doUpdateManually(hallEditor);
     }
 
 

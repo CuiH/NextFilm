@@ -1,5 +1,6 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 
@@ -8,11 +9,13 @@ import com.xx.nextfilm.entity.HallEntity;
  */
 public interface HallDao {
 
-    HallEntity findById(Long id);
+    HallEntity findById(Long id, boolean needCinema);
 
     void doSave(HallEntity hall);
 
     void doUpdate(HallEntity hall);
+
+    boolean doUpdateManually(HallEditor hall);
 
     void doDelete(HallEntity hall);
 

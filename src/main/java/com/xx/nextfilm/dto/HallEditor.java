@@ -9,9 +9,8 @@ import javax.validation.constraints.DecimalMin;
  */
 public class HallEditor {
 
-    private Long cinemaId;
-
     private Long id;
+
     @NotEmpty
     private String name;
     @NotEmpty
@@ -21,14 +20,7 @@ public class HallEditor {
     @DecimalMin("0")
     private String columnNum;
 
-
-    public Long getCinemaId() {
-        return cinemaId;
-    }
-
-    public void setCinemaId(Long cinemaId) {
-        this.cinemaId = cinemaId;
-    }
+    private Long cinemaId;
 
 
     public Long getId() {
@@ -73,6 +65,15 @@ public class HallEditor {
 
     public void setColumnNum(String columnNum) {
         this.columnNum = columnNum;
+    }
+
+
+    public Long getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        this.cinemaId = cinemaId;
     }
 
 }

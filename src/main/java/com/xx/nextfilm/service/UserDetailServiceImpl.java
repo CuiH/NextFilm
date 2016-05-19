@@ -31,8 +31,21 @@ public class UserDetailServiceImpl implements UserDetailService {
         userDetail.setLastName(userDetailEditor.getLastName());
         userDetail.setBirthday(Utils.convertStringToDate(userDetailEditor.getBirthday()));
         userDetail.setGender(Utils.convertGenderToString(userDetailEditor.getGender()));
+        userDetail.setCityCode(Utils.convertCityToCityCode(userDetailEditor.getCity()));
 
         dao.doUpdate(userDetail);
+    }
+
+    public UserDetailEditor getUserDetailEditor(UserDetailEntity nowUserDetail) {
+        UserDetailEditor userDetailEditor = new UserDetailEditor();
+
+        userDetailEditor.setFirstName(nowUserDetail.getFirstName());
+        userDetailEditor.setLastName(nowUserDetail.getLastName());
+        userDetailEditor.setBirthday(Utils.convertDateToString(nowUserDetail.getBirthday()));
+        userDetailEditor.setGender(Utils.convertStringToGender(nowUserDetail.getGender()));
+        userDetailEditor.setCity(Utils.convertCityCodeToCity(nowUserDetail.getCityCode()));
+
+        return userDetailEditor;
     }
 
 }

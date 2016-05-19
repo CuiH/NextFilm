@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Edit Showing</title>
-    <link href="/res/css/semantic.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
 </head>
 <body>
 <form:form modelAttribute="showingEditor" action="/edit_showing" method="post">

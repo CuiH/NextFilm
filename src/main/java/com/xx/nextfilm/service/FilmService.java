@@ -1,6 +1,7 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.FilmEditor;
+import com.xx.nextfilm.dto.FilmShower1;
 import com.xx.nextfilm.entity.FilmEntity;
 
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public interface FilmService {
 
     void deleteFilm(FilmEntity film);
 
-    List<FilmEntity> findAllFilms();
+    List<FilmEntity> findAllFilms(boolean needDirectors, boolean needActors);
 
-    HashMap<Long, String> getAllFilmsWithMap();
+    List<FilmShower1> findAllFilmsWithShower1();
 
 }

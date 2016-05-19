@@ -65,7 +65,7 @@ public class ShowingServiceImpl implements ShowingService {
 
 
     public boolean createShowing(ShowingEditor showingEditor) {
-        HallEntity hall = hallDao.findById(showingEditor.getHallId());
+        HallEntity hall = hallDao.findById(showingEditor.getHallId(), false);
 
         if (hall == null) return false;
 
@@ -106,7 +106,7 @@ public class ShowingServiceImpl implements ShowingService {
 
 
     public boolean updateShowing(ShowingEditor showingEditor) {
-        HallEntity hall = hallDao.findById(showingEditor.getHallId());
+        HallEntity hall = hallDao.findById(showingEditor.getHallId(), false);
 
         if (hall == null) return false;
 

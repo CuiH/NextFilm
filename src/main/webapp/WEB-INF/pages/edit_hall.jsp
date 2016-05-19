@@ -14,12 +14,6 @@
 <body>
 <form:form modelAttribute="hallEditor" action="/edit_hall" method="post">
     <p>
-        <label for="cinemaId">cinema id: </label>
-        <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
-        <form:errors path="cinemaId" cssClass="error"/>
-    </p>
-
-    <p>
         <label for="id">id: </label>
         <form:input type="text" id="id" path="id" readonly="true"/>
         <form:errors path="id" cssClass="error"/>

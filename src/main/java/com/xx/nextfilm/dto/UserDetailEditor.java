@@ -13,8 +13,7 @@ public class UserDetailEditor {
 
     private String firstName;
     private String lastName;
-
-    @NotEmpty
+    private String city;
     private String gender;
     private String birthday;
 
@@ -52,6 +51,15 @@ public class UserDetailEditor {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }

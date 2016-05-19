@@ -1,39 +1,25 @@
 package com.xx.nextfilm.dto;
 
-import com.xx.nextfilm.entity.FCMEntity;
-import com.xx.nextfilm.entity.HallEntity;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/16.
+ * Created by CuiH on 2016/5/18.
+ *
+ * 用于影院详情页面
  */
-public class CinemaEditor {
+public class CinemaShower1 {
 
     private Long id;
 
-    @NotEmpty
     private String name;
-    @NotEmpty
-    private String city;
-    @NotEmpty
     private String address;
-    @NotEmpty
     private String phone;
-    @NotEmpty
     private String brief;
-    @NotEmpty
     private String imageUrl;
-    @NotEmpty
     private String description;
 
-    private List<Long> films = new ArrayList<Long>();
-
-    private List<HallEntity> halls = new ArrayList<HallEntity>();
-
-    private List<FCMEntity> fcms = new ArrayList<FCMEntity>();
+    private List<HallShower1> halls;
+    private List<FCMShower1> fcms;
 
 
     public Long getId() {
@@ -51,15 +37,6 @@ public class CinemaEditor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
 
@@ -108,29 +85,20 @@ public class CinemaEditor {
     }
 
 
-    public List<Long> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<Long> films) {
-        this.films = films;
-    }
-
-
-    public List<HallEntity> getHalls() {
+    public List<HallShower1> getHalls() {
         return halls;
     }
 
-    public void setHalls(List<HallEntity> halls) {
+    public void setHalls(List<HallShower1> halls) {
         this.halls = halls;
     }
 
 
-    public List<FCMEntity> getFcms() {
+    public List<FCMShower1> getFcms() {
         return fcms;
     }
 
-    public void setFcms(List<FCMEntity> fcms) {
+    public void setFcms(List<FCMShower1> fcms) {
         this.fcms = fcms;
     }
 

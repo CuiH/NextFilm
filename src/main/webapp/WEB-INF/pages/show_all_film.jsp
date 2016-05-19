@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Show All Film</title>
-    <link href="/res/css/semantic.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
 </head>
 <body>
 <table class="ui celled table">
@@ -28,6 +28,8 @@
         <th>image_url</th>
         <th>category</th>
         <th>type</th>
+        <th>director</th>
+        <th>actor</th>
         <th>编辑</th>
         <th>删除</th>
     </tr>
@@ -41,13 +43,23 @@
             <td>${film.brief}</td>
             <td>${film.language}</td>
             <td>${film.length}</td>
-            <td><fmt:formatDate type="both" value="${film.onDate}" pattern="yyyy-MM-dd"/></td>
+            <td>${film.onDate}</td>
             <td>${film.imageUrl}</td>
             <td>${film.category}</td>
             <td>${film.type}</td>
+            <td>
+                <c:forEach items="${film.directors}" var="director">
+                    ${director.name};
+                </c:forEach>
+            </td>
+            <td>
+                <c:forEach items="${film.actors}" var="actor">
+                    ${actor.name};
+                </c:forEach>
+            </td>
             <security:authorize access="hasRole('ROLE_ADMIN')" >
-                <td><a href="/edit_film/${film.id}">edit</a></td>
-                <td><a href="/delete_film/${film.id}">delete</a></td>
+                <td><a href="/edit_film?id=${film.id}">edit</a></td>
+                <td><a href="/delete_film?id=${film.id}">delete</a></td>
             </security:authorize>
         </tr>
     </c:forEach>

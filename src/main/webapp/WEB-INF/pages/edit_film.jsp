@@ -81,7 +81,7 @@
             <%--<form:checkbox path="directors" value="${director.key}" />${director.value}--%>
         <%--</c:forEach>--%>
         <c:forEach items="${directors}" var="director">
-            <form:checkbox path="directors" value="${director.key}"/>${director.value}
+            <form:checkbox path="directors" value="${director.id}"/>${director.name}
         </c:forEach>
         <form:errors path="directors" cssClass="error"/>
     </p>
@@ -89,7 +89,7 @@
     <p>
         <label for="actors">actors: </label>
         <c:forEach items="${actors}" var="actor">
-            <form:checkbox path="actors" value="${actor.key}"/>${actor.value}
+            <form:checkbox path="actors" value="${actor.id}"/>${actor.name}
         </c:forEach>
         <form:errors path="actors" cssClass="error"/>
     </p>

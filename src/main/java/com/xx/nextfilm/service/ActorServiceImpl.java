@@ -2,16 +2,15 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dto.ActorEditor;
+import com.xx.nextfilm.dto.ActorShower1;
+import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by CuiH on 2016/5/15.
@@ -35,7 +34,6 @@ public class ActorServiceImpl implements ActorService {
         if (actorEntity == null) return null;
 
         ActorEditor actorEditor = new ActorEditor();
-
         actorEditor.setId(actorEntity.getId());
         actorEditor.setName(actorEntity.getName());
         actorEditor.setImageUrl(actorEntity.getImageUrl());
@@ -73,6 +71,48 @@ public class ActorServiceImpl implements ActorService {
 
     public List<ActorEntity> findAllActors() {
         return dao.findAll();
+    }
+
+
+    public List<ActorShower1> findAllActorsWithShower1() {
+        List<ActorEntity> actorEntities = findAllActors();
+
+        if (actorEntities == null) return new ArrayList<ActorShower1>();
+
+        List<ActorShower1>  actors = new ArrayList<ActorShower1>();
+        for (ActorEntity actorEntity: actorEntities) {
+            ActorShower1 actor = new ActorShower1();
+
+            actor.setId(actorEntity.getId());
+            actor.setName(actorEntity.getName());
+            actor.setImageUrl(actorEntity.getImageUrl());
+            actor.setBrief(actorEntity.getImageUrl());
+            actor.setBirthday(Utils.convertDateToString(actorEntity.getBirthday()));
+
+            actors.add(actor);
+        }
+
+        return actors;
+    }
+
+
+    public List<ActorShower2> findAllActorsWithShower2() {
+        List<ActorEntity> actorEntities = findAllActors();
+
+        if (actorEntities == null) return new ArrayList<ActorShower2>();
+
+        List<ActorShower2>  actors = new ArrayList<ActorShower2>();
+        for (ActorEntity actorEntity: actorEntities) {
+            ActorShower2 actor = new ActorShower2();
+
+            actor.setId(actorEntity.getId());
+            actor.setName(actorEntity.getName());
+            actor.setImageUrl(actorEntity.getImageUrl());
+
+            actors.add(actor);
+        }
+
+        return actors;
     }
 
 

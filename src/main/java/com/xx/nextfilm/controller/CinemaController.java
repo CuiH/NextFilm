@@ -46,8 +46,8 @@ public class CinemaController {
         CinemaEditor cinemaEditor = new CinemaEditor();
         modelMap.addAttribute("cinemaEditor", cinemaEditor);
 
-        HashMap<Long, String> films = filmService.getAllFilmsWithMap();
-        modelMap.addAttribute("films", films);
+        //HashMap<Long, String> films = filmService.getAllFilmsWithMap();
+        //modelMap.addAttribute("films", films);
 
         return "add_cinema";
     }
@@ -93,8 +93,8 @@ public class CinemaController {
 
         modelMap.addAttribute("cinemaEditor", cinemaEditor);
 
-        HashMap<Long, String> films = filmService.getAllFilmsWithMap();
-        modelMap.addAttribute("films", films);
+        //HashMap<Long, String> films = filmService.getAllFilmsWithMap();
+        //modelMap.addAttribute("films", films);
 
         return "edit_cinema";
     }

@@ -1,7 +1,9 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.ShowingEditor;
+import com.xx.nextfilm.dto.UserDetailEditor;
 import com.xx.nextfilm.entity.ShowingEntity;
+import com.xx.nextfilm.entity.UserDetailEntity;
 
 /**
  * Created by CuiH on 2016/5/17.

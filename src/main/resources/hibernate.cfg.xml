@@ -19,5 +19,7 @@
 		<mapping class="com.xx.nextfilm.entity.FilmEntity"/>
 		<mapping class="com.xx.nextfilm.entity.SeatEntity"/>
 		<mapping class="com.xx.nextfilm.entity.FCMEntity"/>
+		<mapping class="com.xx.nextfilm.entity.FAMEntity"/>
+		<mapping class="com.xx.nextfilm.entity.FDMEntity"/>
 	</session-factory>
 </hibernate-configuration>

@@ -12,4 +12,6 @@ public interface UserDetailService {
 
     void updateUserDetail(UserDetailEntity userDetail, UserDetailEditor userDetailEditor);
 
+    UserDetailEditor getUserDetailEditor(UserDetailEntity nowUserDetail);
+
 }

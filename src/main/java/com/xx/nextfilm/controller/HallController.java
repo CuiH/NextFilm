@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Locale;
@@ -34,8 +35,8 @@ public class HallController {
     MessageSource messageSource;
 
 
-    @RequestMapping(value = "/edit_cinema/{cinemaId}/add_hall", method = RequestMethod.GET)
-    public String addHall(@PathVariable Long cinemaId, ModelMap modelMap) {
+    @RequestMapping(value = "/add_hall", method = RequestMethod.GET)
+    public String addHall(@RequestParam Long cinemaId, ModelMap modelMap) {
         HallEditor hallEditor = new HallEditor();
         hallEditor.setCinemaId(cinemaId);
         modelMap.addAttribute(hallEditor);
@@ -67,7 +68,7 @@ public class HallController {
 
         boolean r = hallService.createHall(hallEditor);
 
-        if (r == true) {
+        if (r) {
             return "redirect:/success";
         } else {
             return "redirect:/fail";
@@ -75,15 +76,13 @@ public class HallController {
     }
 
 
-    @RequestMapping(value = "/edit_cinema/{cinemaId}/edit_hall/{hallId}", method = RequestMethod.GET)
-    public String editHall(@PathVariable Long cinemaId, @PathVariable Long hallId, ModelMap modelMap) {
-        HallEditor hallEditor = hallService.getHallEditorById(hallId);
+    @RequestMapping(value = "/edit_hall", method = RequestMethod.GET)
+    public String editHall(@RequestParam Long id, ModelMap modelMap) {
+        HallEditor hallEditor = hallService.getHallEditorById(id, false);
 
         if (hallEditor == null) {
             return "redirect:/fail";
         }
-
-        hallEditor.setCinemaId(cinemaId);
 
         modelMap.addAttribute(hallEditor);
 
@@ -123,9 +122,9 @@ public class HallController {
     }
 
 
-    @RequestMapping(value = "/delete_hall/{id}", method = RequestMethod.GET)
-    public String deleteHall(@PathVariable Long id) {
-        HallEntity hallEntity = hallService.findHallById(id);
+    @RequestMapping(value = "/delete_hall", method = RequestMethod.GET)
+    public String deleteHall(@RequestParam Long id) {
+        HallEntity hallEntity = hallService.findHallById(id, false);
         if (hallEntity == null) {
             return "redirect:/fail";
         }

@@ -1,6 +1,7 @@
 package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.ActorEditor;
+import com.xx.nextfilm.dto.ActorShower1;
 import com.xx.nextfilm.dto.Visitor;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.service.ActorService;
@@ -14,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -64,7 +66,7 @@ public class ActorController {
 
     @RequestMapping(value = "/show_all_actor", method = RequestMethod.GET)
     public String showAllActor(ModelMap modelMap) {
-        List<ActorEntity> allActors = actorService.findAllActors();
+        List<ActorShower1> allActors = actorService.findAllActorsWithShower1();
 
         modelMap.addAttribute("actors", allActors);
 
@@ -72,8 +74,8 @@ public class ActorController {
     }
 
 
-    @RequestMapping(value = "/edit_actor/{id}", method = RequestMethod.GET)
-    public String editActor(@PathVariable Long id, ModelMap modelMap) {
+    @RequestMapping(value = "/edit_actor", method = RequestMethod.GET)
+    public String editActor(@RequestParam Long id, ModelMap modelMap) {
         ActorEditor actorEditor = actorService.getActorEditorById(id);
 
         if (actorEditor == null) {
@@ -108,8 +110,8 @@ public class ActorController {
     }
 
 
-    @RequestMapping(value = "/delete_actor/{id}", method = RequestMethod.GET)
-    public String deleteActor(@PathVariable Long id) {
+    @RequestMapping(value = "/delete_actor", method = RequestMethod.GET)
+    public String deleteActor(@RequestParam Long id) {
         ActorEntity actorEntity = actorService.findActorById(id);
         if (actorEntity == null) {
             return "redirect:/fail";

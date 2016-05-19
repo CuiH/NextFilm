@@ -3,14 +3,13 @@ package com.xx.nextfilm.dto;
 /**
  * Created by CuiH on 2016/5/18.
  *
- * 用于随电影简介显示（放在film中）
+ * 暂未使用
  */
-public class ActorShower2 {
+public class ActorShower3 {
 
     private Long id;
 
     private String name;
-    private String imageUrl;
 
 
     public Long getId() {
@@ -28,15 +27,6 @@ public class ActorShower2 {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
 }

@@ -17,4 +17,7 @@ public class UserDetailDaoImpl extends AbstractDao<Long, UserDetailEntity> imple
         update(userDetail);
     }
 
+    public void doSave(UserDetailEntity userDetail) {
+        persist(userDetail);
+    }
 }

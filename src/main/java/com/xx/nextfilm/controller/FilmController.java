@@ -1,6 +1,9 @@
 package com.xx.nextfilm.controller;
 
+import com.xx.nextfilm.dto.ActorShower2;
+import com.xx.nextfilm.dto.FCMShower1;
 import com.xx.nextfilm.dto.FilmEditor;
+import com.xx.nextfilm.dto.FilmShower1;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.service.ActorService;
@@ -15,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -42,7 +46,7 @@ public class FilmController {
         FilmEditor filmEditor = new FilmEditor();
         modelMap.addAttribute("filmEditor", filmEditor);
 
-        HashMap<Long, String> actors = actorService.getAllActorsWithMap();
+        List<ActorShower2> actors = actorService.findAllActorsWithShower2();
         modelMap.addAttribute("actors", actors);
         modelMap.addAttribute("directors", actors);
 
@@ -73,15 +77,15 @@ public class FilmController {
 
     @RequestMapping(value = "/show_all_film", method = RequestMethod.GET)
     public String showAllFilm(ModelMap modelMap) {
-        List<FilmEntity> allFilms = filmService.findAllFilms();
+        List<FilmShower1> allFilms = filmService.findAllFilmsWithShower1();
         modelMap.addAttribute("films", allFilms);
 
         return "show_all_film";
     }
 
 
-    @RequestMapping(value = "/edit_film/{id}", method = RequestMethod.GET)
-    public String editFilm(@PathVariable Long id, ModelMap modelMap) {
+    @RequestMapping(value = "/edit_film", method = RequestMethod.GET)
+    public String editFilm(@RequestParam Long id, ModelMap modelMap) {
         FilmEditor filmEditor = filmService.getFilmEditorById(id, true, true);
 
         if (filmEditor == null) {
@@ -90,7 +94,7 @@ public class FilmController {
 
         modelMap.addAttribute("filmEditor", filmEditor);
 
-        HashMap<Long, String> actors = actorService.getAllActorsWithMap();
+        List<ActorShower2> actors = actorService.findAllActorsWithShower2();
         modelMap.addAttribute("actors", actors);
         modelMap.addAttribute("directors", actors);
 
@@ -120,8 +124,8 @@ public class FilmController {
     }
 
 
-    @RequestMapping(value = "/delete_film/{id}", method = RequestMethod.GET)
-    public String deleteFilm(@PathVariable Long id) {
+    @RequestMapping(value = "/delete_film", method = RequestMethod.GET)
+    public String deleteFilm(@RequestParam Long id) {
         FilmEntity filmEntity = filmService.findFilmById(id, false, false);
         if (filmEntity == null) {
             return "redirect:/fail";

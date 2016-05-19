@@ -37,9 +37,6 @@ public class LogonController {
     UserService userService;
 
     @Autowired
-    UserProfileService userProfileService;
-
-    @Autowired
     MessageSource messageSource;
 
     @Autowired
@@ -69,24 +66,7 @@ public class LogonController {
 
             return "logon";
         } else {
-            // 创建新用户
-            UserEntity newUser = new UserEntity();
-            newUser.setUsername(visitor.getUsername());
-            newUser.setPassword(visitor.getPassword());
-
-            Date now = new Date();
-            newUser.setCreateTime(now);
-            newUser.setLastLogin(now);
-
-            UserProfileEntity userProfile = userProfileService.findUserProfileByRole("ROLE_USER");
-            List<UserProfileEntity> userProfiles = new ArrayList<UserProfileEntity>();
-            userProfiles.add(userProfile);
-            newUser.setUserProfiles(userProfiles);
-
-            UserDetailEntity userDetail = new UserDetailEntity();
-            newUser.setUserDetail(userDetail);
-
-            userService.createUser(newUser);
+            userService.createUser(visitor);
 
             // 注册成功后自动登录
             authenticateUserAndSetSession(visitor, request);

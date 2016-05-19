@@ -2,6 +2,7 @@ package com.xx.nextfilm.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/15.
@@ -14,6 +15,9 @@ public class ActorEntity {
     private String imageUrl;
     private String brief;
     private Date birthday;
+
+    private List<FDMEntity> fdms;         // 用于级联删除
+    private List<FAMEntity> fams;         // 用于级联删除
 
 
     @Id
@@ -69,6 +73,26 @@ public class ActorEntity {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "director", cascade = CascadeType.REMOVE)
+    public List<FDMEntity> getFdms() {
+        return fdms;
+    }
+
+    public void setFdms(List<FDMEntity> fdms) {
+        this.fdms = fdms;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "actor", cascade = CascadeType.REMOVE)
+    public List<FAMEntity> getFams() {
+        return fams;
+    }
+
+    public void setFams(List<FAMEntity> fams) {
+        this.fams = fams;
     }
 
 

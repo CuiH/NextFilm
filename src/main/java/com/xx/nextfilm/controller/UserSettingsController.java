@@ -75,7 +75,7 @@ public class UserSettingsController {
             return "redirect:/fail";
         }
 
-        UserDetailEditor userDetailEditor = getUserDetailEditor(nowUserDetail);
+        UserDetailEditor userDetailEditor = userDetailService.getUserDetailEditor(nowUserDetail);
         modelMap.addAttribute(userDetailEditor);
 
         return "edit_detail";
@@ -130,19 +130,6 @@ public class UserSettingsController {
         } else {
             return null;
         }
-    }
-
-
-    // 根据UserDetailEntity获取UserDetailEditor
-    public UserDetailEditor getUserDetailEditor(UserDetailEntity nowUserDetail) {
-        UserDetailEditor userDetailEditor = new UserDetailEditor();
-
-        userDetailEditor.setFirstName(nowUserDetail.getFirstName());
-        userDetailEditor.setLastName(nowUserDetail.getLastName());
-        userDetailEditor.setBirthday(Utils.convertDateToString(nowUserDetail.getBirthday()));
-        userDetailEditor.setGender(Utils.convertStringToGender(nowUserDetail.getGender()));
-
-        return userDetailEditor;
     }
 
 }

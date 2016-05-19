@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by CuiH on 2016/5/15.
  */
-public class PasswordEditor implements Serializable {
+public class PasswordEditor {
 
     @NotEmpty
     String newPassword;

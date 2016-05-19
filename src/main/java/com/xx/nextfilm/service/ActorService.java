@@ -1,6 +1,8 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.ActorEditor;
+import com.xx.nextfilm.dto.ActorShower1;
+import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
 
 import java.util.HashMap;
@@ -26,6 +28,10 @@ public interface ActorService {
     boolean deleteActorById(Long id);
 
     List<ActorEntity> findAllActors();
+
+    List<ActorShower1> findAllActorsWithShower1();
+
+    List<ActorShower2> findAllActorsWithShower2();
 
     HashMap<Long, String> getAllActorsWithMap();
 

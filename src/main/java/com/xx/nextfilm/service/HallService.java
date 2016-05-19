@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface HallService {
 
-    HallEntity findHallById(Long id);
+    HallEntity findHallById(Long id, boolean needCinema);
 
-    HallEditor getHallEditorById(Long id);
+    HallEditor getHallEditorById(Long id, boolean needCinema);
 
     boolean createHall(HallEditor hallEditor);
 

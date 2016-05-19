@@ -2,12 +2,26 @@ package com.xx.nextfilm.dto;
 
 /**
  * Created by CuiH on 2016/5/18.
+ *
+ * 用于演员详情页面
  */
-// name和image
 public class ActorShower1 {
+
+    private Long id;
 
     private String name;
     private String imageUrl;
+    private String brief;
+    private String birthday;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
     public String getName() {
@@ -25,6 +39,24 @@ public class ActorShower1 {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
 }

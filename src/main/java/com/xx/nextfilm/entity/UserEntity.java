@@ -117,7 +117,8 @@ public class UserEntity {
     }
 
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
     public UserDetailEntity getUserDetail() {
         return userDetail;
     }
@@ -146,11 +147,4 @@ public class UserEntity {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                '}';
-    }
 }

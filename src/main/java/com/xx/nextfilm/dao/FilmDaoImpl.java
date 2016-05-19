@@ -18,19 +18,15 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
     public FilmEntity findById(Long id, boolean needDirectors, boolean needActors) {
         FilmEntity film = getByKey(id);
 
-        if (needDirectors) {
-            if (film != null) {
-                Hibernate.initialize(film.getDirectors());
-            }
+        if (needDirectors && film != null) {
+            Hibernate.initialize(film.getDirectors());
         }
 
-        if (needActors) {
-            if (film != null) {
-                Hibernate.initialize(film.getActors());
-            }
+        if (needActors && film != null) {
+            Hibernate.initialize(film.getActors());
         }
 
-        return  film;
+        return film;
     }
 
 
@@ -85,10 +81,23 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
     }
 
 
-    public List<FilmEntity> findAll() {
+    public List<FilmEntity> findAll(boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
+
+        if (needDirectors && films != null) {
+            for (FilmEntity film: films) {
+                Hibernate.initialize(film.getDirectors());
+            }
+        }
+
+
+        if (needActors && films != null) {
+            for (FilmEntity film: films) {
+                Hibernate.initialize(film.getActors());
+            }
+        }
 
         return films;
     }

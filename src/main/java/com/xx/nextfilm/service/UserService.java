@@ -1,5 +1,7 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.dto.UserDetailEditor;
+import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
 import com.xx.nextfilm.dto.Visitor;
 
@@ -15,19 +17,15 @@ public interface UserService {
 
     UserEntity findUserByUsername(String username, boolean needProfile, boolean needDetail);
 
-
-    void createUser(UserEntity user);
+    void createUser(Visitor visitor);
 
     void deleteUserByUsername(String username);
-
 
     void updateUserPasswordByUsername(String username, String newPassword);
 
     void updateUserLastLoginByUsername(String username, Date lastLogin);
 
-
     List<UserEntity> findAllUsers(boolean needProfile, boolean needDetail);
-
 
     boolean isUsernameUnique(String username);
 

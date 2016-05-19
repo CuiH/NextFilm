@@ -1,7 +1,10 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,8 +13,14 @@ import org.springframework.stereotype.Repository;
 @Repository("hallDao")
 public class HallDaoImpl extends AbstractDao<Long, HallEntity> implements HallDao {
 
-    public HallEntity findById(Long id) {
-        return getByKey(id);
+    public HallEntity findById(Long id, boolean needCinema) {
+        HallEntity hallEntity = getByKey(id);
+
+        if (hallEntity != null && needCinema) {
+            Hibernate.initialize(hallEntity.getCinema());
+        }
+
+        return hallEntity;
     }
 
 
@@ -22,6 +31,26 @@ public class HallDaoImpl extends AbstractDao<Long, HallEntity> implements HallDa
 
     public void doUpdate(HallEntity hall) {
         update(hall);
+    }
+
+
+    public boolean doUpdateManually(HallEditor hall) {
+        String hql = "UPDATE hall set "+
+                "name = :name, "+
+                "type = :type, "+
+                "row_num = :rowNum, "+
+                "column_num = :columnNum "+
+                "WHERE id = :id";
+        Query query = createEntityQuery(hql);
+        query.setParameter("name", hall.getName());
+        query.setParameter("type", hall.getType());
+        query.setParameter("rowNum", hall.getRowNum());
+        query.setParameter("columnNum", hall.getColumnNum());
+        query.setParameter("id", hall.getId());
+        int l = query.executeUpdate();
+
+        if (l == 0) return false;
+        else return true;
     }
 
 

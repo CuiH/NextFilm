@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Show All Actor</title>
-    <link href="/res/css/semantic.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
 </head>
 <body>
 <table class="ui celled table">
@@ -34,10 +34,10 @@
             <td>${actor.name}</td>
             <td>${actor.imageUrl}</td>
             <td>${actor.brief}</td>
-            <td><fmt:formatDate type="both" value="${actor.birthday}" pattern="yyyy-MM-dd"/></td>
+            <td>${actor.birthday}</td>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <td><a href="/edit_actor/${actor.id}">edit</a></td>
-                <td><a href="/delete_actor/${actor.id}">delete</a></td>
+                <td><a href="/edit_actor?id=${actor.id}">edit</a></td>
+                <td><a href="/delete_actor?id=${actor.id}">delete</a></td>
             </security:authorize>
         </tr>
     </c:forEach>

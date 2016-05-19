@@ -11,6 +11,8 @@ public interface UserDetailDao {
 
     UserDetailEntity findById(Long id);
 
-    void doUpdate(UserDetailEntity user);
+    void doUpdate(UserDetailEntity userDetail);
+
+    void doSave(UserDetailEntity userDetail);
 
 }

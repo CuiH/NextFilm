@@ -1,6 +1,9 @@
 package com.xx.nextfilm.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -19,7 +22,6 @@ public class UserDetailEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -84,9 +86,7 @@ public class UserDetailEntity {
     }
 
 
-    // 使用主键关联，即两张表主键相同的一对为一个映射，不要随便删这个表的内容！！！
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetail")
     public UserEntity getUser() {
         return user;
     }

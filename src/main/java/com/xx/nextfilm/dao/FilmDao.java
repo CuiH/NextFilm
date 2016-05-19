@@ -25,6 +25,6 @@ public interface FilmDao {
 
     void doDelete(FilmEntity film);
 
-    List<FilmEntity> findAll();
+    List<FilmEntity> findAll(boolean needDirectors, boolean needActors);
 
 }

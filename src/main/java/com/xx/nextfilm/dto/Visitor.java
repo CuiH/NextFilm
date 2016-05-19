@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by CuiH on 2016/5/13.
  */
-public class Visitor implements Serializable {
+public class Visitor {
 
     @NotEmpty
     private String username;
@@ -19,7 +19,6 @@ public class Visitor implements Serializable {
         return username;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -28,7 +27,6 @@ public class Visitor implements Serializable {
     public String getPassword() {
         return password;
     }
-
 
     public void setPassword(String password) {
         this.password = password;
