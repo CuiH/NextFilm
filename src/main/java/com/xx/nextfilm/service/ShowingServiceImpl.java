@@ -5,6 +5,7 @@ import com.xx.nextfilm.dto.SeatShower;
 import com.xx.nextfilm.dto.ShowingEditor1;
 import com.xx.nextfilm.dto.ShowingEditor2;
 import com.xx.nextfilm.entity.*;
+import com.xx.nextfilm.exception.*;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +41,14 @@ public class ShowingServiceImpl implements ShowingService {
     SeatDao seatDao;
 
 
-    public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats) {
+    public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats)
+            throws ShowingNotExistException {
         return showingDao.findById(id, needFcm, needSeats);
     }
 
 
-    public ShowingEditor2 getShowingEditor2ById(Long id) {
+    public ShowingEditor2 getShowingEditor2ById(Long id) throws ShowingNotExistException {
         ShowingEntity showingEntity = findShowingById(id, true, true);
-
-        if (showingEntity == null) return null;
 
         ShowingEditor2 showingEditor2 = new ShowingEditor2();
 
@@ -72,22 +72,12 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
-    public boolean createShowing(ShowingEditor1 showingEditor1) {
+    public void createShowing(ShowingEditor1 showingEditor1)
+            throws HallNotExistException, FilmNotExistException, CinemaNotExistException, FCMNotExistException {
         HallEntity hall = hallDao.findById(showingEditor1.getHallId(), false);
-
-        if (hall == null) return false;
-
         FilmEntity film = filmDao.findById(showingEditor1.getFilmId(), false, false);
-
-        if (film == null) return false;
-
         CinemaEntity cinema = cinemaDao.findById(showingEditor1.getCinemaId(), false, false, false);
-
-        if (cinema == null) return false;
-
         FCMEntity fcm = fcmDao.findByFilmAndCinema(film, cinema);
-
-        if (fcm == null) return false;
 
         ShowingEntity showingEntity = getEntityFromEditor(showingEditor1, false);
         showingEntity.setHall(hall);
@@ -108,8 +98,6 @@ public class ShowingServiceImpl implements ShowingService {
                 seatDao.doSave(seat);
             }
         }
-
-        return true;
     }
 
 

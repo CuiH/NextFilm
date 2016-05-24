@@ -1,10 +1,7 @@
 package com.xx.nextfilm.utils;
 
 import com.xx.nextfilm.dto.*;
-import com.xx.nextfilm.entity.ActorEntity;
-import com.xx.nextfilm.entity.FilmEntity;
-import com.xx.nextfilm.entity.HallEntity;
-import com.xx.nextfilm.entity.SeatEntity;
+import com.xx.nextfilm.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.List;
  */
 public class BuilderUtils {
 
-    public static ActorShower2 getActorShower2FromActorEntity(ActorEntity actor) {
+    private static ActorShower2 getActorShower2FromActorEntity(ActorEntity actor) {
         ActorShower2 actorShower2 = new ActorShower2();
 
         actorShower2.setId(actor.getId());
@@ -24,8 +21,33 @@ public class BuilderUtils {
         return  actorShower2;
     }
 
+    public static List<ActorShower2> getActorShower2sFromActorEntities(List<ActorEntity> actorEntities) {
+        List<ActorShower2> actors = new ArrayList<ActorShower2>();
 
-    public static FilmShower3 getFilmShower3FromFilmEntity(FilmEntity film) {
+        if (actorEntities != null) {
+            for (ActorEntity actor: actorEntities) {
+                actors.add(BuilderUtils.getActorShower2FromActorEntity(actor));
+            }
+        }
+
+        return actors;
+    }
+
+
+    private static FilmShower2 getFilmShower2FromFilmEntity(FilmEntity film) {
+        FilmShower2 filmShower2 = new FilmShower2();
+
+        filmShower2.setId(film.getId());
+        filmShower2.setName(film.getName());
+        filmShower2.setBrief(film.getBrief());
+        filmShower2.setImageUrl(film.getImageUrl());
+        film.setLanguage(film.getLanguage());
+
+        return filmShower2;
+    }
+
+
+    private static FilmShower3 getFilmShower3FromFilmEntity(FilmEntity film) {
         FilmShower3 filmShower3 = new FilmShower3();
 
         filmShower3.setId(film.getId());
@@ -35,15 +57,64 @@ public class BuilderUtils {
 
     }
 
+    public static List<FilmShower3> getFilmShower3sFromFilmEntities(List<FilmEntity> filmEntities) {
+        List<FilmShower3> films = new ArrayList<FilmShower3>();
 
-    public static HallShower getHallShower1FromHallEntity(HallEntity hall) {
-        HallShower hallShower = new HallShower();
+        if (filmEntities != null) {
+            for (FilmEntity film: filmEntities) {
+                films.add(BuilderUtils.getFilmShower3FromFilmEntity(film));
+            }
+        }
 
-        hallShower.setId(hall.getId());
-        hallShower.setName(hall.getName());
-        hallShower.setType(hall.getType());
+        return films;
+    }
 
-        return hallShower;
+
+    public static HallShower1 getHallShower1FromHallEntity(HallEntity hall) {
+        HallShower1 hallShower1 = new HallShower1();
+
+        hallShower1.setId(hall.getId());
+        hallShower1.setName(hall.getName());
+        hallShower1.setType(hall.getType());
+        hallShower1.setRowNum(ConverterUtils.convertShortToString(hall.getRowNum()));
+        hallShower1.setColumnNum(ConverterUtils.convertShortToString(hall.getColumnNum()));
+
+        return hallShower1;
+    }
+
+    public static List<HallShower1> getHallShower1sFromHallEntities(List<HallEntity> hallEntities) {
+        List<HallShower1> halls = new ArrayList<HallShower1>();
+
+        if (hallEntities != null) {
+            for (HallEntity hall: hallEntities) {
+                halls.add(BuilderUtils.getHallShower1FromHallEntity(hall));
+            }
+        }
+
+        return halls;
+    }
+
+
+    private static HallShower2 getHallShower2FromHallEntity(HallEntity hall) {
+        HallShower2 hallShower2 = new HallShower2();
+
+        hallShower2.setId(hall.getId());
+        hallShower2.setName(hall.getName());
+        hallShower2.setType(hall.getType());
+
+        return hallShower2;
+    }
+
+    public static List<HallShower2> getHallShower2sFromHallEntities(List<HallEntity> hallEntities) {
+        List<HallShower2> halls = new ArrayList<HallShower2>();
+
+        if (hallEntities != null) {
+            for (HallEntity hall: hallEntities) {
+                halls.add(BuilderUtils.getHallShower2FromHallEntity(hall));
+            }
+        }
+
+        return  halls;
     }
 
 
@@ -74,6 +145,54 @@ public class BuilderUtils {
         }
 
         return  showingFilmShowers;
+    }
+
+
+    private static ShowingShower2 getShowingShower2FromShowingEntity(ShowingEntity showing) {
+        ShowingShower2 showingShower2 = new ShowingShower2();
+
+        showingShower2.setId(showing.getId());
+        showingShower2.setHall(BuilderUtils.getHallShower2FromHallEntity(showing.getHall()));
+        showingShower2.setStartTime(ConverterUtils.convertDateToString(showing.getStartTime()));
+        showingShower2.setEndTime(ConverterUtils.convertDateToString(showing.getEndTime()));
+        showingShower2.setPriceManual(ConverterUtils.convertDoubleToString(showing.getPriceManual()));
+
+        return showingShower2;
+    }
+
+    public static List<ShowingShower2> getShowingShower2sFromShowingEntities(List<ShowingEntity> showingEntities) {
+        List<ShowingShower2> showings = new ArrayList<ShowingShower2>();
+
+        if (showingEntities != null) {
+            for (ShowingEntity showing: showingEntities) {
+                showings.add(BuilderUtils.getShowingShower2FromShowingEntity(showing));
+            }
+        }
+
+        return  showings;
+    }
+
+
+    private static FCMShower getFCMShowerFromFCMEntity(FCMEntity fcm) {
+        FCMShower fcmShower = new FCMShower();
+
+        fcmShower.setId(fcm.getId());
+        fcmShower.setFilm(BuilderUtils.getFilmShower2FromFilmEntity(fcm.getFilm()));
+        fcmShower.setShowings(BuilderUtils.getShowingShower2sFromShowingEntities(fcm.getShowings()));
+
+        return fcmShower;
+    }
+
+    public static List<FCMShower> getFCMShowersFromFCMEntities(List<FCMEntity> fcmEntities) {
+        List<FCMShower> fcms = new ArrayList<FCMShower>();
+
+        if (fcmEntities != null) {
+            for (FCMEntity fcm: fcmEntities) {
+                fcms.add(BuilderUtils.getFCMShowerFromFCMEntity(fcm));
+            }
+        }
+
+        return fcms;
     }
 
 }

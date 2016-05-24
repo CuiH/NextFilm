@@ -7,7 +7,18 @@ import java.util.List;
  */
 public class ShowingFilmEditor {
 
-    List<Long> filmIds;
+    private Long cinemaId;
+
+    private List<Long> filmIds;
+
+
+    public Long getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        this.cinemaId = cinemaId;
+    }
 
 
     public List<Long> getFilmIds() {

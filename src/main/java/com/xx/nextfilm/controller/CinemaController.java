@@ -3,9 +3,12 @@ package com.xx.nextfilm.controller;
 import com.google.gson.Gson;
 import com.xx.nextfilm.dto.*;
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
+import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.service.CinemaService;
+import com.xx.nextfilm.service.FCMService;
 import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.service.HallService;
 import com.xx.nextfilm.utils.BuilderUtils;
@@ -39,6 +42,9 @@ public class CinemaController {
     HallService hallService;
 
     @Autowired
+    FCMService fcmService;
+
+    @Autowired
     MessageSource messageSource;
 
 
@@ -53,6 +59,7 @@ public class CinemaController {
     @RequestMapping(value = "/add_cinema", method = RequestMethod.POST)
     public String addCinemaHandler(@Valid CinemaEditor cinemaEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "add_cinema";
         }
 
@@ -72,7 +79,6 @@ public class CinemaController {
     }
 
 
-    // 返回的“response”为状态，“films”为所有影片信息（包括是否上映）
     @ResponseBody
     @RequestMapping(value = "/increase_film", method = RequestMethod.GET)
     public String increaseFilm(@RequestParam Long cinemaId) {
@@ -85,18 +91,25 @@ public class CinemaController {
             return "{\"result\": \"success\", \"films\": " +
                     gson.toJson(BuilderUtils.getShowingFilmShower(allFilms, filmIds)) + "}";
         } catch (CinemaNotExistException e) {
+
             return "{\"result\": \"fail\", \"reason\": \"cinema not exist\"}";
         }
     }
 
     @ResponseBody
     @RequestMapping(value = "/increase_film", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, String>> increaseFilmHandler(
-            @RequestParam Long cinemaId, ShowingFilmEditor showingFilmEditor) {
+    public String increaseFilmHandler(ShowingFilmEditor showingFilmEditor) {
+        try {
+            fcmService.updateFCM(showingFilmEditor.getCinemaId(), showingFilmEditor.getFilmIds());
 
-        Map<String, String> response = new HashMap<String, String>();
-        response.put("result", "success");
-        return new ResponseEntity<Map<String, String>>(response, HttpStatus.OK);
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
+        } catch (CinemaNotExistException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"cinema not exist\"}";
+        } catch (FilmNotExistException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"film not exist\"}";
+        }
     }
 
 
@@ -111,15 +124,15 @@ public class CinemaController {
 
     @RequestMapping(value = "/edit_cinema", method = RequestMethod.GET)
     public String editCinema(@RequestParam Long id, ModelMap modelMap) {
-        CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true, true, true);
+        try {
+            CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id);
+            modelMap.addAttribute("cinemaEditor", cinemaEditor);
 
-        if (cinemaEditor == null) {
+            return "edit_cinema";
+        } catch (CinemaNotExistException e) {
+
             return "redirect:/fail";
         }
-
-        modelMap.addAttribute("cinemaEditor", cinemaEditor);
-
-        return "edit_cinema";
     }
 
 
@@ -139,34 +152,51 @@ public class CinemaController {
             return "edit_cinema";
         }
 
-        cinemaService.updateCinema(cinemaEditor);
+        boolean r = cinemaService.updateCinema(cinemaEditor);
 
-        return "redirect:/success";
+        if (r) {
+
+            return "redirect:/success";
+        } else {
+
+            return "redirect:/fail";
+        }
     }
 
 
 
-    @RequestMapping(value = "/delete_cinema/{id}", method = RequestMethod.GET)
-    public String deleteCinema(@PathVariable Long id) {
-        // 要获取hall手动删除
-        CinemaEntity cinema = cinemaService.findCinemaById(id, false, true, false);
+    @RequestMapping(value = "/delete_cinema", method = RequestMethod.GET)
+    public String deleteCinema(@RequestParam Long id) {
+        try {
+            CinemaEntity cinema = cinemaService.findCinemaById(id, false, true, false);
 
-        if (cinema == null) {
+            // 要先删hall信息，再删FCM的条目，但是hibernate删除的顺序有问题，只好手动删除
+            // 而且如果放在service里做也不行，不知道为什么
+            List<HallEntity> halls = cinema.getHalls();
+            if (halls != null) {
+                for (HallEntity hall: halls) {
+                    hallService.deleteHall(hall);
+                }
+            }
+
+            cinemaService.deleteCinema(cinema);
+
+            return "redirect:/success";
+        } catch (CinemaNotExistException e) {
+
             return "redirect:/fail";
         }
+    }
 
-        // 要先删hall信息，再删FCM的条目，但是hibernate删除的顺序有问题，只好手动删除
-        // 而且如果放在service里做也不行，不知道为什么
-        List<HallEntity> halls = cinema.getHalls();
-        if (halls != null) {
-            for (HallEntity hall: halls) {
-                hallService.deleteHall(hall);
-            }
-        }
 
-        cinemaService.deleteCinema(cinema);
+    @ModelAttribute("categories")
+    public String[] initializeCategories() {
+        return new String[]{"喜剧", "惊悚", "剧情"};
+    }
 
-        return "redirect:/success";
+    @ModelAttribute("cities")
+    public String[] initializeCities() {
+        return new String[]{"北京", "广州", "上海"};
     }
 
 }

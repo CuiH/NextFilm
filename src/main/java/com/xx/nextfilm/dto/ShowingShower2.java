@@ -13,7 +13,7 @@ public class ShowingShower2 {
     private String endTime;
     private String priceManual;
 
-    private HallShower hall;
+    private HallShower2 hall;
 
 
     public Long getId() {
@@ -52,11 +52,11 @@ public class ShowingShower2 {
     }
 
 
-    public HallShower getHall() {
+    public HallShower2 getHall() {
         return hall;
     }
 
-    public void setHall(HallShower hall) {
+    public void setHall(HallShower2 hall) {
         this.hall = hall;
     }
 

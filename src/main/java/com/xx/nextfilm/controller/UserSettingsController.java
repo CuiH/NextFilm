@@ -117,12 +117,6 @@ public class UserSettingsController {
     }
 
 
-    @ModelAttribute("genders")
-    public String[] initializeGenders() {
-        return new String[]{"男", "女", "保密"};
-    }
-
-
     public UserEntity getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof CustomUserInfo) {
@@ -130,6 +124,17 @@ public class UserSettingsController {
         } else {
             return null;
         }
+    }
+
+
+    @ModelAttribute("genders")
+    public String[] initializeGenders() {
+        return new String[]{"男", "女", "保密"};
+    }
+
+    @ModelAttribute("cities")
+    public String[] initializeCities() {
+        return new String[]{"北京", "广州", "上海"};
     }
 
 }

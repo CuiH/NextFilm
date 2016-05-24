@@ -29,9 +29,9 @@ public class CinemaEditor {
     @NotEmpty
     private String description;
 
-    private List<HallEntity> halls = new ArrayList<HallEntity>();
+    private List<HallShower1> halls = new ArrayList<HallShower1>();
 
-    private List<FCMEntity> fcms = new ArrayList<FCMEntity>();
+    private List<FCMShower> fcms = new ArrayList<FCMShower>();
 
 
     public Long getId() {
@@ -106,20 +106,20 @@ public class CinemaEditor {
     }
 
 
-    public List<HallEntity> getHalls() {
+    public List<HallShower1> getHalls() {
         return halls;
     }
 
-    public void setHalls(List<HallEntity> halls) {
+    public void setHalls(List<HallShower1> halls) {
         this.halls = halls;
     }
 
 
-    public List<FCMEntity> getFcms() {
+    public List<FCMShower> getFcms() {
         return fcms;
     }
 
-    public void setFcms(List<FCMEntity> fcms) {
+    public void setFcms(List<FCMShower> fcms) {
         this.fcms = fcms;
     }
 

@@ -5,11 +5,14 @@ import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.CinemaEditor;
 import com.xx.nextfilm.dto.CinemaShower2;
+import com.xx.nextfilm.dto.FCMShower;
+import com.xx.nextfilm.dto.HallShower1;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
+import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +44,9 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    // 删掉boolean！
-    public CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls, boolean needFcms)
+    public CinemaEditor getCinemaEditorById(Long id)
             throws CinemaNotExistException{
-        CinemaEntity cinemaEntity = findCinemaById(id, needFilms, needHalls, needFcms);
+        CinemaEntity cinemaEntity = findCinemaById(id, false, true, true);
 
         CinemaEditor cinemaEditor = new CinemaEditor();
 
@@ -57,26 +59,8 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaEditor.setImageUrl(cinemaEntity.getImageUrl());
         cinemaEditor.setDescription(cinemaEntity.getDescription());
 
-//        List<Long> a = new ArrayList<Long>();
-//        List<FilmEntity> films = cinemaEntity.getFilms();
-//        if (needFilms && films != null) {
-//            for (FilmEntity film: films) {
-//                a.add(film.getId());
-//            }
-//        }
-//        cinemaEditor.setFilms(a);
-
-        if (needHalls) {
-            List<HallEntity> halls = cinemaEntity.getHalls();
-            if (halls == null) cinemaEditor.setHalls(new ArrayList<HallEntity>());
-            else cinemaEditor.setHalls(halls);
-        }
-
-        if (needFcms) {
-            List<FCMEntity> fcms = cinemaEntity.getFcms();
-            if (fcms == null) cinemaEditor.setFcms(new ArrayList<FCMEntity>());
-            else cinemaEditor.setFcms(fcms);
-        }
+        cinemaEditor.setHalls(BuilderUtils.getHallShower1sFromHallEntities(cinemaEntity.getHalls()));
+        cinemaEditor.setFcms(BuilderUtils.getFCMShowersFromFCMEntities(cinemaEntity.getFcms()));
 
         return cinemaEditor;
     }
@@ -97,8 +81,9 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    public void updateCinema(CinemaEditor cinemaEditor) {
-        cinemaDao.doUpdate(getEntityFromEditor(cinemaEditor, true));
+    // 只可改变cinema信息，不可改变其上映电影等
+    public boolean updateCinema(CinemaEditor cinemaEditor) {
+        return cinemaDao.doUpdateManually(getEntityFromEditor(cinemaEditor, true));
     }
 
 
@@ -115,8 +100,6 @@ public class CinemaServiceImpl implements CinemaService {
     public List<CinemaShower2> findAllCinemasWithShower2() {
         List<CinemaEntity> cinemaEntities = findAllCinemas(false, false, false);
 
-        if (cinemaEntities == null) return new ArrayList<CinemaShower2>();
-
         List<CinemaShower2> cinemas = new ArrayList<CinemaShower2>();
         for (CinemaEntity cinemaEntity: cinemaEntities) {
             CinemaShower2 cinema = new CinemaShower2();
@@ -132,7 +115,7 @@ public class CinemaServiceImpl implements CinemaService {
         return cinemas;
     }
 
-    // 根据ID获取该影院所有上映的电影id List，如果影院不存在返回null
+    // 根据ID获取该影院所有上映的电影id List
     public List<Long> getAllShowingFilmIdsById(Long id) throws CinemaNotExistException {
         CinemaEntity cinemaEntity = findCinemaById(id, true, false, false);
 
@@ -163,15 +146,6 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaEntity.setBrief(cinemaEditor.getBrief());
         cinemaEntity.setImageUrl(cinemaEditor.getImageUrl());
         cinemaEntity.setDescription(cinemaEditor.getDescription());
-
-//        List<FilmEntity> films = new ArrayList<FilmEntity>();
-//        List<Long> editorFilms = cinemaEditor.getFilms();
-//        if (editorFilms != null) {
-//            for (Long id: editorFilms) {
-//                films.add(filmDao.findById(id, false, false));
-//            }
-//        }
-//        cinemaEntity.setFilms(films);
 
         return cinemaEntity;
     }

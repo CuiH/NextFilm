@@ -3,6 +3,7 @@ package com.xx.nextfilm.dao;
 import com.xx.nextfilm.dto.ShowingEditor2;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
+import com.xx.nextfilm.exception.ShowingNotExistException;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,9 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
     public ShowingEntity findById(Long id, boolean needFcm, boolean needSeats) {
         ShowingEntity showingEntity = getByKey(id);
 
-        if (needFcm && showingEntity != null) {
+        if (showingEntity == null) throw new ShowingNotExistException();
+
+        if (needFcm) {
             Hibernate.initialize(showingEntity.getFcm());
 
             //　同时加载FCM中电影信息
@@ -26,7 +29,7 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
             Hibernate.initialize(fcm.getFilm());
         }
 
-        if (needSeats && showingEntity != null) {
+        if (needSeats) {
             Hibernate.initialize(showingEntity.getSeats());
         }
 

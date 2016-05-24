@@ -5,10 +5,12 @@ import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,28 +25,22 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
         if (cinema == null) throw new CinemaNotExistException();
 
         if (needFilms) {
-            if (cinema != null) {
-                Hibernate.initialize(cinema.getFilms());
-            }
+            Hibernate.initialize(cinema.getFilms());
         }
 
         if (needHalls) {
-            if (cinema != null) {
-                Hibernate.initialize(cinema.getHalls());
-            }
+            Hibernate.initialize(cinema.getHalls());
         }
 
         if (needFcms) {
-            if (cinema != null) {
-                Hibernate.initialize(cinema.getFcms());
+            Hibernate.initialize(cinema.getFcms());
 
-                //　同时加载FCM中所有上映信息
-                List<FCMEntity> fcms = cinema.getFcms();
-                if (fcms != null) {
-                    for (FCMEntity fcm: fcms) {
-                        Hibernate.initialize(fcm.getFilm());
-                        Hibernate.initialize(fcm.getShowings());
-                    }
+            //　同时加载FCM中所有上映信息
+            List<FCMEntity> fcms = cinema.getFcms();
+            if (fcms != null) {
+                for (FCMEntity fcm: fcms) {
+                    Hibernate.initialize(fcm.getFilm());
+                    Hibernate.initialize(fcm.getShowings());
                 }
             }
         }
@@ -86,28 +82,50 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
     }
 
 
+    public boolean doUpdateManually(CinemaEntity cinema) {
+        String hql = "UPDATE cinema set "+
+                "name = :name, "+
+                "city_code = :cityCode, "+
+                "address = :address, "+
+                "phone = :phone, "+
+                "brief = :brief, "+
+                "image_url = :imageUrl, "+
+                "description = :description "+
+                "WHERE id = :id";
+        Query query = createEntityQuery(hql);
+        query.setParameter("name", cinema.getName());
+        query.setParameter("cityCode", cinema.getCityCode());
+        query.setParameter("address", cinema.getAddress());
+        query.setParameter("phone", cinema.getPhone());
+        query.setParameter("brief", cinema.getBrief());
+        query.setParameter("imageUrl", cinema.getImageUrl());
+        query.setParameter("description", cinema.getDescription());
+        query.setParameter("id", cinema.getId());
+        int l = query.executeUpdate();
+
+        if (l == 0) return false;
+        else return true;
+    }
+
+
     public List<CinemaEntity> findAll(boolean needFilms, boolean needHalls, boolean needFcms) {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<CinemaEntity> cinemas = (List<CinemaEntity>) criteria.list();
 
+        if (cinemas == null) return new ArrayList<CinemaEntity>();
+
         for (CinemaEntity cinema: cinemas) {
             if (needFilms) {
-                if (cinema != null) {
-                    Hibernate.initialize(cinema.getFilms());
-                }
+                Hibernate.initialize(cinema.getFilms());
             }
 
             if (needHalls) {
-                if (cinema != null) {
-                    Hibernate.initialize(cinema.getHalls());
-                }
+                Hibernate.initialize(cinema.getHalls());
             }
 
             if (needFcms) {
-                if (cinema != null) {
-                    Hibernate.initialize(cinema.getFcms());
-                }
+                Hibernate.initialize(cinema.getFcms());
             }
         }
 

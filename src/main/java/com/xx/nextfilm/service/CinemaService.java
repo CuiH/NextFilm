@@ -14,7 +14,7 @@ public interface CinemaService {
 
     CinemaEntity findCinemaById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
-    CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
+    CinemaEditor getCinemaEditorById(Long id);
 
     List<CinemaEntity> findCinemasByName(String name);
 
@@ -22,7 +22,7 @@ public interface CinemaService {
 
     void createCinema(CinemaEditor cinemaEditor);
 
-    void updateCinema(CinemaEditor cinemaEditor);
+    boolean updateCinema(CinemaEditor cinemaEditor);
 
     void deleteCinema(CinemaEntity cinema);
 

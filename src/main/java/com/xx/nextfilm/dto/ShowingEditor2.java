@@ -22,7 +22,6 @@ public class ShowingEditor2 {
     private String filmName;
     private String hallName;
 
-    // 抽离！
     private List<SeatShower> seats;
 
 

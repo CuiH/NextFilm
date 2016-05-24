@@ -1,16 +1,15 @@
 package com.xx.nextfilm.dto;
 
 /**
- * Created by CuiH on 2016/5/18.
- *
- * 用于影院详情页面（放在cinema的fcm的showing中）
+ * Created by CuiH on 2016/5/24.
  */
-public class HallShower {
+public class HallShower1 {
 
     private Long id;
-
     private String name;
     private String type;
+    private String rowNum;
+    private String columnNum;
 
 
     public Long getId() {
@@ -37,6 +36,24 @@ public class HallShower {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public String getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(String rowNum) {
+        this.rowNum = rowNum;
+    }
+
+
+    public String getColumnNum() {
+        return columnNum;
+    }
+
+    public void setColumnNum(String columnNum) {
+        this.columnNum = columnNum;
     }
 
 }

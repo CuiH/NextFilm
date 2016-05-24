@@ -1,9 +1,12 @@
 package com.xx.nextfilm.controller;
 
+import com.google.gson.Gson;
 import com.xx.nextfilm.dto.ActorEditor;
 import com.xx.nextfilm.dto.ActorShower1;
 import com.xx.nextfilm.entity.ActorEntity;
+import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.service.ActorService;
+import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -44,6 +48,7 @@ public class ActorController {
     @RequestMapping(value = "/add_actor", method = RequestMethod.POST)
     public String addActorHandler(@Valid ActorEditor actorEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "add_actor";
         }
 
@@ -75,21 +80,22 @@ public class ActorController {
 
     @RequestMapping(value = "/edit_actor", method = RequestMethod.GET)
     public String editActor(@RequestParam Long id, ModelMap modelMap) {
-        ActorEditor actorEditor = actorService.getActorEditorById(id);
+        try {
+            ActorEditor actorEditor = actorService.getActorEditorById(id);
+            modelMap.addAttribute(actorEditor);
 
-        if (actorEditor == null) {
+            return "edit_actor";
+        } catch (ActorNotExistException e) {
+
             return "redirect:/fail";
         }
-
-        modelMap.addAttribute(actorEditor);
-
-        return "edit_actor";
     }
 
 
     @RequestMapping(value = "/edit_actor", method = RequestMethod.POST)
     public String editActorHandler(@Valid ActorEditor actorEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "edit_actor";
         }
 
@@ -109,16 +115,34 @@ public class ActorController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/find_actor", method = RequestMethod.GET)
+    public String findActor(@RequestParam String name) {
+        List<ActorEntity> actors = actorService.findActorsByName(name);
+
+        if (actors.size() == 0) {
+
+            return "{\"result\": \"fail\", \"reason\": \"no such actor\"}";
+        } else {
+            Gson gson = new Gson();
+
+            return "{\"result\": \"success\", \"actors\": " +
+                    gson.toJson(BuilderUtils.getActorShower2sFromActorEntities(actors)) + "}";
+        }
+    }
+
+
     @RequestMapping(value = "/delete_actor", method = RequestMethod.GET)
     public String deleteActor(@RequestParam Long id) {
-        ActorEntity actorEntity = actorService.findActorById(id);
-        if (actorEntity == null) {
+        try {
+            ActorEntity actorEntity = actorService.findActorById(id);
+            actorService.deleteActor(actorEntity);
+
+            return "redirect:/success";
+        } catch (ActorNotExistException e) {
+
             return "redirect:/fail";
         }
-
-        actorService.deleteActor(actorEntity);
-
-        return "redirect:/success";
     }
 
 }

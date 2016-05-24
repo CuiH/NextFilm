@@ -3,6 +3,7 @@ package com.xx.nextfilm.dao;
 import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
+import com.xx.nextfilm.exception.HallNotExistException;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,9 @@ public class HallDaoImpl extends AbstractDao<Long, HallEntity> implements HallDa
     public HallEntity findById(Long id, boolean needCinema) {
         HallEntity hallEntity = getByKey(id);
 
-        if (hallEntity != null && needCinema) {
+        if (hallEntity == null) throw new HallNotExistException();
+
+        if (needCinema) {
             Hibernate.initialize(hallEntity.getCinema());
         }
 

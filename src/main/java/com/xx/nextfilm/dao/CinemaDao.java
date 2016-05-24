@@ -21,6 +21,8 @@ public interface CinemaDao {
 
     void doUpdate(CinemaEntity cinema);
 
+    boolean doUpdateManually(CinemaEntity cinema);
+
     List<CinemaEntity> findAll(boolean needFilms, boolean needHalls, boolean needFcms);
 
 }

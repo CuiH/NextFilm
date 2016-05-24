@@ -18,7 +18,7 @@ public class CinemaShower1 {
     private String imageUrl;
     private String description;
 
-    private List<HallShower> halls;
+    private List<HallShower2> halls;
     private List<FCMShower> fcms;
 
 
@@ -85,11 +85,11 @@ public class CinemaShower1 {
     }
 
 
-    public List<HallShower> getHalls() {
+    public List<HallShower2> getHalls() {
         return halls;
     }
 
-    public void setHalls(List<HallShower> halls) {
+    public void setHalls(List<HallShower2> halls) {
         this.halls = halls;
     }
 

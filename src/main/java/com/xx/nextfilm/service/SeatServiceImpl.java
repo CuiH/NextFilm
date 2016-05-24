@@ -2,6 +2,7 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.SeatDao;
 import com.xx.nextfilm.entity.SeatEntity;
+import com.xx.nextfilm.exception.SeatNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class SeatServiceImpl implements SeatService{
     SeatDao seatDao;
 
 
-    public SeatEntity findSeatById(Long id) {
+    public SeatEntity findSeatById(Long id) throws SeatNotExistException {
         return seatDao.findById(id);
     }
 

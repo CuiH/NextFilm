@@ -55,6 +55,7 @@ public class LogonController {
     @RequestMapping(value = "/logon", method = RequestMethod.POST)
     public String logonHandler(@Valid Visitor visitor, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
+
             return "logon";
         }
 

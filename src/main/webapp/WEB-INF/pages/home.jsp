@@ -10,29 +10,50 @@
 <html>
 <head>
     <title>Home</title>
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 
 <body>
-<p>welcome, ${username}</p>
-<form method="post" action="/logout">
-    <button>log out</button>
-</form>
+<!-- 外框 -->
+<div class="holder1">
+    <div class="ui segment">
+        <!-- 导航 -->
+        <h2 class="ui left floated header">NextFilm 后台管理系统</h2>
+        <div class="ui clearing divider"></div>
+        <div class="ui huge breadcrumb">
+            <div class="active section">Home</div>
+        </div>
 
-<br/>
-<p>
-    <a href="/change_password">change password</a>
-</p>
-<p>
-    <a href="/edit_detail">edit detail</a>
-</p>
-<p>
-    <a href="/show_all_actor">show all actor</a>
-</p>
-<p>
-    <a href="/show_all_cinema">show all cinema</a>
-</p>
-<p>
-    <a href="/show_all_film">show all film</a>
-</p>
+        <div class="inner-list-1">
+
+            <p>欢迎你，${username}，你可以：</p>
+            <div style="margin-top:40px;">
+                <p>
+                    <a class="ui orange button my-button-2" href="/change_password">更改密码</a>
+                </p>
+                <p>
+                    <a class="ui yellow button my-button-2" href="/edit_detail">更改资料</a>
+                </p>
+                <p>
+                    <a class="ui olive button my-button-2" href="/show_all_actor">查看所有actor</a>
+                </p>
+                <p>
+                    <a class="ui violet button my-button-2" href="/show_all_cinema">查看所有cinema</a>
+                </p>
+                <p>
+                    <a class="ui brown button my-button-2" href="/show_all_film">查看所有film</a>
+                </p>
+
+                <div style="margin-top:40px;">
+                    <form method="post" action="/logout">
+                        <button class="ui grey button my-button-2">退出登录</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

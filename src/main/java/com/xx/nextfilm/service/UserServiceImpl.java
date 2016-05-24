@@ -7,6 +7,7 @@ import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
 import com.xx.nextfilm.dto.Visitor;
 import com.xx.nextfilm.entity.UserProfileEntity;
+import com.xx.nextfilm.exception.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,12 +35,14 @@ public class UserServiceImpl implements UserService {
 
 
     // 两个boolean参数分别表示是否需要加载UserProfile、UserDetail，下同
-    public UserEntity findUserById(Long id, boolean needProfile, boolean needDetail) {
+    public UserEntity findUserById(Long id, boolean needProfile, boolean needDetail)
+            throws UserNotExistException {
         return userDao.findById(id, needProfile, needDetail);
     }
 
 
-    public UserEntity findUserByUsername(String username, boolean needProfile, boolean needDetail) {
+    public UserEntity findUserByUsername(String username, boolean needProfile, boolean needDetail)
+            throws UserNotExistException {
         UserEntity user = userDao.findByUsername(username, needProfile, needDetail);
 
         return user;
@@ -81,9 +84,13 @@ public class UserServiceImpl implements UserService {
 
 
     public boolean isUsernameUnique(String username) {
-        UserEntity user = findUserByUsername(username, false, false);
+        try {
+            UserEntity user = findUserByUsername(username, false, false);
 
-        return user == null;
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
     }
 
 

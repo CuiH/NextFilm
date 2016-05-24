@@ -5,6 +5,7 @@ import com.xx.nextfilm.dto.ActorEditor;
 import com.xx.nextfilm.dto.ActorShower1;
 import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
+import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +24,13 @@ public class ActorServiceImpl implements ActorService {
     ActorDao dao;
 
 
-    public ActorEntity findActorById(Long id) {
+    public ActorEntity findActorById(Long id) throws ActorNotExistException {
         return dao.findById(id);
     }
 
 
-    public ActorEditor getActorEditorById(Long id) {
+    public ActorEditor getActorEditorById(Long id) throws ActorNotExistException {
         ActorEntity actorEntity = findActorById(id);
-
-        if (actorEntity == null) return null;
 
         ActorEditor actorEditor = new ActorEditor();
         actorEditor.setId(actorEntity.getId());
@@ -44,7 +43,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
 
-    public List<ActorEntity> findActorByName(String name) {
+    public List<ActorEntity> findActorsByName(String name) {
         return dao.findByName(name);
     }
 
@@ -64,8 +63,6 @@ public class ActorServiceImpl implements ActorService {
     }
 
 
-
-
     public List<ActorEntity> findAllActors() {
         return dao.findAll();
     }
@@ -73,8 +70,6 @@ public class ActorServiceImpl implements ActorService {
 
     public List<ActorShower1> findAllActorsWithShower1() {
         List<ActorEntity> actorEntities = findAllActors();
-
-        if (actorEntities == null) return new ArrayList<ActorShower1>();
 
         List<ActorShower1>  actors = new ArrayList<ActorShower1>();
         for (ActorEntity actorEntity: actorEntities) {
@@ -95,8 +90,6 @@ public class ActorServiceImpl implements ActorService {
 
     public List<ActorShower2> findAllActorsWithShower2() {
         List<ActorEntity> actorEntities = findAllActors();
-
-        if (actorEntities == null) return new ArrayList<ActorShower2>();
 
         List<ActorShower2>  actors = new ArrayList<ActorShower2>();
         for (ActorEntity actorEntity: actorEntities) {

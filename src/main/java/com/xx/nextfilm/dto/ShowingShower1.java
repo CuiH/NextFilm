@@ -16,7 +16,7 @@ public class ShowingShower1 {
     private String priceManual;
 
     private List<SeatShower> seats;
-    private List<FCMShower> fcm;
+    private FilmShower2 film;
 
 
     public Long getId() {
@@ -64,12 +64,12 @@ public class ShowingShower1 {
     }
 
 
-    public List<FCMShower> getFcm() {
-        return fcm;
+    public FilmShower2 getFilm() {
+        return film;
     }
 
-    public void setFcm(List<FCMShower> fcm) {
-        this.fcm = fcm;
+    public void setFilm(FilmShower2 film) {
+        this.film = film;
     }
 
 }

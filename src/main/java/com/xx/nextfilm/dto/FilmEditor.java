@@ -34,6 +34,10 @@ public class FilmEditor {
     @NotEmpty
     private String type;
 
+    private List<ActorShower2> ownedDirectors;
+    private List<ActorShower2> ownedActors;
+
+
     private List<Long> actors = new ArrayList<Long>();
     private List<Long> directors = new ArrayList<Long>();
 
@@ -125,6 +129,24 @@ public class FilmEditor {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public List<ActorShower2> getOwnedDirectors() {
+        return ownedDirectors;
+    }
+
+    public void setOwnedDirectors(List<ActorShower2> ownedDirectors) {
+        this.ownedDirectors = ownedDirectors;
+    }
+
+
+    public List<ActorShower2> getOwnedActors() {
+        return ownedActors;
+    }
+
+    public void setOwnedActors(List<ActorShower2> ownedActors) {
+        this.ownedActors = ownedActors;
     }
 
 

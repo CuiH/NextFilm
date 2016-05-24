@@ -11,63 +11,61 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title>Show All Film</title>
+    <title>All Films</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 <body>
-<table class="ui celled table">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>alias</th>
-        <th>brief</th>
-        <th>language</th>
-        <th>length</th>
-        <th>on_date</th>
-        <th>image_url</th>
-        <th>category</th>
-        <th>type</th>
-        <th>director</th>
-        <th>actor</th>
-        <th>编辑</th>
-        <th>删除</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="film" items="${films}">
-        <tr>
-            <td>${film.id}</td>
-            <td>${film.name}</td>
-            <td>${film.alias}</td>
-            <td>${film.brief}</td>
-            <td>${film.language}</td>
-            <td>${film.length}</td>
-            <td>${film.onDate}</td>
-            <td>${film.imageUrl}</td>
-            <td>${film.category}</td>
-            <td>${film.type}</td>
-            <td>
-                <c:forEach items="${film.directors}" var="director">
-                    ${director.name};
+<!-- 外框 -->
+<div class="holder1">
+    <div class="ui segment">
+        <!-- 导航 -->
+        <h2 class="ui left floated header">NextFilm 后台管理系统</h2>
+        <div class="ui clearing divider"></div>
+        <div class="ui huge breadcrumb">
+            <a href="/home" class="section">Home</a>
+            <i class="right chevron icon divider"></i>
+            <div class="active section">All Films</div>
+        </div>
+
+        <div class="inner-table-1">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>brief</th>
+                    <th>language</th>
+                    <th>image_url</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="film" items="${films}">
+                    <tr>
+                        <td>${film.id}</td>
+                        <td>${film.name}</td>
+                        <td>${film.brief}</td>
+                        <td>${film.language}</td>
+                        <td><a href="${film.imageUrl}">点击查看</a></td>
+                        <security:authorize access="hasRole('ROLE_ADMIN')" >
+                            <td><a class="ui blue button" href="/edit_film?id=${film.id}">edit</a></td>
+                            <td><a class="ui red button" href="/delete_film?id=${film.id}">delete</a></td>
+                        </security:authorize>
+                    </tr>
                 </c:forEach>
-            </td>
-            <td>
-                <c:forEach items="${film.actors}" var="actor">
-                    ${actor.name};
-                </c:forEach>
-            </td>
+                </tbody>
+            </table>
             <security:authorize access="hasRole('ROLE_ADMIN')" >
-                <td><a href="/edit_film?id=${film.id}">edit</a></td>
-                <td><a href="/delete_film?id=${film.id}">delete</a></td>
+                <div class=" my-button-1">
+                    <a class="ui teal button my-button-2" href="/add_film">add a film</a>
+                </div>
             </security:authorize>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<security:authorize access="hasRole('ROLE_ADMIN')" >
-    <a href="/add_film">add film</a>
-</security:authorize>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

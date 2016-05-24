@@ -2,12 +2,10 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dao.FilmDao;
-import com.xx.nextfilm.dto.ActorShower2;
-import com.xx.nextfilm.dto.FilmEditor;
-import com.xx.nextfilm.dto.FilmShower1;
-import com.xx.nextfilm.dto.FilmShower3;
+import com.xx.nextfilm.dto.*;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
+import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +29,14 @@ public class FilmServiceImpl implements FilmService {
     ActorDao actorDao;
 
 
-    public FilmEntity findFilmById(Long id, boolean needDirectors, boolean needActors) {
+    public FilmEntity findFilmById(Long id, boolean needDirectors, boolean needActors)
+            throws FilmNotExistException {
         return filmDao.findById(id, needDirectors, needActors);
     }
 
 
-    public FilmEditor getFilmEditorById(Long id) {
+    public FilmEditor getFilmEditorById(Long id) throws FilmNotExistException {
         FilmEntity filmEntity = findFilmById(id, true, true);
-
-        if (filmEntity == null) return null;
 
         FilmEditor filmEditor = new FilmEditor();
 
@@ -119,34 +116,12 @@ public class FilmServiceImpl implements FilmService {
     public List<FilmShower1> findAllFilmsWithShower1() {
         List<FilmEntity> filmEntities = findAllFilms(true, true);
 
-        if (filmEntities == null) return new ArrayList<FilmShower1>();
-
         List<FilmShower1> films = new ArrayList<FilmShower1>();
         for (FilmEntity filmEntity: filmEntities) {
             FilmShower1 film = new FilmShower1();
 
-            List<ActorEntity> directors = filmEntity.getDirectors();
-            if (directors == null) {
-                film.setDirectors(new ArrayList<ActorShower2>());
-            } else {
-                List<ActorShower2> actorShower2s = new ArrayList<ActorShower2>();
-                for (ActorEntity director: directors) {
-                    actorShower2s.add(BuilderUtils.getActorShower2FromActorEntity(director));
-                }
-                film.setDirectors(actorShower2s);
-            }
-
-
-            List<ActorEntity> actors = filmEntity.getActors();
-            if (actors == null) {
-                film.setActors(new ArrayList<ActorShower2>());
-            } else {
-                List<ActorShower2>  actorShower2s = new ArrayList<ActorShower2>();
-                for (ActorEntity actor: actors) {
-                    actorShower2s.add(BuilderUtils.getActorShower2FromActorEntity(actor));
-                }
-                film.setActors(actorShower2s);
-            }
+            film.setDirectors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getDirectors()));
+            film.setActors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getActors()));
 
             film.setId(filmEntity.getId());
             film.setName(filmEntity.getName());
@@ -165,7 +140,44 @@ public class FilmServiceImpl implements FilmService {
         return films;
     }
 
+    public List<FilmShower2> findAllFilmsWithShower2() {
+        List<FilmEntity> filmEntities = findAllFilms(false, false);
 
+        List<FilmShower2> films = new ArrayList<FilmShower2>();
+        for (FilmEntity filmEntity: filmEntities) {
+            FilmShower2 film = new FilmShower2();
+
+            film.setId(filmEntity.getId());
+            film.setName(filmEntity.getName());
+            film.setBrief(filmEntity.getBrief());
+            film.setLanguage(filmEntity.getLanguage());
+            film.setImageUrl(filmEntity.getImageUrl());
+
+            films.add(film);
+        }
+
+        return films;
+    }
+
+
+    public List<FilmShower3> findAllFilmsWithShower3() {
+        List<FilmEntity> filmEntities = findAllFilms(false, false);
+
+        List<FilmShower3> films = new ArrayList<FilmShower3>();
+        for (FilmEntity filmEntity: filmEntities) {
+            FilmShower3 film = new FilmShower3();
+
+            film.setId(filmEntity.getId());
+            film.setName(filmEntity.getName());
+
+            films.add(film);
+        }
+
+        return films;
+    }
+
+
+    // TODO: 2016/5/24 actor是否存在的判定
     private FilmEntity getEntityFromEditor(FilmEditor filmEditor, boolean needId) {
         FilmEntity filmEntity = new FilmEntity();
 
@@ -202,25 +214,6 @@ public class FilmServiceImpl implements FilmService {
         filmEntity.setActors(actors);
 
         return filmEntity;
-    }
-
-
-    public List<FilmShower3> findAllFilmsWithShower3() {
-        List<FilmEntity> filmEntities = findAllFilms(false, false);
-
-        if (filmEntities == null) return new ArrayList<FilmShower3>();
-
-        List<FilmShower3> films = new ArrayList<FilmShower3>();
-        for (FilmEntity filmEntity: filmEntities) {
-            FilmShower3 film = new FilmShower3();
-
-            film.setId(filmEntity.getId());
-            film.setName(filmEntity.getName());
-
-            films.add(film);
-        }
-
-        return films;
     }
 
 }

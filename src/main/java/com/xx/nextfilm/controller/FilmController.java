@@ -3,7 +3,9 @@ package com.xx.nextfilm.controller;
 import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.dto.FilmEditor;
 import com.xx.nextfilm.dto.FilmShower1;
+import com.xx.nextfilm.dto.FilmShower2;
 import com.xx.nextfilm.entity.FilmEntity;
+import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.utils.ConverterUtils;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +56,7 @@ public class FilmController {
     @RequestMapping(value = "/add_film", method = RequestMethod.POST)
     public String addFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "add_film";
         }
 
@@ -74,7 +78,7 @@ public class FilmController {
 
     @RequestMapping(value = "/show_all_film", method = RequestMethod.GET)
     public String showAllFilm(ModelMap modelMap) {
-        List<FilmShower1> allFilms = filmService.findAllFilmsWithShower1();
+        List<FilmShower2> allFilms = filmService.findAllFilmsWithShower2();
         modelMap.addAttribute("films", allFilms);
 
         return "show_all_film";
@@ -83,25 +87,26 @@ public class FilmController {
 
     @RequestMapping(value = "/edit_film", method = RequestMethod.GET)
     public String editFilm(@RequestParam Long id, ModelMap modelMap) {
-        FilmEditor filmEditor = filmService.getFilmEditorById(id);
+        try {
+            FilmEditor filmEditor = filmService.getFilmEditorById(id);
+            modelMap.addAttribute("filmEditor", filmEditor);
 
-        if (filmEditor == null) {
+            List<ActorShower2> actors = actorService.findAllActorsWithShower2();
+            modelMap.addAttribute("actors", actors);
+            modelMap.addAttribute("directors", actors);
+
+            return "edit_film";
+        } catch (FilmNotExistException e) {
+
             return "redirect:/fail";
         }
-
-        modelMap.addAttribute("filmEditor", filmEditor);
-
-        List<ActorShower2> actors = actorService.findAllActorsWithShower2();
-        modelMap.addAttribute("actors", actors);
-        modelMap.addAttribute("directors", actors);
-
-        return "edit_film";
     }
 
 
     @RequestMapping(value = "/edit_film", method = RequestMethod.POST)
     public String editFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "edit_film";
         }
 
@@ -123,15 +128,26 @@ public class FilmController {
 
     @RequestMapping(value = "/delete_film", method = RequestMethod.GET)
     public String deleteFilm(@RequestParam Long id) {
-        FilmEntity filmEntity = filmService.findFilmById(id, false, false);
+        try {
+            FilmEntity filmEntity = filmService.findFilmById(id, false, false);
+            filmService.deleteFilm(filmEntity);
 
-        if (filmEntity == null) {
+            return "redirect:/success";
+        } catch (FilmNotExistException e) {
+
             return "redirect:/fail";
         }
+    }
 
-        filmService.deleteFilm(filmEntity);
 
-        return "redirect:/success";
+    @ModelAttribute("types")
+    public String[] initializeTypes() {
+        return new String[]{"2D", "3D"};
+    }
+
+    @ModelAttribute("categories")
+    public String[] initializeCategories() {
+        return new String[]{"喜剧", "惊悚", "剧情"};
     }
 
 }

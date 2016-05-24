@@ -1,6 +1,7 @@
 package com.xx.nextfilm.dao;
 
 import com.xx.nextfilm.entity.UserEntity;
+import com.xx.nextfilm.exception.UserNotExistException;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,16 +21,14 @@ public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDa
     public UserEntity findById(Long id, boolean needProfile, boolean needDetail) {
         UserEntity user = getByKey(id);
 
+        if (user == null) throw new UserNotExistException();
+
         if (needProfile) {
-            if (user != null) {
-                Hibernate.initialize(user.getUserProfiles());
-            }
+            Hibernate.initialize(user.getUserProfiles());
         }
 
         if (needDetail) {
-            if (user != null) {
-                Hibernate.initialize(user.getUserDetail());
-            }
+            Hibernate.initialize(user.getUserDetail());
         }
 
         return user;
@@ -40,16 +40,14 @@ public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDa
         criteria.add(Restrictions.eq("username", username));
         UserEntity user = (UserEntity) criteria.uniqueResult();
 
+        if (user == null) throw new UserNotExistException();
+
         if (needProfile) {
-            if (user != null) {
-                Hibernate.initialize(user.getUserProfiles());
-            }
+            Hibernate.initialize(user.getUserProfiles());
         }
 
         if (needDetail) {
-            if (user != null) {
-                Hibernate.initialize(user.getUserDetail());
-            }
+            Hibernate.initialize(user.getUserDetail());
         }
 
         return user;
@@ -89,18 +87,15 @@ public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDa
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<UserEntity> users = (List<UserEntity>) criteria.list();
 
+        if (users == null) return new ArrayList<UserEntity>();
 
         for (UserEntity user: users) {
             if (needProfile) {
-                if (user != null) {
-                    Hibernate.initialize(user.getUserProfiles());
-                }
+                Hibernate.initialize(user.getUserProfiles());
             }
 
             if (needDetail) {
-                if (user != null) {
-                    Hibernate.initialize(user.getUserDetail());
-                }
+                Hibernate.initialize(user.getUserDetail());
             }
         }
 

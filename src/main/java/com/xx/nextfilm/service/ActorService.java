@@ -17,7 +17,7 @@ public interface ActorService {
 
     ActorEditor getActorEditorById(Long id);
 
-    List<ActorEntity> findActorByName(String name);
+    List<ActorEntity> findActorsByName(String name);
 
     void createActor(ActorEditor actorEditor);
 

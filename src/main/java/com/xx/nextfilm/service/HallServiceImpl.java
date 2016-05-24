@@ -5,6 +5,8 @@ import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
+import com.xx.nextfilm.exception.CinemaNotExistException;
+import com.xx.nextfilm.exception.HallNotExistException;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,13 @@ public class HallServiceImpl implements HallService {
     @Autowired
     CinemaDao cinemaDao;
 
-    public HallEntity findHallById(Long id, boolean needCinema) {
+    public HallEntity findHallById(Long id, boolean needCinema) throws HallNotExistException {
         return hallDao.findById(id, needCinema);
     }
 
 
-    public HallEditor getHallEditorById(Long id) {
+    public HallEditor getHallEditorById(Long id) throws HallNotExistException {
         HallEntity hallEntity = findHallById(id, false);
-
-        if (hallEntity == null) return null;
 
         HallEditor hallEditor = new HallEditor();
 
@@ -45,10 +45,8 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    // 如果cinema不存在，返回false
-    public boolean createHall(HallEditor hallEditor) {
+    public boolean createHall(HallEditor hallEditor) throws CinemaNotExistException {
         CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
-        if (cinemaEntity == null) return false;
 
         HallEntity hallEntity = getEntityFromEditor(hallEditor, false);
         hallEntity.setCinema(cinemaEntity);

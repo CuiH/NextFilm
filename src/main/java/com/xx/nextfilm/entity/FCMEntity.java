@@ -31,7 +31,7 @@ public class FCMEntity {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "film_id")
     public FilmEntity getFilm() {
         return film;
@@ -42,7 +42,7 @@ public class FCMEntity {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cinema_id")
     public CinemaEntity getCinema() {
         return cinema;
@@ -53,7 +53,7 @@ public class FCMEntity {
     }
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fcm")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fcm", cascade = CascadeType.REMOVE)
     public List<ShowingEntity> getShowings() {
         return showings;
     }

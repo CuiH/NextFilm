@@ -2,6 +2,7 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.FilmEditor;
 import com.xx.nextfilm.dto.FilmShower1;
+import com.xx.nextfilm.dto.FilmShower2;
 import com.xx.nextfilm.dto.FilmShower3;
 import com.xx.nextfilm.entity.FilmEntity;
 
@@ -32,6 +33,8 @@ public interface FilmService {
     List<FilmEntity> findAllFilms(boolean needDirectors, boolean needActors);
 
     List<FilmShower1> findAllFilmsWithShower1();
+
+    List<FilmShower2> findAllFilmsWithShower2();
 
     List<FilmShower3> findAllFilmsWithShower3();
 

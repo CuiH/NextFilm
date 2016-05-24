@@ -1,6 +1,7 @@
 package com.xx.nextfilm.dao;
 
 import com.xx.nextfilm.entity.SeatEntity;
+import com.xx.nextfilm.exception.SeatNotExistException;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -13,7 +14,11 @@ import org.springframework.stereotype.Repository;
 public class SeatDaoImpl extends AbstractDao<Long, SeatEntity> implements SeatDao {
 
     public SeatEntity findById(Long id) {
-        return getByKey(id);
+        SeatEntity seatEntity = getByKey(id);
+
+        if (seatEntity == null) throw new SeatNotExistException();
+
+        return seatEntity;
     }
 
 

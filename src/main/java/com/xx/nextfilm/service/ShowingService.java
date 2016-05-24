@@ -13,7 +13,7 @@ public interface ShowingService {
 
     ShowingEditor2 getShowingEditor2ById(Long id);
 
-    boolean createShowing(ShowingEditor1 showingEditor1);
+    void createShowing(ShowingEditor1 showingEditor1);
 
     boolean updateShowing(ShowingEditor2 showingEditor2);
 
