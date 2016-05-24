@@ -15,29 +15,23 @@
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
 </head>
 <body>
-<form:form modelAttribute="showingEditor" action="/edit_showing" method="post">
-    <p>
-        <label for="filmId">film id: </label>
-        <form:input type="text" id="filmId" path="filmId" readonly="true"/>
-        <form:errors path="filmId" cssClass="error"/>
-    </p>
-
-    <p>
-        <label for="hallId">hall id: </label>
-        <form:input type="text" id="hallId" path="hallId" readonly="true"/>
-        <form:errors path="hallId" cssClass="error"/>
-    </p>
-
-    <p>
-        <label for="cinemaId">cinema id: </label>
-        <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
-        <form:errors path="cinemaId" cssClass="error"/>
-    </p>
-
+<form:form modelAttribute="showingEditor2" action="/edit_showing" method="post">
     <p>
         <label for="id">showing id: </label>
         <form:input type="text" id="id" path="id" readonly="true"/>
         <form:errors path="id" cssClass="error"/>
+    </p>
+
+    <p>
+        <label for="filmName">film name: </label>
+        <form:input type="text" id="filmName" path="filmName" readonly="true"/>
+        <form:errors path="filmName" cssClass="error"/>
+    </p>
+
+    <p>
+        <label for="hallName">hall name: </label>
+        <form:input type="text" id="hallName" path="hallName" readonly="true"/>
+        <form:errors path="hallName" cssClass="error"/>
     </p>
 
     <p>
@@ -74,7 +68,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="seat" items="${showingEditor.seats}">
+    <c:forEach var="seat" items="${showingEditor2.seats}">
         <tr>
             <td>${seat.id}</td>
             <td>${seat.rowPos}</td>

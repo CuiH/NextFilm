@@ -1,22 +1,56 @@
 package com.xx.nextfilm.dto;
 
+import com.xx.nextfilm.entity.SeatEntity;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/18.
+ * Created by CuiH on 2016/5/17.
  *
- * 用于场次详情页面
+ * 用在新建页面
  */
-public class ShowingShower1 {
+public class ShowingEditor1 {
 
     private Long id;
-
+    @NotEmpty
     private String startTime;
+    @NotEmpty
     private String endTime;
+    @NotEmpty
     private String priceManual;
 
-    private List<SeatShower> seats;
-    private List<FCMShower> fcm;
+    private Long cinemaId;
+    private Long hallId;
+    private Long filmId;
+
+
+    public Long getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+
+    public Long getHallId() {
+        return hallId;
+    }
+
+    public void setHallId(Long hallId) {
+        this.hallId = hallId;
+    }
+
+
+    public Long getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(Long filmId) {
+        this.filmId = filmId;
+    }
 
 
     public Long getId() {
@@ -52,24 +86,6 @@ public class ShowingShower1 {
 
     public void setPriceManual(String priceManual) {
         this.priceManual = priceManual;
-    }
-
-
-    public List<SeatShower> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<SeatShower> seats) {
-        this.seats = seats;
-    }
-
-
-    public List<FCMShower> getFcm() {
-        return fcm;
-    }
-
-    public void setFcm(List<FCMShower> fcm) {
-        this.fcm = fcm;
     }
 
 }

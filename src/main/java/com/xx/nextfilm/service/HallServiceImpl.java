@@ -5,7 +5,7 @@ import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +28,8 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    public HallEditor getHallEditorById(Long id, boolean needCinema) {
-        HallEntity hallEntity = findHallById(id, needCinema);
+    public HallEditor getHallEditorById(Long id) {
+        HallEntity hallEntity = findHallById(id, false);
 
         if (hallEntity == null) return null;
 
@@ -38,8 +38,8 @@ public class HallServiceImpl implements HallService {
         hallEditor.setId(hallEntity.getId());
         hallEditor.setName(hallEntity.getName());
         hallEditor.setType(hallEntity.getType());
-        hallEditor.setRowNum(Utils.convertShortToString(hallEntity.getRowNum()));
-        hallEditor.setColumnNum(Utils.convertShortToString(hallEntity.getColumnNum()));
+        hallEditor.setRowNum(ConverterUtils.convertShortToString(hallEntity.getRowNum()));
+        hallEditor.setColumnNum(ConverterUtils.convertShortToString(hallEntity.getColumnNum()));
 
         return hallEditor;
     }
@@ -78,8 +78,8 @@ public class HallServiceImpl implements HallService {
         }
 
         hallEntity.setName(hallEditor.getName());
-        hallEntity.setColumnNum(Utils.convertStringToShort(hallEditor.getColumnNum()));
-        hallEntity.setRowNum(Utils.convertStringToShort(hallEditor.getColumnNum()));
+        hallEntity.setColumnNum(ConverterUtils.convertStringToShort(hallEditor.getColumnNum()));
+        hallEntity.setRowNum(ConverterUtils.convertStringToShort(hallEditor.getColumnNum()));
         hallEntity.setType(hallEditor.getType());
 
         return hallEntity;

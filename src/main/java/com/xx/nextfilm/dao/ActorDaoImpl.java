@@ -43,19 +43,6 @@ public class ActorDaoImpl extends AbstractDao<Long, ActorEntity> implements Acto
         delete(actor);
     }
 
-
-    public boolean deleteById(Long id) {
-        String hql = "DELETE from actor WHERE id = :id";
-        Query query = createEntityQuery(hql);
-        query.setParameter("id", id);
-        int l = query.executeUpdate();
-
-        System.out.println("adasdasdasdasdasd++++"+l);
-
-        if (l == 0) return false;
-        else return true;
-    }
-
     
     public List<ActorEntity> findAll() {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));

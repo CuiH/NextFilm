@@ -1,12 +1,18 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.*;
-import com.xx.nextfilm.dto.ShowingEditor;
+import com.xx.nextfilm.dto.SeatShower;
+import com.xx.nextfilm.dto.ShowingEditor1;
+import com.xx.nextfilm.dto.ShowingEditor2;
 import com.xx.nextfilm.entity.*;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.BuilderUtils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -39,41 +45,43 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
-    public ShowingEditor getShowingEditorById(Long id, boolean needFcm, boolean needSeats) {
-        ShowingEntity showingEntity = findShowingById(id, needFcm, needSeats);
+    public ShowingEditor2 getShowingEditor2ById(Long id) {
+        ShowingEntity showingEntity = findShowingById(id, true, true);
 
         if (showingEntity == null) return null;
 
-        ShowingEditor showingEditor = new ShowingEditor();
+        ShowingEditor2 showingEditor2 = new ShowingEditor2();
 
-        showingEditor.setId(showingEntity.getId());
-        showingEditor.setHallId(showingEntity.getHall().getId());
-        showingEditor.setStartTime(Utils.convertDateToString(showingEntity.getStartTime()));
-        showingEditor.setEndTime(Utils.convertDateToString(showingEntity.getEndTime()));
-        showingEditor.setPriceManual(Utils.convertDoubleToString(showingEntity.getPriceManual()));
+        showingEditor2.setId(showingEntity.getId());
+        showingEditor2.setHallName(showingEntity.getHall().getName());
+        showingEditor2.setStartTime(ConverterUtils.convertDateToString(showingEntity.getStartTime()));
+        showingEditor2.setEndTime(ConverterUtils.convertDateToString(showingEntity.getEndTime()));
+        showingEditor2.setPriceManual(ConverterUtils.convertDoubleToString(showingEntity.getPriceManual()));
+        showingEditor2.setFilmName(showingEntity.getFcm().getFilm().getName());
 
-        if (needFcm && showingEntity.getFcm() != null) {
-            showingEditor.setFilmId(showingEntity.getFcm().getFilm().getId());
+        List<SeatShower> seats = new ArrayList<SeatShower>();
+        List<SeatEntity> seatEntities = showingEntity.getSeats();
+        if (seatEntities != null) {
+            for (SeatEntity seat: seatEntities) {
+                seats.add(BuilderUtils.getSeatShower1FromSeatEntity(seat));
+            }
         }
+        showingEditor2.setSeats(seats);
 
-        if (needSeats) {
-            showingEditor.setSeats(showingEntity.getSeats());
-        }
-
-        return showingEditor;
+        return showingEditor2;
     }
 
 
-    public boolean createShowing(ShowingEditor showingEditor) {
-        HallEntity hall = hallDao.findById(showingEditor.getHallId(), false);
+    public boolean createShowing(ShowingEditor1 showingEditor1) {
+        HallEntity hall = hallDao.findById(showingEditor1.getHallId(), false);
 
         if (hall == null) return false;
 
-        FilmEntity film = filmDao.findById(showingEditor.getFilmId(), false, false);
+        FilmEntity film = filmDao.findById(showingEditor1.getFilmId(), false, false);
 
         if (film == null) return false;
 
-        CinemaEntity cinema = cinemaDao.findById(showingEditor.getCinemaId(), false, false, false);
+        CinemaEntity cinema = cinemaDao.findById(showingEditor1.getCinemaId(), false, false, false);
 
         if (cinema == null) return false;
 
@@ -81,11 +89,13 @@ public class ShowingServiceImpl implements ShowingService {
 
         if (fcm == null) return false;
 
-        ShowingEntity showingEntity = getEntityFromEditor(showingEditor, false);
+        ShowingEntity showingEntity = getEntityFromEditor(showingEditor1, false);
         showingEntity.setHall(hall);
         showingEntity.setFcm(fcm);
 
-        // 添加座位信息
+        showingDao.doSave(showingEntity);
+
+        // 根据hall大小添加座位
         Short rowNum = hall.getRowNum();
         Short columnNum = hall.getColumnNum();
         for (Short row = 1; row <= rowNum; row++) {
@@ -99,36 +109,13 @@ public class ShowingServiceImpl implements ShowingService {
             }
         }
 
-        showingDao.doSave(showingEntity);
-
         return true;
     }
 
 
-    public boolean updateShowing(ShowingEditor showingEditor) {
-        HallEntity hall = hallDao.findById(showingEditor.getHallId(), false);
-
-        if (hall == null) return false;
-
-        FilmEntity film = filmDao.findById(showingEditor.getFilmId(), false, false);
-
-        if (film == null) return false;
-
-        CinemaEntity cinema = cinemaDao.findById(showingEditor.getCinemaId(), false, false, false);
-
-        if (cinema == null) return false;
-
-        FCMEntity fcm = fcmDao.findByFilmAndCinema(film, cinema);
-
-        if (fcm == null) return false;
-
-        ShowingEntity showingEntity = getEntityFromEditor(showingEditor, true);
-        showingEntity.setHall(hall);
-        showingEntity.setFcm(fcm);
-
-        showingDao.doUpdate(showingEntity);
-
-        return true;
+    // 只可改变showing信息，不可改变所属hall、关联的影片
+    public boolean updateShowing(ShowingEditor2 showingEditor2) {
+        return showingDao.doUpdateManually(showingEditor2);
     }
 
 
@@ -137,16 +124,16 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
-    private ShowingEntity getEntityFromEditor(ShowingEditor showingEditor, boolean needId) {
+    private ShowingEntity getEntityFromEditor(ShowingEditor1 showingEditor1, boolean needId) {
         ShowingEntity showingEntity = new ShowingEntity();
 
         if (needId) {
-            showingEntity.setId(showingEditor.getId());
+            showingEntity.setId(showingEditor1.getId());
         }
 
-        showingEntity.setStartTime(Utils.convertStringToDate(showingEditor.getStartTime()));
-        showingEntity.setEndTime(Utils.convertStringToDate(showingEditor.getEndTime()));
-        showingEntity.setPriceManual(Utils.convertStringToDouble(showingEditor.getPriceManual()));
+        showingEntity.setStartTime(ConverterUtils.convertStringToDate(showingEditor1.getStartTime()));
+        showingEntity.setEndTime(ConverterUtils.convertStringToDate(showingEditor1.getEndTime()));
+        showingEntity.setPriceManual(ConverterUtils.convertStringToDouble(showingEditor1.getPriceManual()));
 
         return showingEntity;
     }

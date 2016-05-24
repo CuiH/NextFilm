@@ -18,8 +18,8 @@ public class CinemaShower1 {
     private String imageUrl;
     private String description;
 
-    private List<HallShower1> halls;
-    private List<FCMShower1> fcms;
+    private List<HallShower> halls;
+    private List<FCMShower> fcms;
 
 
     public Long getId() {
@@ -85,20 +85,20 @@ public class CinemaShower1 {
     }
 
 
-    public List<HallShower1> getHalls() {
+    public List<HallShower> getHalls() {
         return halls;
     }
 
-    public void setHalls(List<HallShower1> halls) {
+    public void setHalls(List<HallShower> halls) {
         this.halls = halls;
     }
 
 
-    public List<FCMShower1> getFcms() {
+    public List<FCMShower> getFcms() {
         return fcms;
     }
 
-    public void setFcms(List<FCMShower1> fcms) {
+    public void setFcms(List<FCMShower> fcms) {
         this.fcms = fcms;
     }
 

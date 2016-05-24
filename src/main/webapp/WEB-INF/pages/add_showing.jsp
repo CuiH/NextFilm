@@ -14,7 +14,13 @@
     <title>Add Showing</title>
 </head>
 <body>
-<form:form modelAttribute="showingEditor" action="/add_showing" method="post">
+<form:form modelAttribute="showingEditor1" action="/add_showing" method="post">
+    <p>
+        <label for="cinemaId">cinema_id: </label>
+        <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
+        <form:errors path="cinemaId" cssClass="error"/>
+    </p>
+
     <p>
         <label for="filmId">films: </label>
         <c:forEach items="${films}" var="film">
@@ -29,12 +35,6 @@
             <form:radiobutton path="hallId" value="${hall.id}"/>${hall.name}
         </c:forEach>
         <form:errors path="hallId" cssClass="error"/>
-    </p>
-
-    <p>
-        <label for="cinemaId">cinema_id: </label>
-        <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
-        <form:errors path="cinemaId" cssClass="error"/>
     </p>
 
     <p>

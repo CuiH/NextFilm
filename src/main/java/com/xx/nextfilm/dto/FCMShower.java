@@ -7,7 +7,7 @@ import java.util.List;
  *
  * 用于影院详情页面（放在cinema中），及场次详情页面（放在showing中）
  */
-public class FCMShower1 {
+public class FCMShower {
 
     private Long id;
 

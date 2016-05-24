@@ -25,14 +25,10 @@ public interface ActorService {
 
     void deleteActor(ActorEntity actorEntity);
 
-    boolean deleteActorById(Long id);
-
     List<ActorEntity> findAllActors();
 
     List<ActorShower1> findAllActorsWithShower1();
 
     List<ActorShower2> findAllActorsWithShower2();
-
-    HashMap<Long, String> getAllActorsWithMap();
 
 }

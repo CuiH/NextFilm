@@ -4,14 +4,14 @@ import com.xx.nextfilm.dto.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.HallService;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
+import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +38,7 @@ public class HallController {
     @RequestMapping(value = "/add_hall", method = RequestMethod.GET)
     public String addHall(@RequestParam Long cinemaId, ModelMap modelMap) {
         HallEditor hallEditor = new HallEditor();
+
         hallEditor.setCinemaId(cinemaId);
         modelMap.addAttribute(hallEditor);
 
@@ -50,7 +51,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isShortValid(hallEditor.getRowNum())) {
+        if (!ValidatorUtils.isShortValid(hallEditor.getRowNum())) {
             FieldError rowNumError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(rowNumError);
@@ -58,7 +59,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isShortValid(hallEditor.getColumnNum())) {
+        if (!ValidatorUtils.isShortValid(hallEditor.getColumnNum())) {
             FieldError columnNumError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(columnNumError);
@@ -78,7 +79,7 @@ public class HallController {
 
     @RequestMapping(value = "/edit_hall", method = RequestMethod.GET)
     public String editHall(@RequestParam Long id, ModelMap modelMap) {
-        HallEditor hallEditor = hallService.getHallEditorById(id, false);
+        HallEditor hallEditor = hallService.getHallEditorById(id);
 
         if (hallEditor == null) {
             return "redirect:/fail";
@@ -96,7 +97,7 @@ public class HallController {
             return "edit_hall";
         }
 
-        if (!Utils.isShortValid(hallEditor.getRowNum())) {
+        if (!ValidatorUtils.isShortValid(hallEditor.getRowNum())) {
             FieldError rowNumError = new FieldError("hallEditor", "rowNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(rowNumError);
@@ -104,7 +105,7 @@ public class HallController {
             return "add_hall";
         }
 
-        if (!Utils.isShortValid(hallEditor.getColumnNum())) {
+        if (!ValidatorUtils.isShortValid(hallEditor.getColumnNum())) {
             FieldError columnNumError = new FieldError("hallEditor", "columnNum",
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(columnNumError);
@@ -125,6 +126,7 @@ public class HallController {
     @RequestMapping(value = "/delete_hall", method = RequestMethod.GET)
     public String deleteHall(@RequestParam Long id) {
         HallEntity hallEntity = hallService.findHallById(id, false);
+
         if (hallEntity == null) {
             return "redirect:/fail";
         }

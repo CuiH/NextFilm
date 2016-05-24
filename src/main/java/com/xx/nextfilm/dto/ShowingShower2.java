@@ -1,7 +1,5 @@
 package com.xx.nextfilm.dto;
 
-import java.util.List;
-
 /**
  * Created by CuiH on 2016/5/18.
  *
@@ -15,7 +13,7 @@ public class ShowingShower2 {
     private String endTime;
     private String priceManual;
 
-    private HallShower1 hall;
+    private HallShower hall;
 
 
     public Long getId() {
@@ -54,11 +52,11 @@ public class ShowingShower2 {
     }
 
 
-    public HallShower1 getHall() {
+    public HallShower getHall() {
         return hall;
     }
 
-    public void setHall(HallShower1 hall) {
+    public void setHall(HallShower hall) {
         this.hall = hall;
     }
 

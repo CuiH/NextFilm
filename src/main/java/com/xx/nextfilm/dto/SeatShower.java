@@ -5,7 +5,7 @@ package com.xx.nextfilm.dto;
  *
  * 用于场次详情页面（放在showing中）
  */
-public class SeatShower1 {
+public class SeatShower {
 
     private Long id;
 

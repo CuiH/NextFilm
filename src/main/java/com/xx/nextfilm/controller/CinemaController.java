@@ -1,26 +1,27 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.dto.CinemaEditor;
+import com.google.gson.Gson;
+import com.xx.nextfilm.dto.*;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
+import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.service.HallService;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.BuilderUtils;
+import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by CuiH on 2016/5/16.
@@ -46,9 +47,6 @@ public class CinemaController {
         CinemaEditor cinemaEditor = new CinemaEditor();
         modelMap.addAttribute("cinemaEditor", cinemaEditor);
 
-        //HashMap<Long, String> films = filmService.getAllFilmsWithMap();
-        //modelMap.addAttribute("films", films);
-
         return "add_cinema";
     }
 
@@ -60,7 +58,7 @@ public class CinemaController {
 
         // 检查city是否合法
         String city = cinemaEditor.getCity();
-        if (!Utils.isCityValid(city)) {
+        if (!ValidatorUtils.isCityValid(city)) {
             FieldError cityError = new FieldError("cinemaEditor", "city",
                     messageSource.getMessage("CH.invalid.city", null, Locale.getDefault()));
             result.addError(cityError);
@@ -74,17 +72,45 @@ public class CinemaController {
     }
 
 
+    // 返回的“response”为状态，“films”为所有影片信息（包括是否上映）
+    @ResponseBody
+    @RequestMapping(value = "/increase_film", method = RequestMethod.GET)
+    public String increaseFilm(@RequestParam Long cinemaId) {
+        try {
+            List<Long> filmIds = cinemaService.getAllShowingFilmIdsById(cinemaId);
+            List<FilmShower3> allFilms = filmService.findAllFilmsWithShower3();
+
+            Gson gson = new Gson();
+
+            return "{\"result\": \"success\", \"films\": " +
+                    gson.toJson(BuilderUtils.getShowingFilmShower(allFilms, filmIds)) + "}";
+        } catch (CinemaNotExistException e) {
+            return "{\"result\": \"fail\", \"reason\": \"cinema not exist\"}";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/increase_film", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, String>> increaseFilmHandler(
+            @RequestParam Long cinemaId, ShowingFilmEditor showingFilmEditor) {
+
+        Map<String, String> response = new HashMap<String, String>();
+        response.put("result", "success");
+        return new ResponseEntity<Map<String, String>>(response, HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "/show_all_cinema", method = RequestMethod.GET)
     public String showAllCinema(ModelMap modelMap) {
-        List<CinemaEntity> allCinemas = cinemaService.findAllCinemas(false, false, false);
+        List<CinemaShower2> allCinemas = cinemaService.findAllCinemasWithShower2();
         modelMap.addAttribute("cinemas", allCinemas);
 
         return "show_all_cinema";
     }
 
 
-    @RequestMapping(value = "/edit_cinema/{id}", method = RequestMethod.GET)
-    public String editCinema(@PathVariable Long id, ModelMap modelMap) {
+    @RequestMapping(value = "/edit_cinema", method = RequestMethod.GET)
+    public String editCinema(@RequestParam Long id, ModelMap modelMap) {
         CinemaEditor cinemaEditor = cinemaService.getCinemaEditorById(id, true, true, true);
 
         if (cinemaEditor == null) {
@@ -92,9 +118,6 @@ public class CinemaController {
         }
 
         modelMap.addAttribute("cinemaEditor", cinemaEditor);
-
-        //HashMap<Long, String> films = filmService.getAllFilmsWithMap();
-        //modelMap.addAttribute("films", films);
 
         return "edit_cinema";
     }
@@ -108,7 +131,7 @@ public class CinemaController {
 
         // 检查city是否合法
         String city = cinemaEditor.getCity();
-        if (!Utils.isCityValid(city)) {
+        if (!ValidatorUtils.isCityValid(city)) {
             FieldError cityError = new FieldError("cinemaEditor", "city",
                     messageSource.getMessage("CH.invalid.city", null, Locale.getDefault()));
             result.addError(cityError);

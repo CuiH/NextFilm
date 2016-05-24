@@ -2,17 +2,16 @@ package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.ActorEditor;
 import com.xx.nextfilm.dto.ActorShower1;
-import com.xx.nextfilm.dto.Visitor;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.service.ActorService;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
+import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +49,7 @@ public class ActorController {
 
         // 检查birthday是否合法
         String birthday = actorEditor.getBirthday();
-        if (!Utils.isDateValid(birthday)) {
+        if (!ValidatorUtils.isDateValid(birthday)) {
             FieldError birthdayError = new FieldError("actorEditor", "birthday",
                     messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
             result.addError(birthdayError);
@@ -96,7 +95,7 @@ public class ActorController {
 
         // 检查birthday是否合法
         String birthday = actorEditor.getBirthday();
-        if (!Utils.isDateValid(birthday)) {
+        if (!ValidatorUtils.isDateValid(birthday)) {
             FieldError birthdayError = new FieldError("actorEditor", "birthday",
                     messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
             result.addError(birthdayError);

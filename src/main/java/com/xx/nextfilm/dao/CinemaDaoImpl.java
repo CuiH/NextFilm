@@ -2,6 +2,7 @@ package com.xx.nextfilm.dao;
 
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FCMEntity;
+import com.xx.nextfilm.exception.CinemaNotExistException;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -18,6 +19,8 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
 
     public CinemaEntity findById(Long id, boolean needFilms, boolean needHalls, boolean needFcms) {
         CinemaEntity cinema = getByKey(id);
+
+        if (cinema == null) throw new CinemaNotExistException();
 
         if (needFilms) {
             if (cinema != null) {

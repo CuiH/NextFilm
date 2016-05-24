@@ -1,6 +1,8 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.CinemaEditor;
+import com.xx.nextfilm.dto.CinemaShower1;
+import com.xx.nextfilm.dto.CinemaShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
 
 import java.util.List;
@@ -14,9 +16,9 @@ public interface CinemaService {
 
     CinemaEditor getCinemaEditorById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
-    List<CinemaEntity> findCinemaByName(String name);
+    List<CinemaEntity> findCinemasByName(String name);
 
-    List<CinemaEntity> findCinemaByCityCode(String cityCode);
+    List<CinemaEntity> findCinemasByCityCode(String cityCode);
 
     void createCinema(CinemaEditor cinemaEditor);
 
@@ -24,6 +26,10 @@ public interface CinemaService {
 
     void deleteCinema(CinemaEntity cinema);
 
+    List<CinemaShower2> findAllCinemasWithShower2();
+
     List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls, boolean needFcms);
+
+    List<Long> getAllShowingFilmIdsById(Long id);
 
 }

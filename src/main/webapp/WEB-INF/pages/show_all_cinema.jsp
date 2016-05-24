@@ -20,12 +20,8 @@
     <tr>
         <th>id</th>
         <th>name</th>
-        <th>city</th>
         <th>address</th>
-        <th>phone</th>
-        <th>brief</th>
         <th>imageUrl</th>
-        <th>description</th>
         <th>编辑</th>
         <th>删除</th>
     </tr>
@@ -35,15 +31,11 @@
         <tr>
             <td>${cinema.id}</td>
             <td>${cinema.name}</td>
-            <td>${cinema.cityCode}</td>
             <td>${cinema.address}</td>
-            <td>${cinema.phone}</td>
-            <td>${cinema.brief}</td>
             <td>${cinema.imageUrl}</td>
-            <td>${cinema.description}</td>
             <security:authorize access="hasRole('ROLE_ADMIN')" >
-                <td><a href="/edit_cinema/${cinema.id}">edit</a></td>
-                <td><a href="/delete_cinema/${cinema.id}">delete</a></td>
+                <td><a href="/edit_cinema?id=${cinema.id}">edit</a></td>
+                <td><a href="/delete_cinema?id=${cinema.id}">delete</a></td>
             </security:authorize>
         </tr>
     </c:forEach>

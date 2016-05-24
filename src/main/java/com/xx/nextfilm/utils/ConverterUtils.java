@@ -6,21 +6,7 @@ import java.util.Date;
 /**
  * Created by CuiH on 2016/5/15.
  */
-public class Utils {
-
-    public static boolean isDateValid(String str) {
-        if (null != str && !"".equals(str)) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                sdf.parse(str);
-                return true;
-            } catch(Exception e) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+public class ConverterUtils {
 
     public static String convertDateToString(Date date) {
         if (date == null) return null;
@@ -60,7 +46,6 @@ public class Utils {
         }
     }
 
-
     public static String convertGenderToString(String gender) {
         if (gender != null) {
             if (gender.equals("男")) {
@@ -77,15 +62,6 @@ public class Utils {
 
 
     // 待实现
-    public static boolean isCityValid(String str) {
-        if (null != str && !"".equals(str)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // 待实现
     public static String convertCityToCityCode(String city) {
         return "100000";
     }
@@ -95,19 +71,6 @@ public class Utils {
         return "广州";
     }
 
-
-    public static boolean isShortValid(String str) {
-        if (null != str && !"".equals(str)) {
-            try {
-                Short s = Short.parseShort(str);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
 
     public static String convertShortToString(Short s) {
         return ""+s;
@@ -126,19 +89,6 @@ public class Utils {
         }
     }
 
-
-    public static boolean isDoubleValid(String str) {
-        if (null != str && !"".equals(str)) {
-            try {
-                Double d = Double.parseDouble(str);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
 
     public static String convertDoubleToString(Double d) {
         return ""+d;

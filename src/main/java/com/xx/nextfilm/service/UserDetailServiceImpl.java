@@ -3,12 +3,10 @@ package com.xx.nextfilm.service;
 import com.xx.nextfilm.dao.UserDetailDao;
 import com.xx.nextfilm.dto.UserDetailEditor;
 import com.xx.nextfilm.entity.UserDetailEntity;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * Created by CuiH on 2016/5/15.
@@ -29,9 +27,9 @@ public class UserDetailServiceImpl implements UserDetailService {
     public void updateUserDetail(UserDetailEntity userDetail, UserDetailEditor userDetailEditor) {
         userDetail.setFirstName(userDetailEditor.getFirstName());
         userDetail.setLastName(userDetailEditor.getLastName());
-        userDetail.setBirthday(Utils.convertStringToDate(userDetailEditor.getBirthday()));
-        userDetail.setGender(Utils.convertGenderToString(userDetailEditor.getGender()));
-        userDetail.setCityCode(Utils.convertCityToCityCode(userDetailEditor.getCity()));
+        userDetail.setBirthday(ConverterUtils.convertStringToDate(userDetailEditor.getBirthday()));
+        userDetail.setGender(ConverterUtils.convertGenderToString(userDetailEditor.getGender()));
+        userDetail.setCityCode(ConverterUtils.convertCityToCityCode(userDetailEditor.getCity()));
 
         dao.doUpdate(userDetail);
     }
@@ -41,9 +39,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 
         userDetailEditor.setFirstName(nowUserDetail.getFirstName());
         userDetailEditor.setLastName(nowUserDetail.getLastName());
-        userDetailEditor.setBirthday(Utils.convertDateToString(nowUserDetail.getBirthday()));
-        userDetailEditor.setGender(Utils.convertStringToGender(nowUserDetail.getGender()));
-        userDetailEditor.setCity(Utils.convertCityCodeToCity(nowUserDetail.getCityCode()));
+        userDetailEditor.setBirthday(ConverterUtils.convertDateToString(nowUserDetail.getBirthday()));
+        userDetailEditor.setGender(ConverterUtils.convertStringToGender(nowUserDetail.getGender()));
+        userDetailEditor.setCity(ConverterUtils.convertCityCodeToCity(nowUserDetail.getCityCode()));
 
         return userDetailEditor;
     }

@@ -29,8 +29,6 @@ public class CinemaEditor {
     @NotEmpty
     private String description;
 
-    private List<Long> films = new ArrayList<Long>();
-
     private List<HallEntity> halls = new ArrayList<HallEntity>();
 
     private List<FCMEntity> fcms = new ArrayList<FCMEntity>();
@@ -105,15 +103,6 @@ public class CinemaEditor {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-
-    public List<Long> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<Long> films) {
-        this.films = films;
     }
 
 

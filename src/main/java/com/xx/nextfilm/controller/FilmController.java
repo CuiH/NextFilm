@@ -1,27 +1,24 @@
 package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.ActorShower2;
-import com.xx.nextfilm.dto.FCMShower1;
 import com.xx.nextfilm.dto.FilmEditor;
 import com.xx.nextfilm.dto.FilmShower1;
-import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
+import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -61,7 +58,7 @@ public class FilmController {
 
         // 检查onDate是否合法
         String onDate = filmEditor.getOnDate();
-        if (!Utils.isDateValid(onDate)) {
+        if (!ValidatorUtils.isDateValid(onDate)) {
             FieldError onDateError = new FieldError("filmEditor", "onDate",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
@@ -86,7 +83,7 @@ public class FilmController {
 
     @RequestMapping(value = "/edit_film", method = RequestMethod.GET)
     public String editFilm(@RequestParam Long id, ModelMap modelMap) {
-        FilmEditor filmEditor = filmService.getFilmEditorById(id, true, true);
+        FilmEditor filmEditor = filmService.getFilmEditorById(id);
 
         if (filmEditor == null) {
             return "redirect:/fail";
@@ -110,7 +107,7 @@ public class FilmController {
 
         // 检查birthday是否合法
         String onDate = filmEditor.getOnDate();
-        if (!Utils.isDateValid(onDate)) {
+        if (!ValidatorUtils.isDateValid(onDate)) {
             FieldError onDateError = new FieldError("filmEditor", "onDate",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
@@ -127,6 +124,7 @@ public class FilmController {
     @RequestMapping(value = "/delete_film", method = RequestMethod.GET)
     public String deleteFilm(@RequestParam Long id) {
         FilmEntity filmEntity = filmService.findFilmById(id, false, false);
+
         if (filmEntity == null) {
             return "redirect:/fail";
         }

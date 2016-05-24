@@ -5,7 +5,7 @@ package com.xx.nextfilm.dto;
  *
  * 用于影院详情页面（放在cinema的fcm的showing中）
  */
-public class HallShower1 {
+public class HallShower {
 
     private Long id;
 

@@ -1,8 +1,10 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.dto.ShowingEditor2;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,18 +34,36 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
     }
 
 
-    public void doSave(ShowingEntity show) {
-        persist(show);
+    public void doSave(ShowingEntity showing) {
+        persist(showing);
     }
 
 
-    public void doUpdate(ShowingEntity show) {
-        update(show);
+    public void doUpdate(ShowingEntity showing) {
+        update(showing);
     }
 
 
-    public void doDelete(ShowingEntity show) {
-        delete(show);
+    public boolean doUpdateManually(ShowingEditor2 showing) {
+        String hql = "UPDATE showing set "+
+                "start_time = :startTime, "+
+                "end_time = :endTime, "+
+                "price_manual = :priceManual "+
+                "WHERE id = :id";
+        Query query = createEntityQuery(hql);
+        query.setParameter("startTime", showing.getStartTime());
+        query.setParameter("endTime", showing.getEndTime());
+        query.setParameter("priceManual", showing.getPriceManual());
+        query.setParameter("id", showing.getId());
+        int l = query.executeUpdate();
+
+        if (l == 0) return false;
+        else return true;
+    }
+
+
+    public void doDelete(ShowingEntity showing) {
+        delete(showing);
     }
 
 }

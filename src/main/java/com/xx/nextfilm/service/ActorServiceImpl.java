@@ -5,7 +5,7 @@ import com.xx.nextfilm.dto.ActorEditor;
 import com.xx.nextfilm.dto.ActorShower1;
 import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +38,7 @@ public class ActorServiceImpl implements ActorService {
         actorEditor.setName(actorEntity.getName());
         actorEditor.setImageUrl(actorEntity.getImageUrl());
         actorEditor.setBrief(actorEntity.getBrief());
-        actorEditor.setBirthday(Utils.convertDateToString(actorEntity.getBirthday()));
+        actorEditor.setBirthday(ConverterUtils.convertDateToString(actorEntity.getBirthday()));
 
         return actorEditor;
     }
@@ -64,9 +64,6 @@ public class ActorServiceImpl implements ActorService {
     }
 
 
-    public boolean deleteActorById(Long id) {
-        return dao.deleteById(id);
-    }
 
 
     public List<ActorEntity> findAllActors() {
@@ -87,7 +84,7 @@ public class ActorServiceImpl implements ActorService {
             actor.setName(actorEntity.getName());
             actor.setImageUrl(actorEntity.getImageUrl());
             actor.setBrief(actorEntity.getImageUrl());
-            actor.setBirthday(Utils.convertDateToString(actorEntity.getBirthday()));
+            actor.setBirthday(ConverterUtils.convertDateToString(actorEntity.getBirthday()));
 
             actors.add(actor);
         }
@@ -126,21 +123,9 @@ public class ActorServiceImpl implements ActorService {
         actorEntity.setName(actorEditor.getName());
         actorEntity.setBrief(actorEditor.getBrief());
         actorEntity.setImageUrl(actorEditor.getImageUrl());
-        actorEntity.setBirthday(Utils.convertStringToDate(actorEditor.getBirthday()));
+        actorEntity.setBirthday(ConverterUtils.convertStringToDate(actorEditor.getBirthday()));
 
         return actorEntity;
-    }
-
-
-    public HashMap<Long, String> getAllActorsWithMap() {
-        List<ActorEntity> allActors = findAllActors();
-
-        HashMap<Long, String> map = new HashMap<Long, String>();
-        for (ActorEntity actor: allActors) {
-            map.put(actor.getId(), actor.getName());
-        }
-
-        return map;
     }
 
 }

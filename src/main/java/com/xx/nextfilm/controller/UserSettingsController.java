@@ -7,7 +7,8 @@ import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
 import com.xx.nextfilm.service.UserDetailService;
 import com.xx.nextfilm.service.UserService;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.ConverterUtils;
+import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -90,7 +90,7 @@ public class UserSettingsController {
         // 检查birthday是否合法
         String birthday = userDetailEditor.getBirthday();
         if (birthday != null && !"".equals(birthday)){
-            if (!Utils.isDateValid(birthday)) {
+            if (!ValidatorUtils.isDateValid(birthday)) {
                 FieldError birthdayError = new FieldError("userDetailEditor", "birthday",
                         messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
                 result.addError(birthdayError);

@@ -65,17 +65,11 @@
     </p>
 
     <p>
-        <label for="films">films: </label>
-        <c:forEach items="${films}" var="film">
-            <form:checkbox path="films" value="${film.key}"/>${film.value}
-        </c:forEach>
-        <form:errors path="films" cssClass="error"/>
-    </p>
-
-    <p>
         <input id="submit" type="submit" value="Submit">
     </p>
 </form:form>
+
+<button id="increase_film" cinema-id="${cinemaEditor.id}">edit film</button>
 
 <br/>
 <p>Halls:</p>
@@ -110,7 +104,7 @@
 <a href="/add_hall?cinemaId=${cinemaEditor.id}">add hall</a>
 
 <br/><br/><br/>
-<p>Shows:</p>
+<p>Showings:</p>
 <c:forEach var="fcm" items="${cinemaEditor.fcms}">
     filmname: ${fcm.film.name}
     <table class="ui celled table">
@@ -134,8 +128,8 @@
                 <td>${showing.priceManual}</td>
                 <td>${showing.hall.name}</td>
                 <security:authorize access="hasRole('ROLE_ADMIN')">
-                    <td><a href="/edit_cinema/${cinemaEditor.id}/edit_showing/${showing.id}">edit</a></td>
-                    <td><a href="/delete_showing/${showing.id}">delete</a></td>
+                    <td><a href="/edit_showing?id=${showing.id}">edit</a></td>
+                    <td><a href="/delete_showing?id=${showing.id}">delete</a></td>
                 </security:authorize>
             </tr>
         </c:forEach>
@@ -143,8 +137,84 @@
     </table>
     <br/>
 </c:forEach>
-<a href="/edit_cinema/${cinemaEditor.id}/add_showing">add showing</a>
+<a href="/add_showing?cinemaId=${cinemaEditor.id}">add showing</a>
 
+
+<div class="ui modal">
+    <div class="header">
+        选择电影
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui header">选择上映的电影</div>
+            <form id="increase_film_form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Cancel
+        </div>
+        <div id="increase_ok" class="ui positive right labeled icon button">
+            Ok
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
+
+<script>
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "/increase_film?cinemaId="+$("#increase_film").attr("cinema-id"),
+        success: function(data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["result"] == "success") {
+                var films = data["films"];
+                for (var i = 0; i < films.length; i++) {
+                    var str = "<input name='filmIds' type='checkbox' value=" + films[i]["id"];
+                    if (films[i]["selected"] == true) {
+                        str += ' checked=checked'
+                    }
+                    str += '>'+ films[i]["name"];
+                    $("#increase_film_form").append(str);
+                }
+            }
+        },
+        error: function() {
+            alert("error");
+        }
+    });
+
+    $("#increase_film").click(function() {
+        $('.ui.modal').modal('show');
+    });
+
+    $("#increase_ok").click(function() {
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "/increase_film?cinemaId="+$("#increase_film").attr("cinema-id"),
+            data: $('#increase_film_form').serialize(),
+            success: function(result) {
+                console.log(result);
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+    })
+});
+</script>
 
 </body>
 </html>

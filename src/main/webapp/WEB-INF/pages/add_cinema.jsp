@@ -57,14 +57,6 @@
     </p>
 
     <p>
-        <label for="films">films: </label>
-        <c:forEach items="${films}" var="film">
-            <form:checkbox path="films" value="${film.key}"/>${film.value}
-        </c:forEach>
-        <form:errors path="films" cssClass="error"/>
-    </p>
-
-    <p>
         <input id="submit" type="submit" value="Submit">
     </p>
 </form:form>

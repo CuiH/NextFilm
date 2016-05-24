@@ -5,15 +5,16 @@ import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dto.ActorShower2;
 import com.xx.nextfilm.dto.FilmEditor;
 import com.xx.nextfilm.dto.FilmShower1;
+import com.xx.nextfilm.dto.FilmShower3;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
-import com.xx.nextfilm.utils.Utils;
+import com.xx.nextfilm.utils.BuilderUtils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,8 +36,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public FilmEditor getFilmEditorById(Long id, boolean needDirectors, boolean needActors) {
-        FilmEntity filmEntity = findFilmById(id, needDirectors, needActors);
+    public FilmEditor getFilmEditorById(Long id) {
+        FilmEntity filmEntity = findFilmById(id, true, true);
 
         if (filmEntity == null) return null;
 
@@ -48,14 +49,14 @@ public class FilmServiceImpl implements FilmService {
         filmEditor.setBrief(filmEntity.getBrief());
         filmEditor.setLanguage(filmEntity.getLanguage());
         filmEditor.setLength(filmEntity.getLength());
-        filmEditor.setOnDate(Utils.convertDateToString(filmEntity.getOnDate()));
+        filmEditor.setOnDate(ConverterUtils.convertDateToString(filmEntity.getOnDate()));
         filmEditor.setImageUrl(filmEntity.getImageUrl());
         filmEditor.setCategory(filmEntity.getCategory());
         filmEditor.setType(filmEntity.getType());
 
         List<Long> a = new ArrayList<Long>();
         List<ActorEntity> actors = filmEntity.getActors();
-        if (needActors && actors != null) {
+        if (actors != null) {
             for (ActorEntity actor: actors) {
                 a.add(actor.getId());
             }
@@ -64,7 +65,7 @@ public class FilmServiceImpl implements FilmService {
 
         List<Long> d = new ArrayList<Long>();
         List<ActorEntity> directors = filmEntity.getDirectors();
-        if (needDirectors && directors != null) {
+        if (directors != null) {
             for (ActorEntity director: directors) {
                 d.add(director.getId());
             }
@@ -130,7 +131,7 @@ public class FilmServiceImpl implements FilmService {
             } else {
                 List<ActorShower2> actorShower2s = new ArrayList<ActorShower2>();
                 for (ActorEntity director: directors) {
-                    actorShower2s.add(getActorShower2FromActorEntity(director));
+                    actorShower2s.add(BuilderUtils.getActorShower2FromActorEntity(director));
                 }
                 film.setDirectors(actorShower2s);
             }
@@ -142,7 +143,7 @@ public class FilmServiceImpl implements FilmService {
             } else {
                 List<ActorShower2>  actorShower2s = new ArrayList<ActorShower2>();
                 for (ActorEntity actor: actors) {
-                    actorShower2s.add(getActorShower2FromActorEntity(actor));
+                    actorShower2s.add(BuilderUtils.getActorShower2FromActorEntity(actor));
                 }
                 film.setActors(actorShower2s);
             }
@@ -153,7 +154,7 @@ public class FilmServiceImpl implements FilmService {
             film.setBrief(filmEntity.getBrief());
             film.setLanguage(filmEntity.getLanguage());
             film.setLength(filmEntity.getLength());
-            film.setOnDate(Utils.convertDateToString(filmEntity.getOnDate()));
+            film.setOnDate(ConverterUtils.convertDateToString(filmEntity.getOnDate()));
             film.setImageUrl(filmEntity.getImageUrl());
             film.setCategory(filmEntity.getCategory());
             film.setType(filmEntity.getType());
@@ -177,7 +178,7 @@ public class FilmServiceImpl implements FilmService {
         filmEntity.setBrief(filmEditor.getBrief());
         filmEntity.setLanguage(filmEditor.getLanguage());
         filmEntity.setLength(filmEditor.getLength());
-        filmEntity.setOnDate(Utils.convertStringToDate(filmEditor.getOnDate()));
+        filmEntity.setOnDate(ConverterUtils.convertStringToDate(filmEditor.getOnDate()));
         filmEntity.setImageUrl(filmEditor.getImageUrl());
         filmEntity.setCategory(filmEditor.getCategory());
         filmEntity.setType(filmEditor.getType());
@@ -204,14 +205,22 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    private ActorShower2 getActorShower2FromActorEntity(ActorEntity actor) {
-        ActorShower2 actorShower2 = new ActorShower2();
+    public List<FilmShower3> findAllFilmsWithShower3() {
+        List<FilmEntity> filmEntities = findAllFilms(false, false);
 
-        actorShower2.setId(actor.getId());
-        actorShower2.setName(actor.getName());
-        actorShower2.setImageUrl(actor.getImageUrl());
+        if (filmEntities == null) return new ArrayList<FilmShower3>();
 
-        return  actorShower2;
+        List<FilmShower3> films = new ArrayList<FilmShower3>();
+        for (FilmEntity filmEntity: filmEntities) {
+            FilmShower3 film = new FilmShower3();
+
+            film.setId(filmEntity.getId());
+            film.setName(filmEntity.getName());
+
+            films.add(film);
+        }
+
+        return films;
     }
 
 }

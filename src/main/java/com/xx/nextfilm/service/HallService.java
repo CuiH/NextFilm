@@ -12,7 +12,7 @@ public interface HallService {
 
     HallEntity findHallById(Long id, boolean needCinema);
 
-    HallEditor getHallEditorById(Long id, boolean needCinema);
+    HallEditor getHallEditorById(Long id);
 
     boolean createHall(HallEditor hallEditor);
 

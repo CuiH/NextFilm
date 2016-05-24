@@ -19,8 +19,6 @@ public interface ActorDao {
 
     void doDelete(ActorEntity actor);
 
-    boolean deleteById(Long id);
-
     List<ActorEntity> findAll();
 
 }

@@ -1,5 +1,6 @@
 package com.xx.nextfilm.dao;
 
+import com.xx.nextfilm.dto.ShowingEditor2;
 import com.xx.nextfilm.entity.ShowingEntity;
 
 /**
@@ -9,10 +10,12 @@ public interface ShowingDao {
 
     ShowingEntity findById(Long id, boolean needFcm, boolean needSeats);
 
-    void doSave(ShowingEntity show);
+    void doSave(ShowingEntity showing);
 
-    void doUpdate(ShowingEntity show);
+    void doUpdate(ShowingEntity showing);
 
-    void doDelete(ShowingEntity show);
+    boolean doUpdateManually(ShowingEditor2 showing);
+
+    void doDelete(ShowingEntity showing);
 
 }
