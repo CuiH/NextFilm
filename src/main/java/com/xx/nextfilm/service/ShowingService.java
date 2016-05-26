@@ -1,7 +1,7 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.ShowingEditor1;
-import com.xx.nextfilm.dto.ShowingEditor2;
+import com.xx.nextfilm.dto.editor.ShowingEditor1;
+import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.ShowingEntity;
 
 /**

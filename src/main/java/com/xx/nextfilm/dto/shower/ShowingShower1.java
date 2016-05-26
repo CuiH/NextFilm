@@ -1,28 +1,22 @@
-package com.xx.nextfilm.dto;
-
-import org.hibernate.validator.constraints.NotEmpty;
+package com.xx.nextfilm.dto.shower;
 
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/19.
+ * Created by CuiH on 2016/5/18.
  *
- * 用在编辑页面
+ * 用于场次详情页面
  */
-public class ShowingEditor2 {
+public class ShowingShower1 {
 
     private Long id;
-    @NotEmpty
+
     private String startTime;
-    @NotEmpty
     private String endTime;
-    @NotEmpty
     private String priceManual;
 
-    private String filmName;
-    private String hallName;
-
     private List<SeatShower> seats;
+    private FilmShower2 film;
 
 
     public Long getId() {
@@ -61,30 +55,21 @@ public class ShowingEditor2 {
     }
 
 
-    public String getFilmName() {
-        return filmName;
-    }
-
-    public void setFilmName(String filmName) {
-        this.filmName = filmName;
-    }
-
-
-    public String getHallName() {
-        return hallName;
-    }
-
-    public void setHallName(String hallName) {
-        this.hallName = hallName;
-    }
-
-
     public List<SeatShower> getSeats() {
         return seats;
     }
 
     public void setSeats(List<SeatShower> seats) {
         this.seats = seats;
+    }
+
+
+    public FilmShower2 getFilm() {
+        return film;
+    }
+
+    public void setFilm(FilmShower2 film) {
+        this.film = film;
     }
 
 }

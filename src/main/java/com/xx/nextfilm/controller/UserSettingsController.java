@@ -1,13 +1,12 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.dto.UserDetailEditor;
-import com.xx.nextfilm.dto.PasswordEditor;
+import com.xx.nextfilm.dto.editor.UserDetailEditor;
+import com.xx.nextfilm.dto.editor.PasswordEditor;
 import com.xx.nextfilm.entity.CustomUserInfo;
 import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
 import com.xx.nextfilm.service.UserDetailService;
 import com.xx.nextfilm.service.UserService;
-import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

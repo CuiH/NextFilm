@@ -1,9 +1,9 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.ActorDao;
-import com.xx.nextfilm.dto.ActorEditor;
-import com.xx.nextfilm.dto.ActorShower1;
-import com.xx.nextfilm.dto.ActorShower2;
+import com.xx.nextfilm.dto.editor.ActorEditor;
+import com.xx.nextfilm.dto.shower.ActorShower1;
+import com.xx.nextfilm.dto.shower.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.utils.ConverterUtils;
@@ -78,7 +78,7 @@ public class ActorServiceImpl implements ActorService {
             actor.setId(actorEntity.getId());
             actor.setName(actorEntity.getName());
             actor.setImageUrl(actorEntity.getImageUrl());
-            actor.setBrief(actorEntity.getImageUrl());
+            actor.setBrief(actorEntity.getBrief());
             actor.setBirthday(ConverterUtils.convertDateToString(actorEntity.getBirthday()));
 
             actors.add(actor);

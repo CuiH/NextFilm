@@ -2,7 +2,7 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.HallDao;
-import com.xx.nextfilm.dto.HallEditor;
+import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;

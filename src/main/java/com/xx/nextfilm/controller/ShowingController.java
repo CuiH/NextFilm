@@ -1,7 +1,7 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.dto.ShowingEditor1;
-import com.xx.nextfilm.dto.ShowingEditor2;
+import com.xx.nextfilm.dto.editor.ShowingEditor1;
+import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 import com.xx.nextfilm.exception.*;
@@ -9,7 +9,6 @@ import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.ShowingService;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
-import javafx.scene.shape.HLineTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;

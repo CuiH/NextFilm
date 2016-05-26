@@ -1,6 +1,6 @@
 package com.xx.nextfilm.utils;
 
-import com.xx.nextfilm.dto.*;
+import com.xx.nextfilm.dto.shower.*;
 import com.xx.nextfilm.entity.*;
 
 import java.util.ArrayList;

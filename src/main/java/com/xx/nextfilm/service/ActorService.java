@@ -1,11 +1,10 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.ActorEditor;
-import com.xx.nextfilm.dto.ActorShower1;
-import com.xx.nextfilm.dto.ActorShower2;
+import com.xx.nextfilm.dto.editor.ActorEditor;
+import com.xx.nextfilm.dto.shower.ActorShower1;
+import com.xx.nextfilm.dto.shower.ActorShower2;
 import com.xx.nextfilm.entity.ActorEntity;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**

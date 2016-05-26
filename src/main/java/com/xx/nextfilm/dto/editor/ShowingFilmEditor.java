@@ -1,4 +1,4 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.editor;
 
 import java.util.List;
 

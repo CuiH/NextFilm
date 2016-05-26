@@ -1,11 +1,7 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.entity.UserDetailEntity;
-import com.xx.nextfilm.entity.UserEntity;
-import com.xx.nextfilm.entity.UserProfileEntity;
-import com.xx.nextfilm.service.UserProfileService;
 import com.xx.nextfilm.service.UserService;
-import com.xx.nextfilm.dto.Visitor;
+import com.xx.nextfilm.dto.editor.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**

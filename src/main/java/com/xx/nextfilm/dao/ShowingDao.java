@@ -1,6 +1,6 @@
 package com.xx.nextfilm.dao;
 
-import com.xx.nextfilm.dto.ShowingEditor2;
+import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.ShowingEntity;
 
 /**

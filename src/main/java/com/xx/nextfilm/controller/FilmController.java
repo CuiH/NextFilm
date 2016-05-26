@@ -1,14 +1,11 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.dto.ActorShower2;
-import com.xx.nextfilm.dto.FilmEditor;
-import com.xx.nextfilm.dto.FilmShower1;
-import com.xx.nextfilm.dto.FilmShower2;
+import com.xx.nextfilm.dto.editor.FilmEditor;
+import com.xx.nextfilm.dto.shower.FilmShower2;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
-import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -16,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -46,18 +40,15 @@ public class FilmController {
         FilmEditor filmEditor = new FilmEditor();
         modelMap.addAttribute("filmEditor", filmEditor);
 
-        List<ActorShower2> actors = actorService.findAllActorsWithShower2();
-        modelMap.addAttribute("actors", actors);
-        modelMap.addAttribute("directors", actors);
-
         return "add_film";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/add_film", method = RequestMethod.POST)
     public String addFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "add_film";
+            return "fail";
         }
 
         // 检查onDate是否合法
@@ -67,12 +58,12 @@ public class FilmController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
-            return "add_film";
+            return "fail";
         }
 
         filmService.createFilm(filmEditor);
 
-        return "redirect:/success";
+        return "success";
     }
 
 
@@ -91,10 +82,6 @@ public class FilmController {
             FilmEditor filmEditor = filmService.getFilmEditorById(id);
             modelMap.addAttribute("filmEditor", filmEditor);
 
-            List<ActorShower2> actors = actorService.findAllActorsWithShower2();
-            modelMap.addAttribute("actors", actors);
-            modelMap.addAttribute("directors", actors);
-
             return "edit_film";
         } catch (FilmNotExistException e) {
 
@@ -103,11 +90,12 @@ public class FilmController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/edit_film", method = RequestMethod.POST)
     public String editFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "edit_film";
+            return "fail";
         }
 
         // 检查birthday是否合法
@@ -117,12 +105,12 @@ public class FilmController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
-            return "edit_film";
+            return "fail";
         }
 
         filmService.updateFilm(filmEditor);
 
-        return "redirect:/success";
+        return "success";
     }
 
 

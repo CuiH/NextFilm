@@ -1,15 +1,16 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.shower;
 
 /**
  * Created by CuiH on 2016/5/18.
  *
- * 暂未使用
+ * 用于影院详情页面（放在cinema的fcm的showing中）
  */
-public class ActorShower3 {
+public class HallShower2 {
 
     private Long id;
 
     private String name;
+    private String type;
 
 
     public Long getId() {
@@ -27,6 +28,15 @@ public class ActorShower3 {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

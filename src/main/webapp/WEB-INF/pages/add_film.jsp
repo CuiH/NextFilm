@@ -34,7 +34,7 @@
 
         <div class="inner-form-1">
             <div class="ui form">
-                <form:form modelAttribute="filmEditor" action="/add_film" method="post">
+                <form:form id="film-form" modelAttribute="filmEditor">
                     <div class="field">
                         <label>name</label>
                         <form:input type="text" id="name" path="name" placeholder="名字"/>
@@ -91,39 +91,25 @@
 
                     <div class="field">
                         <label>directors</label>
+                        <div style="margin-bottom: 10px;" id="director-field"></div>
                         <a id="add_director" class="ui button blue">add a director</a>
-                        <%--<c:forEach items="${directors}" var="director">--%>
-                            <%--<div class="ui checkbox add-margin-right">--%>
-                                <%--<input name="directors" class="hidden" type="checkbox" value="${director.id}">--%>
-                                <%--&lt;%&ndash;<form:checkbox path="directors" value="${director.id}" cssClass="hidden"/>&ndash;%&gt;--%>
-                                <%--<label>${director.name}</label>--%>
-                            <%--</div>--%>
-                        <%--</c:forEach>--%>
-                        <form:errors path="directors" cssClass="error-message"/>
+                        <%--<form:errors path="directors" cssClass="error-message"/>--%>
                     </div>
 
                     <div class="field">
                         <label>actors</label>
+                        <div style="margin-bottom: 10px;" id="actor-field"></div>
                         <a id="add_actor" class="ui button blue">add a actor</a>
-                        <%--<c:forEach items="${actors}" var="actor">--%>
-                            <%--<div class="ui checkbox add-margin-right">--%>
-                                <%--<input name="actors" class="hidden" type="checkbox" value="${actor.id}">--%>
-                                <%--&lt;%&ndash;<form:checkbox id="actor${actor.id}" path="actors" value="${actor.id}" cssClass="hidden"/>&ndash;%&gt;--%>
-                                <%--<label>${actor.name}</label>--%>
-                            <%--</div>--%>
-                        <%--</c:forEach>--%>
                         <%--<form:errors path="actors" cssClass="error-message"/>--%>
                     </div>
-
-                    <div class="submit-button">
-                        <button class="ui button my-button-2">Submit</button>
-                    </div>
                 </form:form>
+                <div class="submit-button">
+                    <button id="submit_form" class="ui button my-button-2">Submit</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="ui modal">
     <div class="header">
@@ -131,68 +117,45 @@
     </div>
     <div class="content">
         <div class="description">
-            <div class="ui header">添加</div>
             <div id="searcher-div" class="ui search">
                 <div class="ui icon input">
-                    <input id="actor_searcher" class="prompt" type="text" placeholder="输入完整名字">
+                    <input id="actor_searcher" class="prompt" type="text" placeholder="输入完整or部分名字">
                     <i class="search icon"></i>
                 </div>
-                <p id="search_results"></p>
+                <div class="add-margin-top">
+                    <div id="search_results" class="ui four column stackable grid "></div>
+                </div>
             </div>
-
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">
-            Cancel
-        </div>
-        <div id="increase_ok" class="ui positive right labeled icon button">
-            Ok
-            <i class="checkmark icon"></i>
         </div>
     </div>
 </div>
 
+<script src="/res/js/film.js"></script>
 
 <script>
     $(document).ready(function() {
-        $('.ui.checkbox').checkbox();
+        $("#submit_form").click(function() {
+            var str = "";
 
-        $('select.dropdown').dropdown();
+            var d_list = $("#director-field").children("a");
+            for (var i = 0; i < d_list.length; i++) {
+                str += '&directors=' + $(d_list[i]).attr("director-id");
+            }
 
-        $("#add_director").click(function() {
-            $('.ui.modal').modal('show');
-        });
+            var a_list = $("#actor-field").children("a");
+            for (var i = 0; i < a_list.length; i++) {
+                str += '&actors=' + $(a_list[i]).attr("actor-id");
+            }
 
-        $("#add_actor").click(function() {
-            $('.ui.modal').modal('show');
-        });
-
-        $("#actor_searcher").on("input",function(){
-            if ($(this).val() == "") return;
-
-            $("#searcher-div").addClass("loading");
             $.ajax({
-                type: "GET",
+                type: "POST",
                 dataType: "html",
-                url: "/find_actor?name="+$(this).val(),
-                success: function(data) {
-                    $("#searcher-div").removeClass("loading")
-                    console.log(data);
-                    data = JSON.parse(data);
-                    if (data["result"] == "success") {
-                        var result = [];
-                        var actors = data["actors"];
-                        for (var i = 0; i < actors.length; i++) {
-                            result.push(actors[i]["name"])
-                        }
-                        $("#search_results").text(result);
-                    } else {
-                        $("#search_results").text("未找到");
-                    }
+                url: "/add_film",
+                data: $('#film-form').serialize() + str,
+                success: function(result) {
+                    console.log(result);
                 },
                 error: function() {
-                    $("#searcher-div").removeClass("loading");
                     alert("error");
                 }
             });

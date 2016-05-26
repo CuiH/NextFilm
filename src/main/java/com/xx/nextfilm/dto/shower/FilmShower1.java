@@ -1,4 +1,6 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.shower;
+
+import com.xx.nextfilm.dto.shower.ActorShower2;
 
 import java.util.List;
 

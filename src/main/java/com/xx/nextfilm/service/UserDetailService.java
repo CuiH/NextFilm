@@ -1,6 +1,6 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.UserDetailEditor;
+import com.xx.nextfilm.dto.editor.UserDetailEditor;
 import com.xx.nextfilm.entity.UserDetailEntity;
 
 /**

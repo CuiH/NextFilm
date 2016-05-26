@@ -2,7 +2,10 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dao.FilmDao;
-import com.xx.nextfilm.dto.*;
+import com.xx.nextfilm.dto.editor.FilmEditor;
+import com.xx.nextfilm.dto.shower.FilmShower1;
+import com.xx.nextfilm.dto.shower.FilmShower2;
+import com.xx.nextfilm.dto.shower.FilmShower3;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.FilmNotExistException;
@@ -51,23 +54,26 @@ public class FilmServiceImpl implements FilmService {
         filmEditor.setCategory(filmEntity.getCategory());
         filmEditor.setType(filmEntity.getType());
 
-        List<Long> a = new ArrayList<Long>();
-        List<ActorEntity> actors = filmEntity.getActors();
-        if (actors != null) {
-            for (ActorEntity actor: actors) {
-                a.add(actor.getId());
-            }
-        }
-        filmEditor.setActors(a);
+        filmEditor.setOwnedActors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getActors()));
+        filmEditor.setOwnedDirectors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getDirectors()));
 
-        List<Long> d = new ArrayList<Long>();
-        List<ActorEntity> directors = filmEntity.getDirectors();
-        if (directors != null) {
-            for (ActorEntity director: directors) {
-                d.add(director.getId());
-            }
-        }
-        filmEditor.setDirectors(d);
+//        List<Long> a = new ArrayList<Long>();
+//        List<ActorEntity> actors = filmEntity.getActors();
+//        if (actors != null) {
+//            for (ActorEntity actor: actors) {
+//                a.add(actor.getId());
+//            }
+//        }
+//        filmEditor.setActors(a);
+//
+//        List<Long> d = new ArrayList<Long>();
+//        List<ActorEntity> directors = filmEntity.getDirectors();
+//        if (directors != null) {
+//            for (ActorEntity director: directors) {
+//                d.add(director.getId());
+//            }
+//        }
+//        filmEditor.setDirectors(d);
 
         return filmEditor;
     }

@@ -1,12 +1,9 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.editor;
 
-import com.xx.nextfilm.entity.ActorEntity;
+import com.xx.nextfilm.dto.shower.ActorShower2;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,8 +31,8 @@ public class FilmEditor {
     @NotEmpty
     private String type;
 
-    private List<ActorShower2> ownedDirectors;
-    private List<ActorShower2> ownedActors;
+    private List<ActorShower2> ownedDirectors = new ArrayList<ActorShower2>();
+    private List<ActorShower2> ownedActors = new ArrayList<ActorShower2>();
 
 
     private List<Long> actors = new ArrayList<Long>();

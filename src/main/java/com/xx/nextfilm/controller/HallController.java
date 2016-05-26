@@ -1,11 +1,10 @@
 package com.xx.nextfilm.controller;
 
-import com.xx.nextfilm.dto.HallEditor;
+import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.HallNotExistException;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.HallService;
-import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

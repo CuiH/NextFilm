@@ -1,9 +1,7 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.HallEditor;
+import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
-
-import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.

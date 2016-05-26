@@ -1,9 +1,9 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.*;
-import com.xx.nextfilm.dto.SeatShower;
-import com.xx.nextfilm.dto.ShowingEditor1;
-import com.xx.nextfilm.dto.ShowingEditor2;
+import com.xx.nextfilm.dto.shower.SeatShower;
+import com.xx.nextfilm.dto.editor.ShowingEditor1;
+import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.*;
 import com.xx.nextfilm.exception.*;
 import com.xx.nextfilm.utils.BuilderUtils;

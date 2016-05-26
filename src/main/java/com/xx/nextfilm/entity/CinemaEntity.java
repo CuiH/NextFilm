@@ -1,7 +1,5 @@
 package com.xx.nextfilm.entity;
 
-import com.xx.nextfilm.dto.HallEditor;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

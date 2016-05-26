@@ -1,13 +1,12 @@
 package com.xx.nextfilm.controller;
 
 import com.google.gson.Gson;
-import com.xx.nextfilm.dto.ActorEditor;
-import com.xx.nextfilm.dto.ActorShower1;
+import com.xx.nextfilm.dto.editor.ActorEditor;
+import com.xx.nextfilm.dto.shower.ActorShower1;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.utils.BuilderUtils;
-import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

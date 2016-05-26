@@ -5,7 +5,7 @@ import com.xx.nextfilm.dao.UserDetailDao;
 import com.xx.nextfilm.dao.UserProfileDao;
 import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
-import com.xx.nextfilm.dto.Visitor;
+import com.xx.nextfilm.dto.editor.Visitor;
 import com.xx.nextfilm.entity.UserProfileEntity;
 import com.xx.nextfilm.exception.UserNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;

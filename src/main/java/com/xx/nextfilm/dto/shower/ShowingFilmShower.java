@@ -1,15 +1,13 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.shower;
 
 /**
- * Created by CuiH on 2016/5/19.
- *
- * 用于编辑影院、上映页面
+ * Created by CuiH on 2016/5/23.
  */
-public class FilmShower3 {
+public class ShowingFilmShower {
 
     private Long id;
-
     private String name;
+    private boolean selected;
 
 
     public Long getId() {
@@ -29,4 +27,12 @@ public class FilmShower3 {
         this.name = name;
     }
 
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }

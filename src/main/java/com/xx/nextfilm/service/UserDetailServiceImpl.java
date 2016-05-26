@@ -1,7 +1,7 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dao.UserDetailDao;
-import com.xx.nextfilm.dto.UserDetailEditor;
+import com.xx.nextfilm.dto.editor.UserDetailEditor;
 import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.utils.ConverterUtils;
 import org.springframework.beans.factory.annotation.Autowired;

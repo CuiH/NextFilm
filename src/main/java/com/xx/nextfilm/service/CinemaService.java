@@ -1,8 +1,7 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.CinemaEditor;
-import com.xx.nextfilm.dto.CinemaShower1;
-import com.xx.nextfilm.dto.CinemaShower2;
+import com.xx.nextfilm.dto.editor.CinemaEditor;
+import com.xx.nextfilm.dto.shower.CinemaShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
 
 import java.util.List;

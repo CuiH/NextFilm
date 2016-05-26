@@ -1,14 +1,12 @@
 package com.xx.nextfilm.dao;
 
-import com.xx.nextfilm.dto.ShowingEditor2;
+import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 import com.xx.nextfilm.exception.ShowingNotExistException;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.

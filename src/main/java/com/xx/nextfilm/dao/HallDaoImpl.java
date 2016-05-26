@@ -1,7 +1,6 @@
 package com.xx.nextfilm.dao;
 
-import com.xx.nextfilm.dto.HallEditor;
-import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.HallNotExistException;
 import org.hibernate.Hibernate;

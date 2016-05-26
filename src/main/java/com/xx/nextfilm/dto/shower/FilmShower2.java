@@ -1,4 +1,4 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.shower;
 
 import java.util.List;
 

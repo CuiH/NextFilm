@@ -1,17 +1,16 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.editor;
 
-import com.xx.nextfilm.entity.SeatEntity;
+import com.xx.nextfilm.dto.shower.SeatShower;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.Date;
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/17.
+ * Created by CuiH on 2016/5/19.
  *
- * 用在新建页面
+ * 用在编辑页面
  */
-public class ShowingEditor1 {
+public class ShowingEditor2 {
 
     private Long id;
     @NotEmpty
@@ -21,36 +20,10 @@ public class ShowingEditor1 {
     @NotEmpty
     private String priceManual;
 
-    private Long cinemaId;
-    private Long hallId;
-    private Long filmId;
+    private String filmName;
+    private String hallName;
 
-
-    public Long getCinemaId() {
-        return cinemaId;
-    }
-
-    public void setCinemaId(Long cinemaId) {
-        this.cinemaId = cinemaId;
-    }
-
-
-    public Long getHallId() {
-        return hallId;
-    }
-
-    public void setHallId(Long hallId) {
-        this.hallId = hallId;
-    }
-
-
-    public Long getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(Long filmId) {
-        this.filmId = filmId;
-    }
+    private List<SeatShower> seats;
 
 
     public Long getId() {
@@ -86,6 +59,33 @@ public class ShowingEditor1 {
 
     public void setPriceManual(String priceManual) {
         this.priceManual = priceManual;
+    }
+
+
+    public String getFilmName() {
+        return filmName;
+    }
+
+    public void setFilmName(String filmName) {
+        this.filmName = filmName;
+    }
+
+
+    public String getHallName() {
+        return hallName;
+    }
+
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
+    }
+
+
+    public List<SeatShower> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<SeatShower> seats) {
+        this.seats = seats;
     }
 
 }

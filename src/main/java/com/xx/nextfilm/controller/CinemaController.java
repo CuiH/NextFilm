@@ -1,9 +1,11 @@
 package com.xx.nextfilm.controller;
 
 import com.google.gson.Gson;
-import com.xx.nextfilm.dto.*;
+import com.xx.nextfilm.dto.editor.CinemaEditor;
+import com.xx.nextfilm.dto.editor.ShowingFilmEditor;
+import com.xx.nextfilm.dto.shower.CinemaShower2;
+import com.xx.nextfilm.dto.shower.FilmShower3;
 import com.xx.nextfilm.entity.CinemaEntity;
-import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
@@ -15,8 +17,6 @@ import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -80,7 +80,7 @@ public class CinemaController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/increase_film", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit_showing_film", method = RequestMethod.GET)
     public String increaseFilm(@RequestParam Long cinemaId) {
         try {
             List<Long> filmIds = cinemaService.getAllShowingFilmIdsById(cinemaId);
@@ -97,7 +97,7 @@ public class CinemaController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/increase_film", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit_showing_film", method = RequestMethod.POST)
     public String increaseFilmHandler(ShowingFilmEditor showingFilmEditor) {
         try {
             fcmService.updateFCM(showingFilmEditor.getCinemaId(), showingFilmEditor.getFilmIds());

@@ -1,37 +1,25 @@
-package com.xx.nextfilm.dto;
+package com.xx.nextfilm.dto.shower;
 
-import com.xx.nextfilm.entity.FCMEntity;
-import com.xx.nextfilm.entity.HallEntity;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/16.
+ * Created by CuiH on 2016/5/18.
+ *
+ * 用于影院详情页面
  */
-public class CinemaEditor {
+public class CinemaShower1 {
 
     private Long id;
 
-    @NotEmpty
     private String name;
-    @NotEmpty
-    private String city;
-    @NotEmpty
     private String address;
-    @NotEmpty
     private String phone;
-    @NotEmpty
     private String brief;
-    @NotEmpty
     private String imageUrl;
-    @NotEmpty
     private String description;
 
-    private List<HallShower1> halls = new ArrayList<HallShower1>();
-
-    private List<FCMShower> fcms = new ArrayList<FCMShower>();
+    private List<HallShower2> halls;
+    private List<FCMShower> fcms;
 
 
     public Long getId() {
@@ -49,15 +37,6 @@ public class CinemaEditor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
 
@@ -106,11 +85,11 @@ public class CinemaEditor {
     }
 
 
-    public List<HallShower1> getHalls() {
+    public List<HallShower2> getHalls() {
         return halls;
     }
 
-    public void setHalls(List<HallShower1> halls) {
+    public void setHalls(List<HallShower2> halls) {
         this.halls = halls;
     }
 

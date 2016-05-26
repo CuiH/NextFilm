@@ -1,9 +1,7 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.dto.UserDetailEditor;
-import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
-import com.xx.nextfilm.dto.Visitor;
+import com.xx.nextfilm.dto.editor.Visitor;
 
 import java.util.Date;
 import java.util.List;

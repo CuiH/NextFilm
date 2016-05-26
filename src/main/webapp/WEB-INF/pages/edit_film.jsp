@@ -34,7 +34,7 @@
 
         <div class="inner-form-1">
             <div class="ui form">
-                <form:form modelAttribute="filmEditor" action="/edit_film" method="post">
+                <form:form id="film-form" modelAttribute="filmEditor">
                     <div class="disabled field">
                         <label>id</label>
                         <form:input type="text" id="id" path="id" readonly="true"/>
@@ -96,41 +96,91 @@
 
                     <div class="field">
                         <label>directors</label>
-                        <c:forEach items="${directors}" var="director">
-                            <div class="ui checkbox add-margin-right">
-                                <input name="directors" class="hidden" type="checkbox" value="${director.id}">
-                                <form:checkbox path="directors" value="${director.id}" cssClass="hidden"/>
-                                <label>${director.name}</label>
-                            </div>
-                        </c:forEach>
-                        <form:errors path="directors" cssClass="error-message"/>
+                        <div style="margin-bottom: 10px;" id="director-field">
+                            <c:forEach items="${filmEditor.ownedDirectors}" var="director">
+                                <a director-id="${director.id}" class="ui label"> ${director.name}
+                                    <i id="director${director.id}" class="delete icon"></i>
+                                </a>
+                            </c:forEach>
+                        </div>
+                        <a id="add_director" class="ui button blue">add a director</a>
+                            <%--<form:errors path="directors" cssClass="error-message"/>--%>
                     </div>
 
                     <div class="field">
                         <label>actors</label>
-                        <c:forEach items="${actors}" var="actor">
-                            <div class="ui checkbox add-margin-right">
-                                <form:checkbox path="actors" value="${actor.id}" cssClass="hidden"/>
-                                <label>${actor.name}</label>
-                            </div>
-                        </c:forEach>
-                        <form:errors path="actors" cssClass="error-message"/>
-                    </div>
-
-                    <div class="submit-button">
-                        <button class="ui button my-button-2">Submit</button>
+                        <div style="margin-bottom: 10px;" id="actor-field">
+                            <c:forEach items="${filmEditor.ownedActors}" var="actor">
+                                <a actor-id="${actor.id}" class="ui label"> ${actor.name}
+                                    <i id="actor${actor.id}" class="delete icon"></i>
+                                </a>
+                            </c:forEach>
+                        </div>
+                        <a id="add_actor" class="ui button blue">add a actor</a>
+                            <%--<form:errors path="directors" cssClass="error-message"/>--%>
                     </div>
                 </form:form>
+                <div class="submit-button">
+                    <button id="submit_form" class="ui button my-button-2">Submit</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="ui modal">
+    <div class="header">
+        Add
+    </div>
+    <div class="content">
+        <div class="description">
+            <div id="searcher-div" class="ui search">
+                <div class="ui icon input">
+                    <input id="actor_searcher" class="prompt" type="text" placeholder="输入完整or部分名字">
+                    <i class="search icon"></i>
+                </div>
+                <div class="add-margin-top">
+                    <div id="search_results" class="ui four column stackable grid "></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/res/js/film.js"></script>
+
 <script>
     $(document).ready(function() {
-        $('.ui.checkbox').checkbox();
+        $('i.delete').click(function () {
+            $(this).parent().remove();
+        });
 
-        $('select.dropdown').dropdown();
+        $("#submit_form").click(function() {
+            var str = "";
+
+            var d_list = $("#director-field").children("a");
+            for (var i = 0; i < d_list.length; i++) {
+                str += '&directors=' + $(d_list[i]).attr("director-id");
+            }
+
+            var a_list = $("#actor-field").children("a");
+            for (var i = 0; i < a_list.length; i++) {
+                str += '&actors=' + $(a_list[i]).attr("actor-id");
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "/edit_film",
+                data: $('#film-form').serialize() + str,
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
     });
 </script>
 
