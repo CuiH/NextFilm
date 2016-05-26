@@ -36,7 +36,7 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
 
     public List<FilmEntity> findByName(String name) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("name", name));
+        criteria.add(Restrictions.like("name", "%"+name+"%"));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
@@ -47,7 +47,7 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
 
     public List<FilmEntity> findByAlias(String alias) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("alias", alias));
+        criteria.add(Restrictions.like("alias", "%"+alias+"%"));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();

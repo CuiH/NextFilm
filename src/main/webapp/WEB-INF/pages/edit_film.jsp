@@ -140,7 +140,7 @@
                     <i class="search icon"></i>
                 </div>
                 <div class="add-margin-top">
-                    <div id="search_results" class="ui four column stackable grid "></div>
+                    <div id="search_results" class="ui special cards four column stackable grid"></div>
                 </div>
             </div>
         </div>

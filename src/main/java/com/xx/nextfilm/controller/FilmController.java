@@ -1,11 +1,14 @@
 package com.xx.nextfilm.controller;
 
+import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.FilmEditor;
 import com.xx.nextfilm.dto.shower.FilmShower2;
+import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
+import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -91,7 +96,7 @@ public class FilmController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/edit_film", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit_film", method = RequestMethod.POST, produces = "plain/text; charset=UTF-8")
     public String editFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
 
@@ -107,10 +112,26 @@ public class FilmController {
 
             return "fail";
         }
-
         filmService.updateFilm(filmEditor);
 
-        return "success";
+        return "嘻嘻";
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/find_film", method = RequestMethod.GET)
+    public String findActor(@RequestParam String name) {
+        List<FilmEntity> films = filmService.findFilmsByName(name);
+
+        if (films.size() == 0) {
+
+            return "{\"result\": \"fail\", \"reason\": \"no such film\"}";
+        } else {
+            Gson gson = new Gson();
+
+            return "{\"result\": \"success\", \"films\": " +
+                    gson.toJson(BuilderUtils.getFilmShower2sFromFilmEntities(films)) + "}";
+        }
     }
 
 

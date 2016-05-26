@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -115,7 +117,7 @@ public class ActorController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/find_actor", method = RequestMethod.GET)
+    @RequestMapping(value = "/find_actor", method = RequestMethod.GET, produces = "plain/text; charset=UTF-8")
     public String findActor(@RequestParam String name) {
         List<ActorEntity> actors = actorService.findActorsByName(name);
 

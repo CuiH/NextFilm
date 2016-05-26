@@ -2,8 +2,6 @@
  * Created by CuiH on 2016/5/26.
  */
 $(document).ready(function() {
-    $('.ui.checkbox').checkbox();
-
     $('select.dropdown').dropdown();
 
     $("#add_director").click(function() {
@@ -28,7 +26,7 @@ $(document).ready(function() {
     };
 
     $("#actor_searcher").on("input",function(){
-        if ($(this).val() == "") return;
+        if ($(this).val() == "" || $(this).val() == " " ) return;
 
         $("#searcher-div").addClass("loading");
 
@@ -39,15 +37,14 @@ $(document).ready(function() {
             success: function(data) {
                 $("#searcher-div").removeClass("loading");
 
+                console.log(data);
                 data = JSON.parse(data);
                 if (data["result"] == "success") {
                     $("#search_results").text("");
 
                     var tem = data["actors"];
                     for (var i = 0; i < tem.length; i++) {
-                        var str = '<div class="column">' +
-                                    '<div class="ui special cards">' +
-                                      '<div class="card">' +
+                        var str =     '<div class="card">' +
                                         '<div class="blurring dimmable image">' +
                                           '<div class="ui inverted dimmer">' +
                                             '<div class="content">' +
@@ -61,23 +58,21 @@ $(document).ready(function() {
                                         '<div class="content">' +
                                           '<a class="header">' + tem[i]["name"] + '</a>' +
                                         '</div>' +
-                                      '</div>' +
-                                    '</div>' +
-                                  '</div>';
+                                      '</div>';
 
                         $("#search_results").append(str);
                     }
 
-                    $('.special.cards .image').dimmer({on: 'hover'});
-
                     setTimeout("$('.ui.modal').modal('refresh');", 10);
+
+                    $('.special.cards .image').dimmer({on: 'hover'});
 
                     $('button.add-actor').click(function() {
                         $('.ui.modal').modal('hide');
 
                         if ($('.ui.modal').hasClass("is-actor")) {
                             if (checkDuplication("actor", $(this).attr("actor-id"))) {
-                                alert("失败，已添加");
+                                alert("请勿重复添加");
                                 return;
                             }
 

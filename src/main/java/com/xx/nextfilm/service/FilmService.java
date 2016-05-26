@@ -17,11 +17,11 @@ public interface FilmService {
 
     FilmEditor getFilmEditorById(Long id);
 
-    List<FilmEntity> findFilmByName(String name);
+    List<FilmEntity> findFilmsByName(String name);
 
-    List<FilmEntity> findFilmByType(String type);
+    List<FilmEntity> findFilmsByType(String type);
 
-    List<FilmEntity> findFilmByCategory(String category);
+    List<FilmEntity> findFilmsByCategory(String category);
 
     void createFilm(FilmEditor filmEditor);
 

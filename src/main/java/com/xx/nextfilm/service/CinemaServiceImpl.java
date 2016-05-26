@@ -42,7 +42,7 @@ public class CinemaServiceImpl implements CinemaService {
 
     public CinemaEditor getCinemaEditorById(Long id)
             throws CinemaNotExistException{
-        CinemaEntity cinemaEntity = findCinemaById(id, false, true, true);
+        CinemaEntity cinemaEntity = findCinemaById(id, true, true, false);
 
         CinemaEditor cinemaEditor = new CinemaEditor();
 
@@ -56,7 +56,7 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaEditor.setDescription(cinemaEntity.getDescription());
 
         cinemaEditor.setHalls(BuilderUtils.getHallShower1sFromHallEntities(cinemaEntity.getHalls()));
-        cinemaEditor.setFcms(BuilderUtils.getFCMShowersFromFCMEntities(cinemaEntity.getFcms()));
+        cinemaEditor.setFilms(BuilderUtils.getFilmShower2sFromFilmEntities(cinemaEntity.getFilms()));
 
         return cinemaEditor;
     }

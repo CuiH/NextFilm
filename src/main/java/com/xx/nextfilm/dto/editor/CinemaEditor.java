@@ -1,6 +1,7 @@
 package com.xx.nextfilm.dto.editor;
 
 import com.xx.nextfilm.dto.shower.FCMShower;
+import com.xx.nextfilm.dto.shower.FilmShower2;
 import com.xx.nextfilm.dto.shower.HallShower1;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,8 +31,7 @@ public class CinemaEditor {
     private String description;
 
     private List<HallShower1> halls = new ArrayList<HallShower1>();
-
-    private List<FCMShower> fcms = new ArrayList<FCMShower>();
+    private List<FilmShower2> films = new ArrayList<FilmShower2>();
 
 
     public Long getId() {
@@ -115,12 +115,13 @@ public class CinemaEditor {
     }
 
 
-    public List<FCMShower> getFcms() {
-        return fcms;
+    public List<FilmShower2> getFilms() {
+        return films;
     }
 
-    public void setFcms(List<FCMShower> fcms) {
-        this.fcms = fcms;
+    public void setFilms(List<FilmShower2> films) {
+        this.films = films;
     }
+
 
 }

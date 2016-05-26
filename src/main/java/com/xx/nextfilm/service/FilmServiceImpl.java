@@ -79,22 +79,34 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public List<FilmEntity> findFilmByName(String name) {
+    public List<FilmEntity> findFilmsByName(String name) {
         List<FilmEntity> list1 = filmDao.findByName(name);
         List<FilmEntity> list2 = filmDao.findByAlias(name);
 
-        list1.addAll(list2);
+        for (FilmEntity film: list2) {
+            boolean flag = false;
+            for (FilmEntity f: list1) {
+                if (film.getId() == f.getId()) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (flag == false) {
+                list1.add(film);
+            }
+        }
 
         return list1;
     }
 
 
-    public List<FilmEntity> findFilmByType(String type) {
+    public List<FilmEntity> findFilmsByType(String type) {
         return filmDao.findByType(type);
     }
 
 
-    public List<FilmEntity> findFilmByCategory(String category) {
+    public List<FilmEntity> findFilmsByCategory(String category) {
         return filmDao.findByCategory(category);
     }
 

@@ -2,10 +2,13 @@ package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
+import com.xx.nextfilm.dto.shower.ShowingShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 import com.xx.nextfilm.exception.*;
 import com.xx.nextfilm.service.CinemaService;
+import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.service.ShowingService;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -35,23 +39,30 @@ public class ShowingController {
     CinemaService cinemaService;
 
     @Autowired
+    FilmService filmService;
+
+    @Autowired
     MessageSource messageSource;
 
 
     @RequestMapping(value = "/add_showing", method = RequestMethod.GET)
-    public String addShowing(@RequestParam Long cinemaId, ModelMap modelMap) {
+    public String addShowing(@RequestParam Long cinemaId, @RequestParam Long filmId, ModelMap modelMap) {
         try {
-            CinemaEntity cinemaEntity = cinemaService.findCinemaById(cinemaId, true, true ,false);
+            CinemaEntity cinemaEntity = cinemaService.findCinemaById(cinemaId, false, true ,false);
+            FilmEntity filmEntity = filmService.findFilmById(filmId, false, false);
 
             ShowingEditor1 showingEditor1 = new ShowingEditor1();
             showingEditor1.setCinemaId(cinemaId);
+            showingEditor1.setFilm(BuilderUtils.getFilmShower3FromFilmEntity(filmEntity));
             modelMap.addAttribute("showingEditor1", showingEditor1);
 
-            modelMap.addAttribute("films", BuilderUtils.getFilmShower3sFromFilmEntities(cinemaEntity.getFilms()));
             modelMap.addAttribute("halls", BuilderUtils.getHallShower2sFromHallEntities(cinemaEntity.getHalls()));
 
             return "add_showing";
         } catch (CinemaNotExistException e) {
+
+            return "redirect:/fail";
+        } catch (FilmNotExistException e) {
 
             return "redirect:/fail";
         }
@@ -89,6 +100,32 @@ public class ShowingController {
 
             return "redirect:/fail";
         } catch (HallNotExistException e) {
+
+            return "redirect:/fail";
+        } catch (FilmNotExistException e) {
+
+            return "redirect:/fail";
+        } catch (FCMNotExistException e) {
+
+            return "redirect:/fail";
+        }
+    }
+
+
+    @RequestMapping(value = "/show_all_showing", method = RequestMethod.GET)
+    public String showAllShowing(@RequestParam Long cinemaId, @RequestParam Long filmId, ModelMap modelMap) {
+        try {
+            CinemaEntity cinemaEntity = cinemaService.findCinemaById(cinemaId, false, false, false);
+            FilmEntity filmEntity = filmService.findFilmById(filmId, false, false);
+
+            List<ShowingShower2> showingShower2s = showingService.findShowingsByCinemaAndFilm(cinemaEntity, filmEntity);
+            modelMap.addAttribute("showings", showingShower2s);
+            modelMap.addAttribute("cinemaId", cinemaId);
+            modelMap.addAttribute("filmId", filmEntity.getId());
+            modelMap.addAttribute("filmName", filmEntity.getName());
+
+            return "show_all_showing";
+        } catch (CinemaNotExistException e) {
 
             return "redirect:/fail";
         } catch (FilmNotExistException e) {

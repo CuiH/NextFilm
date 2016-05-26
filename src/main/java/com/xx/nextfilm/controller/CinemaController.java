@@ -80,23 +80,6 @@ public class CinemaController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/edit_showing_film", method = RequestMethod.GET)
-    public String increaseFilm(@RequestParam Long cinemaId) {
-        try {
-            List<Long> filmIds = cinemaService.getAllShowingFilmIdsById(cinemaId);
-            List<FilmShower3> allFilms = filmService.findAllFilmsWithShower3();
-
-            Gson gson = new Gson();
-
-            return "{\"result\": \"success\", \"films\": " +
-                    gson.toJson(BuilderUtils.getShowingFilmShower(allFilms, filmIds)) + "}";
-        } catch (CinemaNotExistException e) {
-
-            return "{\"result\": \"fail\", \"reason\": \"cinema not exist\"}";
-        }
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/edit_showing_film", method = RequestMethod.POST)
     public String increaseFilmHandler(ShowingFilmEditor showingFilmEditor) {
         try {

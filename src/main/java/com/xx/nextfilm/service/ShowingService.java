@@ -2,7 +2,13 @@ package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
+import com.xx.nextfilm.dto.shower.ShowingShower2;
+import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FCMEntity;
+import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
+
+import java.util.List;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -10,6 +16,8 @@ import com.xx.nextfilm.entity.ShowingEntity;
 public interface ShowingService {
 
     ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats);
+
+    List<ShowingShower2> findShowingsByCinemaAndFilm(CinemaEntity cinemaEntity, FilmEntity filmEntity);
 
     ShowingEditor2 getShowingEditor2ById(Long id);
 

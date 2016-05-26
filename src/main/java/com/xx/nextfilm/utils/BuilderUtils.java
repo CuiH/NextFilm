@@ -46,8 +46,20 @@ public class BuilderUtils {
         return filmShower2;
     }
 
+    public static List<FilmShower2> getFilmShower2sFromFilmEntities(List<FilmEntity> filmEntities) {
+        List<FilmShower2> films = new ArrayList<FilmShower2>();
 
-    private static FilmShower3 getFilmShower3FromFilmEntity(FilmEntity film) {
+        if (filmEntities != null) {
+            for (FilmEntity film: filmEntities) {
+                films.add(BuilderUtils.getFilmShower2FromFilmEntity(film));
+            }
+        }
+
+        return films;
+    }
+
+
+    public static FilmShower3 getFilmShower3FromFilmEntity(FilmEntity film) {
         FilmShower3 filmShower3 = new FilmShower3();
 
         filmShower3.setId(film.getId());

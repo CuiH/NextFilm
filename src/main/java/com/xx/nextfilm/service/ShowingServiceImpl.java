@@ -4,6 +4,7 @@ import com.xx.nextfilm.dao.*;
 import com.xx.nextfilm.dto.shower.SeatShower;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
+import com.xx.nextfilm.dto.shower.ShowingShower2;
 import com.xx.nextfilm.entity.*;
 import com.xx.nextfilm.exception.*;
 import com.xx.nextfilm.utils.BuilderUtils;
@@ -44,6 +45,14 @@ public class ShowingServiceImpl implements ShowingService {
     public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats)
             throws ShowingNotExistException {
         return showingDao.findById(id, needFcm, needSeats);
+    }
+
+
+    public List<ShowingShower2> findShowingsByCinemaAndFilm(CinemaEntity cinemaEntity, FilmEntity filmEntity)
+            throws FCMNotExistException{
+        FCMEntity fcmEntity = fcmDao.findByFilmAndCinema(filmEntity, cinemaEntity);
+
+        return BuilderUtils.getShowingShower2sFromShowingEntities(showingDao.findByFCM(fcmEntity));
     }
 
 

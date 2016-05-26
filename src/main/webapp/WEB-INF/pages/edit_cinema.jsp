@@ -87,10 +87,38 @@
                         <button class="ui button my-button-2">Submit</button>
                     </div>
                 </form:form>
-                <div class=" my-button-1">
-                    <button id="increase_film" class="ui teal button my-button-2" cinema-id="${cinemaEditor.id}">edit film</button>
-                </div>
             </div>
+        </div>
+
+        <div style="margin-top: 25px; margin-bottom: 35px" class="ui clearing divider"></div>
+        <div class="ui huge breadcrumb">
+            <div class="active section">All Films（上、下架操作提交后生效）</div>
+        </div>
+        <div class="add-margin-top">
+            <div id="film-field" class="ui special cards four column stackable grid">
+                <c:forEach items="${cinemaEditor.films}" var="film">
+                    <div film-id="${film.id}" class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui inverted dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui primary button delete_film">下架影片</div>
+                                        <a class="ui primary button" href="/show_all_showing?cinemaId=${cinemaEditor.id}&filmId=${film.id}">查看排片</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="${film.imageUrl}">
+                        </div>
+                        <div class="content">
+                            <a class="header">${film.name}</a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="my-button-group-1">
+            <button id="add-film" style="float: left;" class="ui pink button">Add</button>
+            <button id="submit-film" style="float: right;" class="ui teal button" cinema-id="${cinemaEditor.id}">Submit</button>
         </div>
 
         <div style="margin-top: 25px; margin-bottom: 35px" class="ui clearing divider"></div>
@@ -131,141 +159,48 @@
             </div>
         </div>
 
-        <div style="margin-top: 25px; margin-bottom: 35px" class="ui clearing divider"></div>
-        <div class="ui huge breadcrumb">
-            <div class="active section">All Showings</div>
-        </div>
-        <div class="inner-accordion-1">
-            <c:forEach var="fcm" items="${cinemaEditor.fcms}">
-                <div style="width:100%;" class="ui styled accordion">
-                    <div class="title"><i class="dropdown icon"></i>${fcm.film.name}</div>
-                    <div class="content">
-                        <div class="inner-table-4">
-                            <table class="ui celled table">
-                                <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>start time</th>
-                                    <th>end time</th>
-                                    <th>price</th>
-                                    <th>hall</th>
-                                    <th>编辑</th>
-                                    <th>删除</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="showing" items="${fcm.showings}">
-                                    <tr>
-                                        <td>${showing.id}</td>
-                                        <td>${showing.startTime}</td>
-                                        <td>${showing.endTime}</td>
-                                        <td>${showing.priceManual}</td>
-                                        <td>${showing.hall.name}</td>
-                                        <security:authorize access="hasRole('ROLE_ADMIN')">
-                                            <td><a href="/edit_showing?id=${showing.id}&cinemaId=${cinemaEditor.id}">edit</a></td>
-                                            <td><a href="/delete_showing?id=${showing.id}">delete</a></td>
-                                        </security:authorize>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-            <div class=" my-button-3">
-                <a class="ui teal button my-button-2" href="/add_showing?cinemaId=${cinemaEditor.id}">add a showing</a>
-            </div>
-        </div>
+        <%--<div style="margin-top: 25px; margin-bottom: 35px" class="ui clearing divider"></div>--%>
+        <%--<div class="ui huge breadcrumb">--%>
+            <%--<div class="active section">All Showings</div>--%>
+        <%--</div>--%>
+        <%--<div class="inner-accordion-1">--%>
+            <%--<c:forEach var="fcm" items="${cinemaEditor.fcms}">--%>
+                <%--<div style="width:100%;" class="ui styled accordion">--%>
+                    <%--<div class="title"><i class="dropdown icon"></i>${fcm.film.name}</div>--%>
+                    <%--<div class="content">--%>
+                        <%--<div class="inner-table-4">--%>
+                            <%----%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</c:forEach>--%>
+            <%--<div class=" my-button-3">--%>
+                <%--<a class="ui teal button my-button-2" href="/add_showing?cinemaId=${cinemaEditor.id}">add a showing</a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 </div>
-
 
 <div class="ui modal">
     <div class="header">
-        Edit Film
+        Add
     </div>
     <div class="content">
         <div class="description">
-            <div class="ui header">选择上映的电影</div>
-            <div class="ui form">
-                <form id="increase_film_form">
-                    <div class="disabled field">
-                        <label>cinema id</label>
-                        <input type="text" name="cinemaId" value="${cinemaEditor.id}" readonly="readonly"/>
-                    </div>
-                    <div id="edit_film_field" class="field">
-                        <label>films</label>
-                    </div>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
+            <div id="searcher-div" class="ui search">
+                <div class="ui icon input">
+                    <input id="film_searcher" class="prompt" type="text" placeholder="输入完整or部分名字">
+                    <i class="search icon"></i>
+                </div>
+                <div class="add-margin-top">
+                    <div id="search_results" class="ui special cards four column stackable grid"></div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">
-            Cancel
-        </div>
-        <div id="increase_ok" class="ui positive right labeled icon button">
-            Ok
-            <i class="checkmark icon"></i>
         </div>
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
-    $('select.dropdown').dropdown();
-
-    $('.ui.accordion').accordion();
-
-    $.ajax({
-        type: "GET",
-        dataType: "html",
-        url: "/increase_film?cinemaId="+$("#increase_film").attr("cinema-id"),
-        success: function(data) {
-            console.log(data);
-            data = JSON.parse(data);
-            if (data["result"] == "success") {
-                var films = data["films"];
-                for (var i = 0; i < films.length; i++) {
-                    var str = "<div class='ui checkbox add-margin-right'>";
-                    str += "<input name='filmIds' class='hidden' type='checkbox' value=" + films[i]["id"];
-                    if (films[i]["selected"] == true) {
-                        str += ' checked=checked'
-                    }
-                    str += "><label>" +films[i]["name"] + "</label></div>";
-                    $("#edit_film_field").append(str);
-                }
-            }
-
-            $('.ui.checkbox').checkbox();
-        },
-        error: function() {
-            alert("error");
-        }
-    });
-
-    $("#increase_film").click(function() {
-        $('.ui.modal').modal('show');
-    });
-
-    $("#increase_ok").click(function() {
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "/increase_film",
-            data: $('#increase_film_form').serialize(),
-            success: function(result) {
-                console.log(result);
-            },
-            error: function() {
-                alert("error");
-            }
-        });
-    })
-});
-</script>
+<script src="/res/js/cinema.js"></script>
 
 </body>
 </html>

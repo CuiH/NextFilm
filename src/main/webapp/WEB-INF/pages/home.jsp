@@ -31,7 +31,7 @@
             <p>欢迎你，${username}，你可以：</p>
             <div style="margin-top:40px;">
                 <p>
-                    <a class="ui orange button my-button-2" href="/change_password">更改密码</a>
+                    <a class="disabled ui orange button my-button-2" href="/change_password">更改密码</a>
                 </p>
                 <p>
                     <a class="ui yellow button my-button-2" href="/edit_detail">更改资料</a>

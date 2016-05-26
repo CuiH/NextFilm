@@ -32,6 +32,8 @@
             <i class="right chevron icon divider"></i>
             <a href="/edit_cinema?id=${showingEditor1.cinemaId}" class="section">影院详情</a>
             <i class="right chevron icon divider"></i>
+            <a class="section">${showingEditor1.film.name}</a>
+            <i class="right chevron icon divider"></i>
             <div class="active section">Add Showing</div>
         </div>
 
@@ -39,8 +41,13 @@
             <div class="ui form">
                 <form:form modelAttribute="showingEditor1" action="/add_showing" method="post">
                     <div class="disabled field">
-                        <label for="cinemaId">cinema_id: </label>
+                        <label>cinema id: </label>
                         <form:input type="text" id="cinemaId" path="cinemaId" readonly="true"/>
+                    </div>
+
+                    <div class="disabled field">
+                        <label>film id: </label>
+                        <input name="filmId" type="text" readonly="readonly" value="${showingEditor1.film.id}">
                     </div>
 
                     <div class="field">
@@ -52,17 +59,6 @@
                             </div>
                         </c:forEach>
                         <form:errors path="hallId" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>film</label>
-                        <c:forEach items="${films}" var="film">
-                            <div class="ui radio checkbox">
-                                <form:radiobutton path="filmId" value="${film.id}" cssClass="hidden"/>
-                                <label>${film.name}</label>
-                            </div>
-                        </c:forEach>
-                        <form:errors path="filmId" cssClass="error-message"/>
                     </div>
 
                     <div class="field">
