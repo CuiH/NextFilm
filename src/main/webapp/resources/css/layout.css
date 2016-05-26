@@ -115,3 +115,6 @@
     margin-bottom: 30px;
 }
 
+.not-show {
+    visibility: hidden;
+}

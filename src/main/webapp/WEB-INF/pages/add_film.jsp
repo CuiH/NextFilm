@@ -33,79 +33,77 @@
         </div>
 
         <div class="inner-form-1">
-            <div class="ui form">
-                <form:form id="film-form" modelAttribute="filmEditor">
-                    <div class="field">
-                        <label>name</label>
-                        <form:input type="text" id="name" path="name" placeholder="名字"/>
-                        <form:errors path="name" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>alias</label>
-                        <form:input type="text" id="alias" path="alias" placeholder="别名"/>
-                        <form:errors path="alias" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>brief</label>
-                        <form:input type="text" id="brief" path="brief" placeholder="简介"/>
-                        <form:errors path="brief" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>language</label>
-                        <form:input type="text" id="language" path="language" placeholder="语言"/>
-                        <form:errors path="language" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>length</label>
-                        <form:input type="text" id="length" path="length" placeholder="长度"/>
-                        <form:errors path="length" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>on date</label>
-                        <form:input type="text" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
-                        <form:errors path="onDate" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>image url</label>
-                        <form:input type="text" id="imageUrl" path="imageUrl" placeholder="图片链接"/>
-                        <form:errors path="imageUrl" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>category</label>
-                        <form:select path="category" cssClass="ui fluid dropdown" items="${categories}"/>
-                        <form:errors path="category" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>type</label>
-                        <form:select path="type" cssClass="ui fluid dropdown" items="${types}"/>
-                        <form:errors path="type" cssClass="error-message"/>
-                    </div>
-
-                    <div class="field">
-                        <label>directors</label>
-                        <div style="margin-bottom: 10px;" id="director-field"></div>
-                        <a id="add_director" class="ui button blue">add a director</a>
-                        <%--<form:errors path="directors" cssClass="error-message"/>--%>
-                    </div>
-
-                    <div class="field">
-                        <label>actors</label>
-                        <div style="margin-bottom: 10px;" id="actor-field"></div>
-                        <a id="add_actor" class="ui button blue">add a actor</a>
-                        <%--<form:errors path="actors" cssClass="error-message"/>--%>
-                    </div>
-                </form:form>
-                <div class="submit-button">
-                    <button id="submit_form" class="ui button my-button-2">Submit</button>
+            <form:form id="film-form" cssClass="ui form" modelAttribute="filmEditor">
+                <div class="field">
+                    <label>name</label>
+                    <form:input type="text" id="name" path="name" placeholder="名字"/>
+                    <form:errors path="name" cssClass="error-message"/>
                 </div>
+
+                <div class="field">
+                    <label>alias</label>
+                    <form:input type="text" id="alias" path="alias" placeholder="别名"/>
+                    <form:errors path="alias" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>brief</label>
+                    <form:input type="text" id="brief" path="brief" placeholder="简介"/>
+                    <form:errors path="brief" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>language</label>
+                    <form:input type="text" id="language" path="language" placeholder="语言"/>
+                    <form:errors path="language" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>length</label>
+                    <form:input type="text" id="length" path="length" placeholder="长度"/>
+                    <form:errors path="length" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>on date</label>
+                    <form:input type="text" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
+                    <form:errors path="onDate" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>image url</label>
+                    <form:input type="text" id="imageUrl" path="imageUrl" placeholder="图片链接"/>
+                    <form:errors path="imageUrl" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>category</label>
+                    <form:select path="category" cssClass="ui fluid dropdown" items="${categories}"/>
+                    <form:errors path="category" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>type</label>
+                    <form:select path="type" cssClass="ui fluid dropdown" items="${types}"/>
+                    <form:errors path="type" cssClass="error-message"/>
+                </div>
+
+                <div class="field">
+                    <label>directors</label>
+                    <div style="margin-bottom: 10px;" id="director-field"></div>
+                    <a id="add_director" class="ui button blue">add a director</a>
+                    <span hidden="hidden" id="directors_error" class="error-message not-show"/>
+                </div>
+
+                <div class="field">
+                    <label>actors</label>
+                    <div style="margin-bottom: 10px;" id="actor-field"></div>
+                    <a id="add_actor" class="ui button blue">add a actor</a>
+                    <span hidden="hidden" id="actors_error" class="error-message not-show"/>
+                </div>
+            </form:form>
+            <div class="submit-button">
+                <button id="submit_form" class="ui button my-button-2">Submit</button>
             </div>
         </div>
     </div>
@@ -132,17 +130,33 @@
 
 <script src="/res/js/film.js"></script>
 
+<script src="/res/js/film_validator.js"></script>
+
 <script>
     $(document).ready(function() {
         $("#submit_form").click(function() {
-            var str = "";
-
             var d_list = $("#director-field").children("a");
-            for (var i = 0; i < d_list.length; i++) {
-                str += '&directors=' + $(d_list[i]).attr("director-id");
+            if (d_list.length == 0) {
+                $("#directors_error").text("Please select at least 1 director.");
+                $("#directors_error").removeClass("not-show");
+                return;
             }
 
             var a_list = $("#actor-field").children("a");
+            if (a_list.length == 0) {
+                $("#actors_error").text("Please select at least 1 actor.");
+                $("#actors_error").removeClass("not-show");
+                return;
+            }
+
+            $('.ui.form').form('validate form');
+
+            return;
+
+            var str = "";
+            for (var i = 0; i < d_list.length; i++) {
+                str += '&directors=' + $(d_list[i]).attr("director-id");
+            }
             for (var i = 0; i < a_list.length; i++) {
                 str += '&actors=' + $(a_list[i]).attr("actor-id");
             }
