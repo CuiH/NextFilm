@@ -2,6 +2,7 @@ package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
+import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.HallNotExistException;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.HallService;
@@ -12,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Locale;
@@ -46,11 +44,12 @@ public class HallController {
         return "add_hall";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/add_hall", method = RequestMethod.POST)
     public String addHallHandler(@Valid HallEditor hallEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "add_hall";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         if (!ValidatorUtils.isShortValid(hallEditor.getRowNum())) {
@@ -58,7 +57,7 @@ public class HallController {
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(rowNumError);
 
-            return "add_hall";
+            return "{\"result\": \"fail\", \"reason\": \"your row num is not valid\"}";
         }
 
         if (!ValidatorUtils.isShortValid(hallEditor.getColumnNum())) {
@@ -66,17 +65,16 @@ public class HallController {
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(columnNumError);
 
-            return "add_hall";
+            return "{\"result\": \"fail\", \"reason\": \"your column num is not valid\"}";
         }
 
-        boolean r = hallService.createHall(hallEditor);
+        try {
+            hallService.createHall(hallEditor);
 
-        if (r) {
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
+        } catch (CinemaNotExistException e) {
 
-            return "redirect:/success";
-        } else {
-
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         }
     }
 
@@ -95,12 +93,12 @@ public class HallController {
         }
     }
 
-
+    @ResponseBody
     @RequestMapping(value = "/edit_hall", method = RequestMethod.POST)
     public String editHallHandler(@Valid HallEditor hallEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "edit_hall";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         if (!ValidatorUtils.isShortValid(hallEditor.getRowNum())) {
@@ -108,7 +106,7 @@ public class HallController {
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(rowNumError);
 
-            return "add_hall";
+            return "{\"result\": \"fail\", \"reason\": \"your row num is not valid\"}";
         }
 
         if (!ValidatorUtils.isShortValid(hallEditor.getColumnNum())) {
@@ -116,17 +114,17 @@ public class HallController {
                     messageSource.getMessage("CH.invalid.num", null, Locale.getDefault()));
             result.addError(columnNumError);
 
-            return "add_hall";
+            return "{\"result\": \"fail\", \"reason\": \"your column num is not valid\"}";
         }
 
         boolean r = hallService.updateHall(hallEditor);
 
         if (r) {
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } else {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
         }
     }
 

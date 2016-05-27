@@ -21,6 +21,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -69,11 +70,12 @@ public class ShowingController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/add_showing", method = RequestMethod.POST)
     public String addShowingHandler(@Valid ShowingEditor1 showingEditor1, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "add_showing";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         if (!ValidatorUtils.isDateValid(showingEditor1.getStartTime())) {
@@ -81,7 +83,7 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(startTimeError);
 
-            return "add_showing";
+            return "{\"result\": \"fail\", \"reason\": \"your start time is not valid\"}";
         }
 
         if (!ValidatorUtils.isDateValid(showingEditor1.getEndTime())) {
@@ -89,25 +91,25 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(endTimeError);
 
-            return "add_showing";
+            return "{\"result\": \"fail\", \"reason\": \"your end time is not valid\"}";
         }
 
         try {
             showingService.createShowing(showingEditor1);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (CinemaNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         } catch (HallNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown hall\"}";
         } catch (FilmNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown film\"}";
         } catch (FCMNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown film_cinema_map\"}";
         }
     }
 
@@ -152,12 +154,12 @@ public class ShowingController {
         }
     }
 
-
+    @ResponseBody
     @RequestMapping(value = "/edit_showing", method = RequestMethod.POST)
     public String editShowingHandler(@Valid ShowingEditor2 showingEditor2, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "edit_showing";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         if (!ValidatorUtils.isDateValid(showingEditor2.getStartTime())) {
@@ -165,7 +167,7 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(startTimeError);
 
-            return "add_showing";
+            return "{\"result\": \"fail\", \"reason\": \"your start time is not valid\"}";
         }
 
         if (!ValidatorUtils.isDateValid(showingEditor2.getEndTime())) {
@@ -173,17 +175,17 @@ public class ShowingController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(endTimeError);
 
-            return "add_showing";
+            return "{\"result\": \"fail\", \"reason\": \"your end time is not valid\"}";
         }
 
         boolean r = showingService.updateShowing(showingEditor2);
 
         if (r) {
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } else {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
         }
     }
 

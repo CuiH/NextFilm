@@ -42,6 +42,26 @@ $(document).ready(function() {
             }
         },
         inline : true,
-        on     : 'blur'
+        on     : 'blur',
+        onSuccess: function (event, fields) {
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "/add_actor",
+                data: $('#actor_form').serialize(),
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_success").modal('show');
+                    } else {
+                        $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_fail").model('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        }
     });
 });

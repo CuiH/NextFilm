@@ -37,17 +37,24 @@
 		<!-- 拦截的url -->
 		<intercept-url pattern="/home" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/change_password" access="hasRole('ROLE_USER')" />
+
 		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/edit_detail" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/add_actor" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/edit_actor/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/delete_actor/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/add_cinema" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/edit_cinema/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/delete_cinema/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/add_film" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/edit_film/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/delete_film/**" access="hasRole('ROLE_ADMIN')" />
+
+		<intercept-url pattern="/edit*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/add*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/delete*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/show*" access="hasRole('ROLE_ADMIN')" />
+
+		<!--<intercept-url pattern="/edit_detail" access="hasRole('ROLE_USER')" />-->
+		<!--<intercept-url pattern="/add_actor" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/edit_actor/**" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/delete_actor/**" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/add_cinema" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/edit_cinema/**" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/delete_cinema/**" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/add_film" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/edit_film/**" access="hasRole('ROLE_ADMIN')" />-->
+		<!--<intercept-url pattern="/delete_film/**" access="hasRole('ROLE_ADMIN')" />-->
 
 		<!-- csrf相关 -->
 		<csrf request-matcher-ref="csrfSecurityRequestMatcher"/>

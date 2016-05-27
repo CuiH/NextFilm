@@ -45,15 +45,13 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    public boolean createHall(HallEditor hallEditor) throws CinemaNotExistException {
+    public void createHall(HallEditor hallEditor) throws CinemaNotExistException {
         CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
 
         HallEntity hallEntity = getEntityFromEditor(hallEditor, false);
         hallEntity.setCinema(cinemaEntity);
 
         hallDao.doSave(hallEntity);
-
-        return true;
     }
 
 

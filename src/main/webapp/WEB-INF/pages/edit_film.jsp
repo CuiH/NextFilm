@@ -12,7 +12,7 @@
 <head>
     <title>Edit Film</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/res/css/layout.css" rel="stylesheet">
@@ -126,7 +126,7 @@
     </div>
 </div>
 
-<div class="ui modal">
+<div id="model_search" class="ui modal">
     <div class="header">
         Add
     </div>
@@ -145,7 +145,24 @@
     </div>
 </div>
 
+<div id="model_success" class="ui small modal">
+    <div class="header">修改成功</div>
+    <div class="actions">
+        <a href="/show_all_film" class="ui negative button">返回列表页</a>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">修改失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">去修改</div>
+    </div>
+</div>
+
 <script src="/res/js/film.js"></script>
+
+<script src="/res/js/edit_film_validator.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -158,30 +175,21 @@
             if (d_list.length == 0) {
                 $("#directors_error").text("Please select at least 1 director.");
                 $("#directors_error").removeClass("not-show");
-            }
-
-            var str = "";
-            for (var i = 0; i < d_list.length; i++) {
-                str += '&directors=' + $(d_list[i]).attr("director-id");
+                return;
+            } else {
+                $("#directors_error").addClass("not-show");
             }
 
             var a_list = $("#actor-field").children("a");
-            for (var i = 0; i < a_list.length; i++) {
-                str += '&actors=' + $(a_list[i]).attr("actor-id");
+            if (a_list.length == 0) {
+                $("#actors_error").text("Please select at least 1 actor.");
+                $("#actors_error").removeClass("not-show");
+                return;
+            } else {
+                $("#actors_error").addClass("not-show");
             }
 
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "/edit_film",
-                data: $('#film-form').serialize() + str,
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function() {
-                    alert("error");
-                }
-            });
+            $('.ui.form').form('validate form');
         });
     });
 </script>

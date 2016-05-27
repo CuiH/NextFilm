@@ -14,6 +14,8 @@
     <title>Edit Showing</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 <body>
@@ -30,49 +32,50 @@
             <i class="right chevron icon divider"></i>
             <a href="/edit_cinema?id=${cinemaId}" class="section">影院详情</a>
             <i class="right chevron icon divider"></i>
+            <a class="section">${showingEditor2.film.name}</a>
+            <i class="right chevron icon divider"></i>
+            <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="section">All Showings</a>
+            <i class="right chevron icon divider"></i>
             <div class="active section">Edit Showing</div>
         </div>
 
         <div class="inner-form-1">
-            <div class="ui form">
-                <form:form modelAttribute="showingEditor2" action="/edit_showing" method="post">
-                    <div class="disabled field">
-                        <label>id</label>
-                        <form:input type="text" id="id" path="id" readonly="true"/>
-                    </div>
+            <form:form id="showing_form" modelAttribute="showingEditor2" cssClass="ui form">
+                <div class="disabled field">
+                    <label>id</label>
+                    <form:input type="text" id="id" path="id" readonly="true"/>
+                </div>
 
-                    <div class="disabled field">
-                        <label>film name</label>
-                        <form:input type="text" id="filmName" path="filmName" readonly="true"/>
-                    </div>
+                <div class="disabled field">
+                    <label>film name</label>
+                    <input id="filmName" type="text" value="${showingEditor2.film.name}" readonly="true"/>
+                </div>
 
-                    <div class="disabled field">
-                        <label>hall name</label>
-                        <form:input type="text" id="hallName" path="hallName" readonly="true"/>
-                    </div>
+                <div class="disabled field">
+                    <label>hall name</label>
+                    <form:input type="text" id="hallName" path="hallName" readonly="true"/>
+                </div>
 
-                    <div class="field">
-                        <label>start time</label>
-                        <form:input type="text" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
-                        <form:errors path="startTime" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>start time</label>
+                    <form:input type="text" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:errors path="startTime" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>end time</label>
-                        <form:input type="text" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
-                        <form:errors path="endTime" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>end time</label>
+                    <form:input type="text" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:errors path="endTime" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>price manual</label>
-                        <form:input type="text" id="priceManual" path="priceManual" placeholder="定价"/>
-                        <form:errors path="priceManual" cssClass="error-message"/>
-                    </div>
-
-                    <div class="submit-button">
-                        <button class="ui button my-button-2">Submit</button>
-                    </div>
-                </form:form>
+                <div class="field">
+                    <label>price manual</label>
+                    <form:input type="text" id="priceManual" path="priceManual" placeholder="定价"/>
+                    <form:errors path="priceManual" cssClass="error-message"/>
+                </div>
+            </form:form>
+            <div class="submit-button">
+                <button id="submit_form" class="ui button my-button-2">Submit</button>
             </div>
         </div>
 
@@ -106,17 +109,34 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 
+<div id="model_success" class="ui small modal">
+    <div class="header">修改成功</div>
+    <div class="actions">
+        <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
+    </div>
+</div>
 
+<div id="model_fail" class="ui small modal">
+    <div class="header">修改失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">去修改</div>
+    </div>
+</div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="/res/js/edit_showing_validator.js"></script>
+
 <script>
     $(document).ready(function(){
         $(".edit").click(function(){
             alert($(this).attr("seatid"));
+        });
+
+        $("#submit_form").click(function() {
+            $('.ui.form').form('validate form');
         });
     });
 </script>

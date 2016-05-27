@@ -66,7 +66,7 @@ public class ShowingServiceImpl implements ShowingService {
         showingEditor2.setStartTime(ConverterUtils.convertDateToString(showingEntity.getStartTime()));
         showingEditor2.setEndTime(ConverterUtils.convertDateToString(showingEntity.getEndTime()));
         showingEditor2.setPriceManual(ConverterUtils.convertDoubleToString(showingEntity.getPriceManual()));
-        showingEditor2.setFilmName(showingEntity.getFcm().getFilm().getName());
+        showingEditor2.setFilm(BuilderUtils.getFilmShower3FromFilmEntity(showingEntity.getFcm().getFilm()));
 
         List<SeatShower> seats = new ArrayList<SeatShower>();
         List<SeatEntity> seatEntities = showingEntity.getSeats();

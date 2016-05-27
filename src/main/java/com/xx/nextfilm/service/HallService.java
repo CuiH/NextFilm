@@ -12,7 +12,7 @@ public interface HallService {
 
     HallEditor getHallEditorById(Long id);
 
-    boolean createHall(HallEditor hallEditor);
+    void createHall(HallEditor hallEditor);
 
     boolean updateHall(HallEditor hallEditor);
 

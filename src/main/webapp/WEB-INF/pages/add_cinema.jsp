@@ -12,7 +12,7 @@
 <head>
     <title>Add Cinema</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/res/css/layout.css" rel="stylesheet">
@@ -33,8 +33,8 @@
         </div>
 
         <div class="inner-form-1">
-            <div class="ui form">
-                <form:form modelAttribute="cinemaEditor" action="/add_cinema" method="post">
+            <div class="">
+                <form:form modelAttribute="cinemaEditor" cssClass="ui form">
                     <div class="field">
                         <label>name</label>
                         <form:input type="text" id="name" path="name" placeholder="名字"/>

@@ -41,7 +41,7 @@ $(document).ready(function() {
                 ]
             },
             onDate: {
-                identifier  : 'brief',
+                identifier  : 'onDate',
                 rules: [
                     {
                         type   : 'empty',
@@ -82,6 +82,38 @@ $(document).ready(function() {
             }
         },
         inline : true,
-        on     : 'blur'
+        on     : 'blur',
+        onSuccess: function (event, fields) {
+            var str = "";
+
+            var d_list = $("#director-field").children("a");
+            for (var i = 0; i < d_list.length; i++) {
+                str += '&directors=' + $(d_list[i]).attr("director-id");
+            }
+
+            var a_list = $("#actor-field").children("a");
+            for (var i = 0; i < a_list.length; i++) {
+                str += '&actors=' + $(a_list[i]).attr("actor-id");
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "/add_film",
+                data: $('#film-form').serialize() + str,
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_success").modal('show');
+                    } else {
+                        $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_fail").model('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        }
     });
 });

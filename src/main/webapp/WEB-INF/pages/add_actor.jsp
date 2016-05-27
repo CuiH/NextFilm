@@ -13,7 +13,7 @@
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/res/css/layout.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
 </head>
 
@@ -33,7 +33,7 @@
         </div>
 
         <div class="inner-form-1">
-            <form:form modelAttribute="actorEditor" action="/add_actor" cssClass="ui form" method="post">
+            <form:form id="actor_form" modelAttribute="actorEditor" cssClass="ui form">
                 <div class="field">
                     <label>name</label>
                     <form:input type="text" id="name" path="name" placeholder="名字"/>
@@ -57,16 +57,37 @@
                     <form:input type="text" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
                     <form:errors path="birthday" cssClass="error-message"/>
                 </div>
-
-                <div class="submit-button">
-                    <button class="ui button my-button-2">Submit</button>
-                </div>
             </form:form>
+            <div class="submit-button">
+                <button id="submit_form" class="ui button my-button-2">Submit</button>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="/res/js/actor_validator.js"></script>
+<div id="model_success" class="ui small modal">
+    <div class="header">添加成功</div>
+    <div class="actions">
+        <a href="/show_all_actor" class="ui negative button">返回列表页</a>
+        <a href="/add_actor" class="ui positive button">继续添加</a>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">添加失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">去修改</div>
+    </div>
+</div>
+
+<script src="/res/js/add_actor_validator.js"></script>
+
+<script>
+    $("#submit_form").click(function() {
+        $('.ui.form').form('validate form');
+    });
+</script>
 
 </body>
 </html>

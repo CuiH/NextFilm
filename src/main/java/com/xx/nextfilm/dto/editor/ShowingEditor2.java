@@ -1,5 +1,6 @@
 package com.xx.nextfilm.dto.editor;
 
+import com.xx.nextfilm.dto.shower.FilmShower3;
 import com.xx.nextfilm.dto.shower.SeatShower;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -20,8 +21,10 @@ public class ShowingEditor2 {
     @NotEmpty
     private String priceManual;
 
-    private String filmName;
     private String hallName;
+
+    private FilmShower3 film;
+
 
     private List<SeatShower> seats;
 
@@ -62,12 +65,12 @@ public class ShowingEditor2 {
     }
 
 
-    public String getFilmName() {
-        return filmName;
+    public FilmShower3 getFilm() {
+        return film;
     }
 
-    public void setFilmName(String filmName) {
-        this.filmName = filmName;
+    public void setFilm(FilmShower3 film) {
+        this.film = film;
     }
 
 

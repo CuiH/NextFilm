@@ -13,7 +13,7 @@
 <head>
     <title>Edit Cinema</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/res/css/layout.css" rel="stylesheet">
@@ -158,26 +158,6 @@
                 <a class="ui teal button my-button-2" href="/add_hall?cinemaId=${cinemaEditor.id}">add a hall</a>
             </div>
         </div>
-
-        <%--<div style="margin-top: 25px; margin-bottom: 35px" class="ui clearing divider"></div>--%>
-        <%--<div class="ui huge breadcrumb">--%>
-            <%--<div class="active section">All Showings</div>--%>
-        <%--</div>--%>
-        <%--<div class="inner-accordion-1">--%>
-            <%--<c:forEach var="fcm" items="${cinemaEditor.fcms}">--%>
-                <%--<div style="width:100%;" class="ui styled accordion">--%>
-                    <%--<div class="title"><i class="dropdown icon"></i>${fcm.film.name}</div>--%>
-                    <%--<div class="content">--%>
-                        <%--<div class="inner-table-4">--%>
-                            <%----%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</c:forEach>--%>
-            <%--<div class=" my-button-3">--%>
-                <%--<a class="ui teal button my-button-2" href="/add_showing?cinemaId=${cinemaEditor.id}">add a showing</a>--%>
-            <%--</div>--%>
-        <%--</div>--%>
     </div>
 </div>
 

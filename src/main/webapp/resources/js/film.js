@@ -5,15 +5,15 @@ $(document).ready(function() {
     $('select.dropdown').dropdown();
 
     $("#add_director").click(function() {
-        $('.ui.modal').addClass("is-director");
-        $('.ui.modal').removeClass("is-actor");
-        $('.ui.modal').modal('show');
+        $('#model_search').addClass("is-director");
+        $('#model_search').removeClass("is-actor");
+        $('#model_search').modal('show');
     });
 
     $("#add_actor").click(function() {
-        $('.ui.modal').addClass("is-actor");
-        $('.ui.modal').removeClass("is-director");
-        $('.ui.modal').modal('show');
+        $('#model_search').addClass("is-actor");
+        $('#model_search').removeClass("is-director");
+        $('#model_search').modal('show');
     });
 
     function checkDuplication(type, id) {
@@ -37,7 +37,6 @@ $(document).ready(function() {
             success: function(data) {
                 $("#searcher-div").removeClass("loading");
 
-                console.log(data);
                 data = JSON.parse(data);
                 if (data["result"] == "success") {
                     $("#search_results").text("");
@@ -63,14 +62,14 @@ $(document).ready(function() {
                         $("#search_results").append(str);
                     }
 
-                    setTimeout("$('.ui.modal').modal('refresh');", 10);
+                    setTimeout("$('#model_search').modal('refresh');", 100);
 
                     $('.special.cards .image').dimmer({on: 'hover'});
 
                     $('button.add-actor').click(function() {
-                        $('.ui.modal').modal('hide');
+                        $('#model_search').modal('hide');
 
-                        if ($('.ui.modal').hasClass("is-actor")) {
+                        if ($('#model_search').hasClass("is-actor")) {
                             if (checkDuplication("actor", $(this).attr("actor-id"))) {
                                 alert("请勿重复添加");
                                 return;
@@ -86,7 +85,7 @@ $(document).ready(function() {
                             $('i#actor' + $(this).attr("actor-id")).click(function () {
                                 $(this).parent().remove();
                             });
-                        } else if ($('.ui.modal').hasClass("is-director")) {
+                        } else if ($('#model_search').hasClass("is-director")) {
                             if (checkDuplication("director", $(this).attr("actor-id"))) {
                                 alert("请勿重复添加");
                                 return;
@@ -108,7 +107,7 @@ $(document).ready(function() {
                 } else {
                     $("#search_results").html("<span style='margin-left: 25px; margin-top: 15px; margin-bottom: 22px;'>未找到</span>");
 
-                    setTimeout("$('.ui.modal').modal('refresh');", 10);
+                    setTimeout("$('#model_search').modal('refresh');", 10);
                 }
             },
             error: function() {

@@ -12,7 +12,7 @@
 <head>
     <title>Add Film</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="/res/css/layout.css" rel="stylesheet">
@@ -109,7 +109,7 @@
     </div>
 </div>
 
-<div class="ui modal">
+<div id="model_search" class="ui modal">
     <div class="header">
         Add
     </div>
@@ -128,9 +128,26 @@
     </div>
 </div>
 
+<div id="model_success" class="ui small modal">
+    <div class="header">添加成功</div>
+    <div class="actions">
+        <a href="/show_all_film" class="ui negative button">返回列表页</a>
+        <a href="/add_film" class="ui positive button">继续添加</a>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">添加失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">去修改</div>
+    </div>
+</div>
+
+
 <script src="/res/js/film.js"></script>
 
-<script src="/res/js/film_validator.js"></script>
+<script src="/res/js/add_film_validator.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -140,6 +157,8 @@
                 $("#directors_error").text("Please select at least 1 director.");
                 $("#directors_error").removeClass("not-show");
                 return;
+            } else {
+                $("#directors_error").addClass("not-show");
             }
 
             var a_list = $("#actor-field").children("a");
@@ -147,32 +166,11 @@
                 $("#actors_error").text("Please select at least 1 actor.");
                 $("#actors_error").removeClass("not-show");
                 return;
+            } else {
+                $("#actors_error").addClass("not-show");
             }
 
             $('.ui.form').form('validate form');
-
-            return;
-
-            var str = "";
-            for (var i = 0; i < d_list.length; i++) {
-                str += '&directors=' + $(d_list[i]).attr("director-id");
-            }
-            for (var i = 0; i < a_list.length; i++) {
-                str += '&actors=' + $(a_list[i]).attr("actor-id");
-            }
-
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "/add_film",
-                data: $('#film-form').serialize() + str,
-                success: function(result) {
-                    console.log(result);
-                },
-                error: function() {
-                    alert("error");
-                }
-            });
         });
     });
 </script>

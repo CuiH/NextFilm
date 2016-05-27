@@ -116,5 +116,5 @@
 }
 
 .not-show {
-    visibility: hidden;
+    display: none;
 }

@@ -8,6 +8,7 @@ import com.xx.nextfilm.dto.shower.FilmShower2;
 import com.xx.nextfilm.dto.shower.FilmShower3;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
+import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
@@ -111,12 +112,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public void createFilm(FilmEditor filmEditor) {
+    public void createFilm(FilmEditor filmEditor) throws ActorNotExistException {
         filmDao.doSave(getEntityFromEditor(filmEditor, false));
     }
 
 
-    public void updateFilm(FilmEditor filmEditor) {
+    public void updateFilm(FilmEditor filmEditor) throws ActorNotExistException {
         filmDao.doUpdate(getEntityFromEditor(filmEditor, true));
     }
 
@@ -195,8 +196,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    // TODO: 2016/5/24 actor是否存在的判定
-    private FilmEntity getEntityFromEditor(FilmEditor filmEditor, boolean needId) {
+    private FilmEntity getEntityFromEditor(FilmEditor filmEditor, boolean needId)
+            throws ActorNotExistException {
         FilmEntity filmEntity = new FilmEntity();
 
         if (needId) {

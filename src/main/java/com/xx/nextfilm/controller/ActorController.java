@@ -46,11 +46,12 @@ public class ActorController {
         return "add_actor";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/add_actor", method = RequestMethod.POST)
     public String addActorHandler(@Valid ActorEditor actorEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "add_actor";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查birthday是否合法
@@ -60,12 +61,12 @@ public class ActorController {
                     messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
             result.addError(birthdayError);
 
-            return "add_actor";
+            return "{\"result\": \"fail\", \"reason\": \"your birthday is not valid\"}";
         }
 
         actorService.createActor(actorEditor);
 
-        return "redirect:/success";
+        return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
 
 
@@ -93,11 +94,12 @@ public class ActorController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/edit_actor", method = RequestMethod.POST)
     public String editActorHandler(@Valid ActorEditor actorEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "edit_actor";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查birthday是否合法
@@ -107,12 +109,12 @@ public class ActorController {
                     messageSource.getMessage("CH.invalid.birthday", null, Locale.getDefault()));
             result.addError(birthdayError);
 
-            return "edit_actor";
+            return "{\"result\": \"fail\", \"reason\": \"your birthday is not valid\"}";
         }
 
         actorService.updateActor(actorEditor);
 
-        return "redirect:/success";
+        return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
 
 

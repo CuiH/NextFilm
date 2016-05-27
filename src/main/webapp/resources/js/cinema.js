@@ -62,7 +62,7 @@ $(document).ready(function() {
                         $('#search-film' + tem[i]["id"]).dimmer({on: 'hover'});
                     }
 
-                    setTimeout("$('.ui.modal').modal('refresh');", 10);
+                    setTimeout("$('.ui.modal').modal('refresh');", 100);
 
                     $('button.add-film').click(function() {
                         $('.ui.modal').modal('hide');

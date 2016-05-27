@@ -5,6 +5,7 @@ import com.xx.nextfilm.dto.editor.FilmEditor;
 import com.xx.nextfilm.dto.shower.FilmShower2;
 import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
+import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
@@ -53,7 +54,7 @@ public class FilmController {
     public String addFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "fail";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查onDate是否合法
@@ -63,12 +64,17 @@ public class FilmController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
-            return "fail";
+            return "{\"result\": \"fail\", \"reason\": \"your onDate is not valid\"}";
         }
 
-        filmService.createFilm(filmEditor);
+        try {
+            filmService.createFilm(filmEditor);
 
-        return "success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
+        } catch (ActorNotExistException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
+        }
     }
 
 
@@ -100,7 +106,7 @@ public class FilmController {
     public String editFilmHandler(@Valid FilmEditor filmEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "fail";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查birthday是否合法
@@ -110,11 +116,17 @@ public class FilmController {
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(onDateError);
 
-            return "fail";
+            return "{\"result\": \"fail\", \"reason\": \"your onDate is not valid\"}";
         }
-        filmService.updateFilm(filmEditor);
 
-        return "嘻嘻";
+        try {
+            filmService.updateFilm(filmEditor);
+
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
+        } catch (ActorNotExistException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
+        }
     }
 
 
