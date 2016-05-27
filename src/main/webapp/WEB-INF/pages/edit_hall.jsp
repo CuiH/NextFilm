@@ -76,7 +76,7 @@
     <div class="header">修改成功</div>
     <div class="actions">
         <a href="/edit_cinema?id=${cinemaId}" class="ui negative button">返回列表页</a>
-        <a href="/add_hall" class="ui positive button">继续添加</a>
+        <div class="ui positive button">留在此页</div>
     </div>
 </div>
 

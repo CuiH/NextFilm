@@ -135,16 +135,17 @@ public class ActorController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/delete_actor", method = RequestMethod.GET)
     public String deleteActor(@RequestParam Long id) {
         try {
             ActorEntity actorEntity = actorService.findActorById(id);
             actorService.deleteActor(actorEntity);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (ActorNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
         }
     }
 

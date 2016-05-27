@@ -147,16 +147,17 @@ public class FilmController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/delete_film", method = RequestMethod.GET)
     public String deleteFilm(@RequestParam Long id) {
         try {
             FilmEntity filmEntity = filmService.findFilmById(id, false, false);
             filmService.deleteFilm(filmEntity);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (FilmNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown film\"}";
         }
     }
 

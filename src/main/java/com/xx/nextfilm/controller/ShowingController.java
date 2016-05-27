@@ -78,7 +78,9 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
-        if (!ValidatorUtils.isDateValid(showingEditor1.getStartTime())) {
+        System.out.println(showingEditor1.getStartTime());
+
+        if (!ValidatorUtils.isDateTimeValid(showingEditor1.getStartTime())) {
             FieldError startTimeError = new FieldError("showingEditor1", "startTime",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(startTimeError);
@@ -86,7 +88,7 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"your start time is not valid\"}";
         }
 
-        if (!ValidatorUtils.isDateValid(showingEditor1.getEndTime())) {
+        if (!ValidatorUtils.isDateTimeValid(showingEditor1.getEndTime())) {
             FieldError endTimeError = new FieldError("showingEditor1", "endTime",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(endTimeError);
@@ -120,7 +122,7 @@ public class ShowingController {
             CinemaEntity cinemaEntity = cinemaService.findCinemaById(cinemaId, false, false, false);
             FilmEntity filmEntity = filmService.findFilmById(filmId, false, false);
 
-            List<ShowingShower2> showingShower2s = showingService.findShowingsByCinemaAndFilm(cinemaEntity, filmEntity);
+            List<ShowingShower2> showingShower2s = showingService.findShowingsByCinemaAndFilmWithShower2(cinemaEntity, filmEntity);
             modelMap.addAttribute("showings", showingShower2s);
             modelMap.addAttribute("cinemaId", cinemaId);
             modelMap.addAttribute("filmId", filmEntity.getId());
@@ -162,7 +164,7 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
-        if (!ValidatorUtils.isDateValid(showingEditor2.getStartTime())) {
+        if (!ValidatorUtils.isDateTimeValid(showingEditor2.getStartTime())) {
             FieldError startTimeError = new FieldError("showingEditor1", "startTime",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(startTimeError);
@@ -170,7 +172,7 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"your start time is not valid\"}";
         }
 
-        if (!ValidatorUtils.isDateValid(showingEditor2.getEndTime())) {
+        if (!ValidatorUtils.isDateTimeValid(showingEditor2.getEndTime())) {
             FieldError endTimeError = new FieldError("showingEditor1", "endTime",
                     messageSource.getMessage("CH.invalid.date", null, Locale.getDefault()));
             result.addError(endTimeError);
@@ -189,16 +191,18 @@ public class ShowingController {
         }
     }
 
+
+    @ResponseBody
     @RequestMapping(value = "/delete_showing", method = RequestMethod.GET)
     public String deleteHall(@RequestParam Long id) {
         try {
             ShowingEntity showingEntity = showingService.findShowingById(id, false, false);
             showingService.deleteShowing(showingEntity);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (ShowingNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
         }
     }
 

@@ -15,6 +15,8 @@
     <title>All Showings</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 <body>
@@ -58,8 +60,8 @@
                         <td>${showing.priceManual}</td>
                         <td>${showing.hall.name}</td>
                         <security:authorize access="hasRole('ROLE_ADMIN')">
-                            <td><a href="/edit_showing?id=${showing.id}&cinemaId=${cinemaId}">edit</a></td>
-                            <td><a href="/delete_showing?id=${showing.id}">delete</a></td>
+                            <td><a class="ui button blue" href="/edit_showing?id=${showing.id}&cinemaId=${cinemaId}">edit</a></td>
+                            <td><div class="delete_showing ui button red" showing-id="${showing.id}">delete</div></td>
                         </security:authorize>
                     </tr>
                 </c:forEach>
@@ -73,6 +75,52 @@
         </div>
     </div>
 </div>
+
+<div id="model_success" class="ui small modal">
+    <div class="header">删除成功</div>
+    <div class="content">
+        <p>请刷新页面</p>
+    </div>
+    <div class="actions">
+        <button id="refresh_page" class="ui positive button">刷新页面</button>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">删除失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">返回</div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#refresh_page").click(function() {
+            window.location.reload();
+        });
+
+        $(".delete_showing").click(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: "/delete_showing?id=" + $(this).attr("showing-id"),
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_success").modal('show');
+                    } else {
+                        $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_fail").modal('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

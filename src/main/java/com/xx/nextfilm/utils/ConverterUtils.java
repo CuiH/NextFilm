@@ -24,9 +24,37 @@ public class ConverterUtils {
                 Date date = sdf.parse(str);
                 return date;
             } catch(Exception e) {
+
                 return null;
             }
         } else {
+
+            return null;
+        }
+    }
+
+
+    public static String convertDateTimeToString(Date datetime) {
+        if (datetime == null) return null;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String str = sdf.format(datetime);
+
+        return str.replace(" ", "T");
+    }
+
+    public static Date convertStringToDateTime(String str) {
+        if (null != str && !"".equals(str)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                Date datetime = sdf.parse(str.replace("T", " "));
+                return datetime;
+            } catch(Exception e) {
+
+                return null;
+            }
+        } else {
+
             return null;
         }
     }

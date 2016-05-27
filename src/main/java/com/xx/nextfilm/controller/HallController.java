@@ -129,16 +129,17 @@ public class HallController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/delete_hall", method = RequestMethod.GET)
     public String deleteHall(@RequestParam Long id) {
         try {
             HallEntity hallEntity = hallService.findHallById(id, false);
             hallService.deleteHall(hallEntity);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (HallNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown hall\"}";
         }
     }
 

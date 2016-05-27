@@ -12,6 +12,8 @@
     <title>Login</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 
@@ -27,27 +29,35 @@
         </div>
 
         <div class="inner-form-2">
-            <div class="ui form">
-                <form:form modelAttribute="visitor" action="/login" method="post">
-                    <div class="field">
-                        <label>username</label>
-                        <form:input type="text" id="username" path="username" placeholder="用户名"/>
-                        <form:errors path="username" cssClass="error-message"/>
-                    </div>
+            <form id="login_form" class="ui form">
+                <div class="field">
+                    <label>username</label>
+                    <input type="text" name="username" placeholder="用户名"/>
+                </div>
 
-                    <div class="field">
-                        <label>password</label>
-                        <form:input type="password" id="password" path="password" placeholder="密码"/>
-                        <form:errors path="password" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>password</label>
+                    <input type="password" name="password" placeholder="密码"/>
+                </div>
 
-                    <div class="submit-button">
-                        <button class="ui button">Submit</button>
-                    </div>
-                </form:form>
+                <span hidden="hidden" id="login_error" class="error-message not-show"></span>
+            </form>
+            <div class="submit-button">
+                <button id="submit_form" class="ui button">Submit</button>
             </div>
         </div>
     </div>
 </div>
 </body>
+
+<script src="/res/js/login_validator.js"> </script>
+
+<script>
+    $(document).ready(function() {
+        $("#submit_form").click(function() {
+            $('.ui.form').form('validate form');
+        });
+    });
+</script>
+
 </html>

@@ -56,11 +56,12 @@ public class CinemaController {
         return "add_cinema";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/add_cinema", method = RequestMethod.POST)
     public String addCinemaHandler(@Valid CinemaEditor cinemaEditor, BindingResult result) {
         if (result.hasErrors()) {
 
-            return "add_cinema";
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查city是否合法
@@ -70,12 +71,12 @@ public class CinemaController {
                     messageSource.getMessage("CH.invalid.city", null, Locale.getDefault()));
             result.addError(cityError);
 
-            return "add_cinema";
+            return "{\"result\": \"fail\", \"reason\": \"your city is not valid\"}";
         }
 
         cinemaService.createCinema(cinemaEditor);
 
-        return "redirect:/success";
+        return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
 
 
@@ -88,10 +89,10 @@ public class CinemaController {
             return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (CinemaNotExistException e) {
 
-            return "{\"result\": \"fail\", \"reason\": \"cinema not exist\"}";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         } catch (FilmNotExistException e) {
 
-            return "{\"result\": \"fail\", \"reason\": \"film not exist\"}";
+            return "{\"result\": \"fail\", \"reason\": \"unknown film\"}";
         }
     }
 
@@ -118,11 +119,12 @@ public class CinemaController {
         }
     }
 
-
+    @ResponseBody
     @RequestMapping(value = "/edit_cinema", method = RequestMethod.POST)
     public String editCinemaHandler(@Valid CinemaEditor cinemaEditor, BindingResult result) {
         if (result.hasErrors()) {
-            return "edit_cinema";
+
+            return "{\"result\": \"fail\", \"reason\": \"maybe you forgot to fill in some fields\"}";
         }
 
         // 检查city是否合法
@@ -132,22 +134,22 @@ public class CinemaController {
                     messageSource.getMessage("CH.invalid.city", null, Locale.getDefault()));
             result.addError(cityError);
 
-            return "edit_cinema";
+            return "{\"result\": \"fail\", \"reason\": \"your city is not valid\"}";
         }
 
         boolean r = cinemaService.updateCinema(cinemaEditor);
 
         if (r) {
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } else {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
         }
     }
 
 
-
+    @ResponseBody
     @RequestMapping(value = "/delete_cinema", method = RequestMethod.GET)
     public String deleteCinema(@RequestParam Long id) {
         try {
@@ -164,10 +166,10 @@ public class CinemaController {
 
             cinemaService.deleteCinema(cinema);
 
-            return "redirect:/success";
+            return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (CinemaNotExistException e) {
 
-            return "redirect:/fail";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         }
     }
 

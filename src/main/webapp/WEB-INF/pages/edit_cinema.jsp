@@ -34,59 +34,56 @@
         </div>
 
         <div class="inner-form-1">
-            <div class="ui form">
-                <form:form modelAttribute="cinemaEditor" action="/edit_cinema" method="post">
-                    <div class="disabled field">
-                        <label>id</label>
-                        <form:input type="text" id="id" path="id" readonly="true"/>
-                    </div>
+            <form:form id="cinema_form" modelAttribute="cinemaEditor" cssClass="ui form">
+                <div class="disabled field">
+                    <label>id</label>
+                    <form:input type="text" id="id" path="id" readonly="true"/>
+                </div>
 
-                    <div class="field">
-                        <label>name</label>
-                        <form:input type="text" id="name" path="name" placeholder="名字"/>
-                        <form:errors path="name" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>name</label>
+                    <form:input type="text" id="name" path="name" placeholder="名字"/>
+                    <form:errors path="name" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>city</label>
-                        <form:select path="city" cssClass="ui fluid dropdown" items="${cities}"/>
-                        <form:errors path="city" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>city</label>
+                    <form:select path="city" cssClass="ui fluid dropdown" items="${cities}"/>
+                    <form:errors path="city" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>address</label>
-                        <form:input type="text" id="address" path="address" placeholder="地址"/>
-                        <form:errors path="address" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>address</label>
+                    <form:input type="text" id="address" path="address" placeholder="地址"/>
+                    <form:errors path="address" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>phone</label>
-                        <form:input type="text" id="phone" path="phone" placeholder="电话"/>
-                        <form:errors path="phone" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>phone</label>
+                    <form:input type="text" id="phone" path="phone" placeholder="电话"/>
+                    <form:errors path="phone" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>brief</label>
-                        <form:input type="text" id="brief" path="brief" placeholder="简介"/>
-                        <form:errors path="brief" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>brief</label>
+                    <form:input type="text" id="brief" path="brief" placeholder="简介"/>
+                    <form:errors path="brief" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>image url</label>
-                        <form:input type="text" id="imageUrl" path="imageUrl" placeholder="图片链接"/>
-                        <form:errors path="imageUrl" cssClass="error-message"/>
-                    </div>
+                <div class="field">
+                    <label>image url</label>
+                    <form:input type="text" id="imageUrl" path="imageUrl" placeholder="图片链接"/>
+                    <form:errors path="imageUrl" cssClass="error-message"/>
+                </div>
 
-                    <div class="field">
-                        <label>description</label>
-                        <form:input type="text" id="description" path="description" placeholder="详细介绍"/>
-                        <form:errors path="description" cssClass="error-message"/>
-                    </div>
-
-                    <div class="submit-button">
-                        <button class="ui button my-button-2">Submit</button>
-                    </div>
-                </form:form>
+                <div class="field">
+                    <label>description</label>
+                    <form:input type="text" id="description" path="description" placeholder="详细介绍"/>
+                    <form:errors path="description" cssClass="error-message"/>
+                </div>
+            </form:form>
+            <div class="submit-button">
+                <button id="submit_form" class="ui button my-button-2">Submit</button>
             </div>
         </div>
 
@@ -147,8 +144,8 @@
                         <td>${hall.rowNum}</td>
                         <td>${hall.columnNum}</td>
                         <security:authorize access="hasRole('ROLE_ADMIN')">
-                            <td><a href="/edit_hall?id=${hall.id}&cinemaId=${cinemaEditor.id}">edit</a></td>
-                            <td><a href="/delete_hall?id=${hall.id}">delete</a></td>
+                            <td><a class="ui blue button" href="/edit_hall?id=${hall.id}&cinemaId=${cinemaEditor.id}">edit</a></td>
+                            <td><div class="ui red button delete_hall" hall-id="${hall.id}">delete</div></td>
                         </security:authorize>
                     </tr>
                 </c:forEach>
@@ -161,7 +158,7 @@
     </div>
 </div>
 
-<div class="ui modal">
+<div id="model_search" class="ui modal">
     <div class="header">
         Add
     </div>
@@ -180,7 +177,78 @@
     </div>
 </div>
 
+<div id="model_success" class="ui small modal">
+    <div class="header">修改成功</div>
+    <div class="actions">
+        <a href="/show_all_cinema" class="ui negative button">返回列表页</a>
+        <div class="ui positive button">留在此页</div>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">修改失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">去修改</div>
+    </div>
+</div>
+
+<div id="model_delete_success" class="ui small modal">
+    <div class="header">删除成功</div>
+    <div class="content">
+        <p>请刷新页面</p>
+    </div>
+    <div class="actions">
+        <button id="refresh_page" class="ui positive button">刷新页面</button>
+    </div>
+</div>
+
+<div id="model_delete_fail" class="ui small modal">
+    <div class="header">删除失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">返回</div>
+    </div>
+</div>
+
 <script src="/res/js/cinema.js"></script>
+<script src="/res/js/edit_cinema_validator.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('i.delete').click(function () {
+            $(this).parent().remove();
+        });
+
+        $("#submit_form").click(function() {
+            $('.ui.form').form('validate form');
+        });
+
+        $("#refresh_page").click(function() {
+            window.location.reload();
+        });
+
+        $(".delete_hall").click(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: "/delete_hall?id=" + $(this).attr("hall-id"),
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_delete_success").modal('show');
+                    } else {
+                        $("#model_delete_fail .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_delete_fail").modal('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

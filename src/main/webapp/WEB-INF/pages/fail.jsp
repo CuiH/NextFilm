@@ -12,7 +12,7 @@
 </head>
 <body>
 <p>
-    fail!
+    这是一个404页面。
 </p>
 
 </body>

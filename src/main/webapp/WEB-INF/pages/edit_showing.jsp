@@ -58,13 +58,13 @@
 
                 <div class="field">
                     <label>start time</label>
-                    <form:input type="text" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:input type="datetime-local" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
                     <form:errors path="startTime" cssClass="error-message"/>
                 </div>
 
                 <div class="field">
                     <label>end time</label>
-                    <form:input type="text" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:input type="datetime-local" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
                     <form:errors path="endTime" cssClass="error-message"/>
                 </div>
 
@@ -116,6 +116,7 @@
     <div class="header">修改成功</div>
     <div class="actions">
         <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
+        <div class="ui positive button">留在此页</div>
     </div>
 </div>
 

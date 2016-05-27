@@ -165,8 +165,8 @@ public class BuilderUtils {
 
         showingShower2.setId(showing.getId());
         showingShower2.setHall(BuilderUtils.getHallShower2FromHallEntity(showing.getHall()));
-        showingShower2.setStartTime(ConverterUtils.convertDateToString(showing.getStartTime()));
-        showingShower2.setEndTime(ConverterUtils.convertDateToString(showing.getEndTime()));
+        showingShower2.setStartTime(ConverterUtils.convertDateTimeToString(showing.getStartTime()));
+        showingShower2.setEndTime(ConverterUtils.convertDateTimeToString(showing.getEndTime()));
         showingShower2.setPriceManual(ConverterUtils.convertDoubleToString(showing.getPriceManual()));
 
         return showingShower2;

@@ -48,7 +48,7 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
-    public List<ShowingShower2> findShowingsByCinemaAndFilm(CinemaEntity cinemaEntity, FilmEntity filmEntity)
+    public List<ShowingShower2> findShowingsByCinemaAndFilmWithShower2(CinemaEntity cinemaEntity, FilmEntity filmEntity)
             throws FCMNotExistException{
         FCMEntity fcmEntity = fcmDao.findByFilmAndCinema(filmEntity, cinemaEntity);
 
@@ -63,8 +63,8 @@ public class ShowingServiceImpl implements ShowingService {
 
         showingEditor2.setId(showingEntity.getId());
         showingEditor2.setHallName(showingEntity.getHall().getName());
-        showingEditor2.setStartTime(ConverterUtils.convertDateToString(showingEntity.getStartTime()));
-        showingEditor2.setEndTime(ConverterUtils.convertDateToString(showingEntity.getEndTime()));
+        showingEditor2.setStartTime(ConverterUtils.convertDateTimeToString(showingEntity.getStartTime()));
+        showingEditor2.setEndTime(ConverterUtils.convertDateTimeToString(showingEntity.getEndTime()));
         showingEditor2.setPriceManual(ConverterUtils.convertDoubleToString(showingEntity.getPriceManual()));
         showingEditor2.setFilm(BuilderUtils.getFilmShower3FromFilmEntity(showingEntity.getFcm().getFilm()));
 
@@ -128,8 +128,8 @@ public class ShowingServiceImpl implements ShowingService {
             showingEntity.setId(showingEditor1.getId());
         }
 
-        showingEntity.setStartTime(ConverterUtils.convertStringToDate(showingEditor1.getStartTime()));
-        showingEntity.setEndTime(ConverterUtils.convertStringToDate(showingEditor1.getEndTime()));
+        showingEntity.setStartTime(ConverterUtils.convertStringToDateTime(showingEditor1.getStartTime()));
+        showingEntity.setEndTime(ConverterUtils.convertStringToDateTime(showingEditor1.getEndTime()));
         showingEntity.setPriceManual(ConverterUtils.convertStringToDouble(showingEditor1.getPriceManual()));
 
         return showingEntity;

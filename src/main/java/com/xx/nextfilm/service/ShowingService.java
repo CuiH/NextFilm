@@ -17,7 +17,7 @@ public interface ShowingService {
 
     ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats);
 
-    List<ShowingShower2> findShowingsByCinemaAndFilm(CinemaEntity cinemaEntity, FilmEntity filmEntity);
+    List<ShowingShower2> findShowingsByCinemaAndFilmWithShower2(CinemaEntity cinemaEntity, FilmEntity filmEntity);
 
     ShowingEditor2 getShowingEditor2ById(Long id);
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by CuiH on 2016/5/15.
  */
 @Controller
-public class TempController {
+public class ResultController {
 
     @RequestMapping(value = "/fail", method = RequestMethod.GET)
     public String fail() {

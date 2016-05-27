@@ -54,7 +54,7 @@
 
                 <div class="field">
                     <label>birthday</label>
-                    <form:input type="text" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
+                    <form:input type="date" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
                     <form:errors path="birthday" cssClass="error-message"/>
                 </div>
             </form:form>
@@ -84,9 +84,12 @@
 <script src="/res/js/add_actor_validator.js"></script>
 
 <script>
-    $("#submit_form").click(function() {
-        $('.ui.form').form('validate form');
+    $(document).ready(function() {
+        $("#submit_form").click(function() {
+            $('.ui.form').form('validate form');
+        });
     });
+
 </script>
 
 </body>

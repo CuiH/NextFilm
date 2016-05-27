@@ -21,5 +21,7 @@
 		<mapping class="com.xx.nextfilm.entity.FCMEntity"/>
 		<mapping class="com.xx.nextfilm.entity.FAMEntity"/>
 		<mapping class="com.xx.nextfilm.entity.FDMEntity"/>
+		<mapping class="com.xx.nextfilm.entity.OrderItemEntity"/>
+		<mapping class="com.xx.nextfilm.entity.PurchaseOrderEntity"/>
 	</session-factory>
 </hibernate-configuration>

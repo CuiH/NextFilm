@@ -8,10 +8,10 @@ $(document).ready(function() {
 
     $("div.delete_film").click(function() {
         $(this).parent().parent().parent().parent().parent().remove();
-    })
+    });
 
     $("#add-film").click(function() {
-        $('.ui.modal').modal('show');
+        $('#model_search').modal('show');
     });
 
     function checkDuplication(id) {
@@ -62,10 +62,10 @@ $(document).ready(function() {
                         $('#search-film' + tem[i]["id"]).dimmer({on: 'hover'});
                     }
 
-                    setTimeout("$('.ui.modal').modal('refresh');", 100);
+                    setTimeout("$('#model_search').modal('refresh');", 100);
 
                     $('button.add-film').click(function() {
-                        $('.ui.modal').modal('hide');
+                        $('#model_search').modal('hide');
 
                         var id = $(this).attr("film-id");
 
@@ -103,7 +103,7 @@ $(document).ready(function() {
                 } else {
                     $("#search_results").html("<span style='margin-left: 25px; margin-top: 15px; margin-bottom: 22px;'>未找到</span>");
 
-                    setTimeout("$('.ui.modal').modal('refresh');", 10);
+                    setTimeout("$('#model_search').modal('refresh');", 10);
                 }
             },
             error: function() {
@@ -127,8 +127,14 @@ $(document).ready(function() {
             dataType: "html",
             url: "/edit_showing_film",
             data: str,
-            success: function(result) {
-                console.log(result);
+            success: function(data) {
+                data = JSON.parse(data);
+                if (data["result"] == "success") {
+                    $("#model_success").modal('show');
+                } else {
+                    $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
+                    $("#model_fail").model('show');
+                }
             },
             error: function() {
                 alert("error");

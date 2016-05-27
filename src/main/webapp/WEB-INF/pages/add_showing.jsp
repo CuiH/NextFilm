@@ -59,13 +59,13 @@
 
                 <div class="field">
                     <label>start time</label>
-                    <form:input type="text" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:input type="datetime-local" id="startTime" path="startTime" placeholder="开始时间(yyyy-MM-dd hh:mm:ss)"/>
                     <form:errors path="startTime" cssClass="error-message"/>
                 </div>
 
                 <div class="field">
                     <label>end time</label>
-                    <form:input type="text" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
+                    <form:input type="datetime-local" id="endTime" path="endTime" placeholder="结束时间(yyyy-MM-dd hh:mm:ss)"/>
                     <form:errors path="endTime" cssClass="error-message"/>
                 </div>
 

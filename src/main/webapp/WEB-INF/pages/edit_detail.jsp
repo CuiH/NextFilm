@@ -58,7 +58,7 @@
 
                     <div class="field">
                         <label>birthday</label>
-                        <form:input type="text" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
+                        <form:input type="date" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
                         <form:errors path="birthday" cssClass="error-message"/>
                     </div>
 

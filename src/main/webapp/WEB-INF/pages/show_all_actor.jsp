@@ -14,6 +14,8 @@
     <title>All Actors</title>
     <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
     <link href="/res/css/layout.css" rel="stylesheet">
 </head>
 <body>
@@ -53,7 +55,7 @@
                         <td>${actor.birthday}</td>
                         <security:authorize access="hasRole('ROLE_ADMIN')">
                             <td><a class="ui blue button" href="/edit_actor?id=${actor.id}">edit</a></td>
-                            <td><a class="ui red button" href="/delete_actor?id=${actor.id}">delete</a></td>
+                            <td><div actor-id="${actor.id}" class="ui red button delete_actor">delete</div></td>
                         </security:authorize>
                     </tr>
                 </c:forEach>
@@ -67,5 +69,53 @@
         </div>
     </div>
 </div>
+
+<div id="model_success" class="ui small modal">
+    <div class="header">删除成功</div>
+    <div class="content">
+        <p>请刷新页面</p>
+    </div>
+    <div class="actions">
+        <button id="refresh_page" class="ui positive button">刷新页面</button>
+    </div>
+</div>
+
+<div id="model_fail" class="ui small modal">
+    <div class="header">删除失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">返回</div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $("#refresh_page").click(function() {
+            window.location.reload();
+        });
+
+        $(".delete_actor").click(function() {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: "/delete_actor?id=" + $(this).attr("actor-id"),
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_success").modal('show');
+                    } else {
+                        $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_fail").model('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

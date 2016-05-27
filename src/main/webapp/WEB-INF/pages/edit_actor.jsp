@@ -58,7 +58,7 @@
 
                 <div class="field">
                     <label>birthday</label>
-                    <form:input type="text" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
+                    <form:input type="date" id="birthday" path="birthday" placeholder="生日(yyyy-MM-dd)"/>
                     <form:errors path="birthday" cssClass="error-message"/>
                 </div>
             </form:form>
@@ -73,6 +73,7 @@
     <div class="header">修改成功</div>
     <div class="actions">
         <a href="/show_all_actor" class="ui negative button">返回列表页</a>
+        <div class="ui positive button">留在此页</div>
     </div>
 </div>
 

@@ -39,6 +39,10 @@ $(document).ready(function() {
         inline : true,
         on     : 'blur',
         onSuccess: function (event, fields) {
+            if (event != undefined) {
+                event.preventDefault();
+            }
+
             $.ajax({
                 type: "POST",
                 dataType: "html",
@@ -50,7 +54,7 @@ $(document).ready(function() {
                         $("#model_success").modal('show');
                     } else {
                         $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
-                        $("#model_fail").model('show');
+                        $("#model_fail").modal('show');
                     }
                 },
                 error: function() {

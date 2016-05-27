@@ -33,7 +33,7 @@
         </div>
 
         <div class="inner-form-1">
-            <form:form id="film-form" cssClass="ui form" modelAttribute="filmEditor">
+            <form:form id="film_form" cssClass="ui form" modelAttribute="filmEditor">
                 <div class="field">
                     <label>name</label>
                     <form:input type="text" id="name" path="name" placeholder="名字"/>
@@ -66,7 +66,7 @@
 
                 <div class="field">
                     <label>on date</label>
-                    <form:input type="text" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
+                    <form:input type="date" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
                     <form:errors path="onDate" cssClass="error-message"/>
                 </div>
 
@@ -92,14 +92,14 @@
                     <label>directors</label>
                     <div style="margin-bottom: 10px;" id="director-field"></div>
                     <a id="add_director" class="ui button blue">add a director</a>
-                    <span hidden="hidden" id="directors_error" class="error-message not-show"/>
+                    <span hidden="hidden" id="directors_error" class="error-message not-show"></span>
                 </div>
 
                 <div class="field">
                     <label>actors</label>
                     <div style="margin-bottom: 10px;" id="actor-field"></div>
                     <a id="add_actor" class="ui button blue">add a actor</a>
-                    <span hidden="hidden" id="actors_error" class="error-message not-show"/>
+                    <span hidden="hidden" id="actors_error" class="error-message not-show"></span>
                 </div>
             </form:form>
             <div class="submit-button">
@@ -151,6 +151,14 @@
 
 <script>
     $(document).ready(function() {
+//        // 禁止回车提交
+//        $(window).keydown(function(event){
+//            if(event.keyCode == 13) {
+//                event.preventDefault();
+//                return false;
+//            }
+//        });
+
         $("#submit_form").click(function() {
             var d_list = $("#director-field").children("a");
             if (d_list.length == 0) {

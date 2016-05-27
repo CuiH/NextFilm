@@ -22,6 +22,21 @@ public class ValidatorUtils {
     }
 
 
+    public static boolean isDateTimeValid(String str) {
+        if (null != str && !"".equals(str)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                sdf.parse(str.replace("T", " "));
+                return true;
+            } catch(Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
     // 待实现
     public static boolean isCityValid(String str) {
         if (null != str && !"".equals(str)) {

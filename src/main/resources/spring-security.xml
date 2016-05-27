@@ -16,7 +16,7 @@
 	<!-- 自定义authenticationSuccessHandler -->
 	<beans:bean id="authenticationSuccessHandler" class="com.xx.nextfilm.handler.CustomAuthenticationSuccessHandler">
 		<beans:property name="useReferer" value="true" />
-		<beans:property name="defaultTargetUrl" value="/home"/>
+		<beans:property name="defaultTargetUrl" value="/login_success"/>
 		<beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
 	</beans:bean>
 
@@ -45,17 +45,6 @@
 		<intercept-url pattern="/delete*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/show*" access="hasRole('ROLE_ADMIN')" />
 
-		<!--<intercept-url pattern="/edit_detail" access="hasRole('ROLE_USER')" />-->
-		<!--<intercept-url pattern="/add_actor" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/edit_actor/**" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/delete_actor/**" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/add_cinema" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/edit_cinema/**" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/delete_cinema/**" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/add_film" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/edit_film/**" access="hasRole('ROLE_ADMIN')" />-->
-		<!--<intercept-url pattern="/delete_film/**" access="hasRole('ROLE_ADMIN')" />-->
-
 		<!-- csrf相关 -->
 		<csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
 
@@ -66,7 +55,7 @@
 			username-parameter="username"
 			password-parameter="password"
 			authentication-success-handler-ref="authenticationSuccessHandler"
-			authentication-failure-url="/fail" />
+			authentication-failure-url="/login_fail" />
 
 		<!-- logout -->
 		<logout

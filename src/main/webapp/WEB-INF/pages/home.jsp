@@ -34,7 +34,7 @@
                     <a class="disabled ui orange button my-button-2" href="/change_password">更改密码</a>
                 </p>
                 <p>
-                    <a class="ui yellow button my-button-2" href="/edit_detail">更改资料</a>
+                    <a class="disabled ui yellow button my-button-2" href="/edit_detail">更改资料</a>
                 </p>
                 <p>
                     <a class="ui olive button my-button-2" href="/show_all_actor">查看所有actor</a>

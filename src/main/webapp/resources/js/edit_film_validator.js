@@ -84,6 +84,10 @@ $(document).ready(function() {
         inline : true,
         on     : 'blur',
         onSuccess: function (event, fields) {
+            if (event != undefined) {
+                event.preventDefault();
+            }
+
             var str = "";
 
             var d_list = $("#director-field").children("a");
@@ -100,14 +104,14 @@ $(document).ready(function() {
                 type: "POST",
                 dataType: "html",
                 url: "/edit_film",
-                data: $('#film-form').serialize() + str,
+                data: $('#film_form').serialize() + str,
                 success: function(data) {
                     data = JSON.parse(data);
                     if (data["result"] == "success") {
                         $("#model_success").modal('show');
                     } else {
                         $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
-                        $("#model_fail").model('show');
+                        $("#model_fail").modal('show');
                     }
                 },
                 error: function() {

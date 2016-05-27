@@ -33,7 +33,7 @@
         </div>
 
         <div class="inner-form-1">
-            <form:form id="film-form" cssClass="ui form" modelAttribute="filmEditor">
+            <form:form id="film_form" cssClass="ui form" modelAttribute="filmEditor">
                 <div class="disabled field">
                     <label>id</label>
                     <form:input type="text" id="id" path="id" readonly="true"/>
@@ -71,7 +71,7 @@
 
                 <div class="field">
                     <label>on date</label>
-                    <form:input type="text" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
+                    <form:input type="date" id="onDate" path="onDate" placeholder="上映日期(yyyy-MM-dd)"/>
                     <form:errors path="onDate" cssClass="error-message"/>
                 </div>
 
@@ -103,7 +103,7 @@
                         </c:forEach>
                     </div>
                     <a id="add_director" class="ui button blue">add a director</a>
-                    <span hidden="hidden" id="directors_error" class="error-message not-show"/>
+                    <span hidden="hidden" id="directors_error" class="error-message not-show"></span>
                 </div>
 
                 <div class="field">
@@ -116,7 +116,7 @@
                         </c:forEach>
                     </div>
                     <a id="add_actor" class="ui button blue">add a actor</a>
-                    <span hidden="hidden" id="actors_error" class="error-message not-show"/>
+                    <span hidden="hidden" id="actors_error" class="error-message not-show"></span>
                 </div>
             </form:form>
             <div class="submit-button">
@@ -149,6 +149,7 @@
     <div class="header">修改成功</div>
     <div class="actions">
         <a href="/show_all_film" class="ui negative button">返回列表页</a>
+        <div class="ui positive button">留在此页</div>
     </div>
 </div>
 
@@ -165,6 +166,10 @@
 <script src="/res/js/edit_film_validator.js"></script>
 
 <script>
+    $(document).on("keypress", "form", function(event) {
+        return event.keyCode != 13;
+    });
+
     $(document).ready(function() {
         $('i.delete').click(function () {
             $(this).parent().remove();
