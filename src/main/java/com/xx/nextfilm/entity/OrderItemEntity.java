@@ -5,23 +5,29 @@ import javax.persistence.*;
 /**
  * Created by cuihao on 2016/5/27.
  */
-@Entity
-@Table(name = "order_item", schema = "nextfilm", catalog = "")
+@Entity(name = "order_item")
 public class OrderItemEntity {
-    private long id;
+
+    private Long id;
     private Double price;
     private Short row;
     private Short column;
 
+    // 对应项，未使用
+    private PurchaseOrderEntity purchaseOrder;
+
+
     @Id
     @Column(name = "id")
-    public long getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
     @Basic
     @Column(name = "price")
@@ -33,8 +39,9 @@ public class OrderItemEntity {
         this.price = price;
     }
 
+
     @Basic
-    @Column(name = "row")
+    @Column(name = "row_pos")
     public Short getRow() {
         return row;
     }
@@ -43,8 +50,9 @@ public class OrderItemEntity {
         this.row = row;
     }
 
+
     @Basic
-    @Column(name = "column")
+    @Column(name = "column_pos")
     public Short getColumn() {
         return column;
     }
@@ -52,6 +60,18 @@ public class OrderItemEntity {
     public void setColumn(Short column) {
         this.column = column;
     }
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "purchase_id")
+    public PurchaseOrderEntity getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(PurchaseOrderEntity purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -61,9 +81,6 @@ public class OrderItemEntity {
         OrderItemEntity that = (OrderItemEntity) o;
 
         if (id != that.id) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (row != null ? !row.equals(that.row) : that.row != null) return false;
-        if (column != null ? !column.equals(that.column) : that.column != null) return false;
 
         return true;
     }
@@ -71,9 +88,8 @@ public class OrderItemEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (row != null ? row.hashCode() : 0);
-        result = 31 * result + (column != null ? column.hashCode() : 0);
+
         return result;
     }
+
 }

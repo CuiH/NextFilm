@@ -1,7 +1,9 @@
 package com.xx.nextfilm.controller;
 
+import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
+import com.xx.nextfilm.dto.shower.ShowingShower1;
 import com.xx.nextfilm.dto.shower.ShowingShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FilmEntity;
@@ -55,6 +57,7 @@ public class ShowingController {
             ShowingEditor1 showingEditor1 = new ShowingEditor1();
             showingEditor1.setCinemaId(cinemaId);
             showingEditor1.setFilm(BuilderUtils.getFilmShower3FromFilmEntity(filmEntity));
+
             modelMap.addAttribute("showingEditor1", showingEditor1);
 
             modelMap.addAttribute("halls", BuilderUtils.getHallShower2sFromHallEntities(cinemaEntity.getHalls()));
@@ -112,6 +115,9 @@ public class ShowingController {
         } catch (FCMNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown film_cinema_map\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -124,6 +130,8 @@ public class ShowingController {
 
             List<ShowingShower2> showingShower2s = showingService.findShowingsByCinemaAndFilmWithShower2(cinemaEntity, filmEntity);
             modelMap.addAttribute("showings", showingShower2s);
+
+            // 定向用
             modelMap.addAttribute("cinemaId", cinemaId);
             modelMap.addAttribute("filmId", filmEntity.getId());
             modelMap.addAttribute("filmName", filmEntity.getName());
@@ -146,8 +154,9 @@ public class ShowingController {
     public String editShowing(@RequestParam Long cinemaId, @RequestParam Long id, ModelMap modelMap) {
         try {
             ShowingEditor2 showingEditor2 = showingService.getShowingEditor2ById(id);
+            showingEditor2.setCinemaId(cinemaId);
+
             modelMap.addAttribute("showingEditor2", showingEditor2);
-            modelMap.addAttribute("cinemaId", cinemaId);
 
             return "edit_showing";
         } catch (ShowingNotExistException e) {
@@ -180,14 +189,37 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"your end time is not valid\"}";
         }
 
-        boolean r = showingService.updateShowing(showingEditor2);
+        try {
+            boolean r = showingService.updateShowing(showingEditor2);
 
-        if (r) {
+            if (r) {
 
-            return "{\"result\": \"success\", \"reason\": \"no content\"}";
-        } else {
+                return "{\"result\": \"success\", \"reason\": \"no content\"}";
+            } else {
 
-            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+                return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+            }
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/view_showing", method = RequestMethod.GET, produces = "plain/text; charset=UTF-8")
+    public String getShowing(@RequestParam Long id) {
+        try {
+            ShowingEntity showingEntity = showingService.findShowingById(id, true, true, true);
+
+            Gson gson = new Gson();
+
+            return "{\"result\": \"success\", \"data\": " +
+                    gson.toJson(BuilderUtils.getShowingShower1FromShowingEntity(showingEntity)) + "}";
+        } catch (ShowingNotExistException e) {
+
+
+            return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
         }
     }
 
@@ -196,13 +228,16 @@ public class ShowingController {
     @RequestMapping(value = "/delete_showing", method = RequestMethod.GET)
     public String deleteHall(@RequestParam Long id) {
         try {
-            ShowingEntity showingEntity = showingService.findShowingById(id, false, false);
+            ShowingEntity showingEntity = showingService.findShowingById(id, false, false, false);
             showingService.deleteShowing(showingEntity);
 
             return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (ShowingNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 

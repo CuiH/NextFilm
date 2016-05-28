@@ -23,8 +23,10 @@ public class ShowingEditor2 {
 
     private String hallName;
 
-    private FilmShower3 film;
+    // 只是用于定向
+    private Long cinemaId;
 
+    private FilmShower3 film;
 
     private List<SeatShower> seats;
 
@@ -89,6 +91,15 @@ public class ShowingEditor2 {
 
     public void setSeats(List<SeatShower> seats) {
         this.seats = seats;
+    }
+
+
+    public Long getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        this.cinemaId = cinemaId;
     }
 
 }

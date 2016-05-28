@@ -1,5 +1,6 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.controller.MainController;
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dto.editor.FilmEditor;
@@ -10,8 +11,11 @@ import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +29,8 @@ import java.util.List;
 @Transactional
 @Service("filmService")
 public class FilmServiceImpl implements FilmService {
+
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
 
     @Autowired
     FilmDao filmDao;
@@ -57,24 +63,6 @@ public class FilmServiceImpl implements FilmService {
 
         filmEditor.setOwnedActors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getActors()));
         filmEditor.setOwnedDirectors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getDirectors()));
-
-//        List<Long> a = new ArrayList<Long>();
-//        List<ActorEntity> actors = filmEntity.getActors();
-//        if (actors != null) {
-//            for (ActorEntity actor: actors) {
-//                a.add(actor.getId());
-//            }
-//        }
-//        filmEditor.setActors(a);
-//
-//        List<Long> d = new ArrayList<Long>();
-//        List<ActorEntity> directors = filmEntity.getDirectors();
-//        if (directors != null) {
-//            for (ActorEntity director: directors) {
-//                d.add(director.getId());
-//            }
-//        }
-//        filmEditor.setDirectors(d);
 
         return filmEditor;
     }
@@ -112,18 +100,25 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public void createFilm(FilmEditor filmEditor) throws ActorNotExistException {
-        filmDao.doSave(getEntityFromEditor(filmEditor, false));
+    public void createFilm(FilmEditor filmEditor) throws ActorNotExistException, UserNotLoginException {
+        FilmEntity filmEntity = getEntityFromEditor(filmEditor, false);
+        filmDao.doSave(filmEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : add film - #" + filmEntity.getId());
     }
 
 
-    public void updateFilm(FilmEditor filmEditor) throws ActorNotExistException {
+    public void updateFilm(FilmEditor filmEditor) throws ActorNotExistException, UserNotLoginException {
         filmDao.doUpdate(getEntityFromEditor(filmEditor, true));
+
+        LOG.info(MainController.getCurrentUsername() + " : edit film - #" + filmEditor.getId());
     }
 
 
-    public void deleteFilm(FilmEntity film) {
+    public void deleteFilm(FilmEntity film) throws UserNotLoginException {
         filmDao.doDelete(film);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete film - #" + film.getId());
     }
 
 

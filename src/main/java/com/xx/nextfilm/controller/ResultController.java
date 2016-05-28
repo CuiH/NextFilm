@@ -15,9 +15,23 @@ public class ResultController {
         return "fail";
     }
 
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+        return "error";
+    }
+
     @RequestMapping(value = "/success", method = RequestMethod.GET)
     public String success() {
         return "success";
+    }
+
+
+
+
+    // test
+    @RequestMapping(value = "/t1", method = RequestMethod.GET)
+    public String test() {
+        return "view";
     }
 
 }

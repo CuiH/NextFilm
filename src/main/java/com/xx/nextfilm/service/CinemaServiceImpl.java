@@ -1,5 +1,6 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.controller.MainController;
 import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dao.HallDao;
@@ -8,8 +9,11 @@ import com.xx.nextfilm.dto.shower.CinemaShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,8 @@ import java.util.List;
 @Transactional
 @Service("cinemaService")
 public class CinemaServiceImpl implements CinemaService {
+
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
 
     @Autowired
     CinemaDao cinemaDao;
@@ -72,19 +78,28 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    public void createCinema(CinemaEditor cinemaEditor) {
-        cinemaDao.doSave(getEntityFromEditor(cinemaEditor, false));
+    public void createCinema(CinemaEditor cinemaEditor) throws UserNotLoginException {
+        CinemaEntity cinemaEntity = getEntityFromEditor(cinemaEditor, false);
+        cinemaDao.doSave(cinemaEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : add cinema - #" + cinemaEntity.getId());
     }
 
 
     // 只可改变cinema信息，不可改变其上映电影等
-    public boolean updateCinema(CinemaEditor cinemaEditor) {
-        return cinemaDao.doUpdateManually(getEntityFromEditor(cinemaEditor, true));
+    public boolean updateCinema(CinemaEditor cinemaEditor) throws UserNotLoginException {
+        boolean flag = cinemaDao.doUpdateManually(getEntityFromEditor(cinemaEditor, true));
+
+        LOG.info(MainController.getCurrentUsername() + " : edit cinema - #" + cinemaEditor.getId());
+
+        return flag;
     }
 
 
-    public void deleteCinema(CinemaEntity cinema) {
+    public void deleteCinema(CinemaEntity cinema) throws UserNotLoginException {
         cinemaDao.doDelete(cinema);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete cinema - #" + cinema.getId());
     }
 
 
@@ -96,19 +111,7 @@ public class CinemaServiceImpl implements CinemaService {
     public List<CinemaShower2> findAllCinemasWithShower2() {
         List<CinemaEntity> cinemaEntities = findAllCinemas(false, false, false);
 
-        List<CinemaShower2> cinemas = new ArrayList<CinemaShower2>();
-        for (CinemaEntity cinemaEntity: cinemaEntities) {
-            CinemaShower2 cinema = new CinemaShower2();
-
-            cinema.setId(cinemaEntity.getId());
-            cinema.setName(cinemaEntity.getName());
-            cinema.setAddress(cinemaEntity.getAddress());
-            cinema.setImageUrl(cinemaEntity.getImageUrl());
-
-            cinemas.add(cinema);
-        }
-
-        return cinemas;
+        return BuilderUtils.getCinemaShower2sFromCinemaEntities(cinemaEntities);
     }
 
     // 根据ID获取该影院所有上映的电影id List

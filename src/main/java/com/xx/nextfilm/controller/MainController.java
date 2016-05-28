@@ -1,6 +1,9 @@
 package com.xx.nextfilm.controller;
 
 import com.xx.nextfilm.entity.CustomUserInfo;
+import com.xx.nextfilm.exception.UserNotLoginException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,25 +16,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
+
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
-        String username = getCurrentUsername();
+        String username = MainController.getCurrentUsername();
         modelMap.addAttribute("username", username);
 
         return "home";
     }
 
 
-    public String getCurrentUsername() {
+
+    public static String getCurrentUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if (principal instanceof CustomUserInfo) {
+
             return ((CustomUserInfo) principal).getUserEntity().getUsername();
         } else {
-            return null;
+            throw new UserNotLoginException();
         }
     }
-//    public String getCurrentUsername() {
-//        return SecurityContextHolder.getContext().getAuthentication().getName();
-//    }
 
 }

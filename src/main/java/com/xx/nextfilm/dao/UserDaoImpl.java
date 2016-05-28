@@ -18,7 +18,8 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDao {
 
-    public UserEntity findById(Long id, boolean needProfile, boolean needDetail) {
+    public UserEntity findById(Long id,
+                               boolean needProfile, boolean needDetail) {
         UserEntity user = getByKey(id);
 
         if (user == null) throw new UserNotExistException();

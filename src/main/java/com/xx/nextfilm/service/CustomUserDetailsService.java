@@ -33,6 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserEntity user = dao.findByUsername(username, true, true);
         if (user == null) throw new UsernameNotFoundException("username " + username + "not found.");
 
+        System.out.println(user.getPassword());
         List<GrantedAuthority> authorities = buildUserAuthority(user.getUserProfiles());
 
         return buildUserForAuthentication(user, authorities);

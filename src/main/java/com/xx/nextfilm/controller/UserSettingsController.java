@@ -5,6 +5,7 @@ import com.xx.nextfilm.dto.editor.PasswordEditor;
 import com.xx.nextfilm.entity.CustomUserInfo;
 import com.xx.nextfilm.entity.UserDetailEntity;
 import com.xx.nextfilm.entity.UserEntity;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.UserDetailService;
 import com.xx.nextfilm.service.UserService;
 import com.xx.nextfilm.utils.ValidatorUtils;
@@ -53,25 +54,33 @@ public class UserSettingsController {
             return "change_password";
         }
 
-        userService.updateUserPasswordByUsername(getCurrentUser().getUsername(), passwordEditor.getNewPassword());
+        try{
+            userService.updateUserPasswordByUsername(getCurrentUser().getUsername(), passwordEditor.getNewPassword());
 
-        return "redirect:/success";
+            return "redirect:/success";
+        } catch (UserNotLoginException e) {
+
+            return "redirect:/error";
+        }
+
     }
 
 
     //　改UserDetail
     @RequestMapping(value = "/edit_detail", method = RequestMethod.GET)
     public String editDetail(ModelMap modelMap) {
-        UserEntity nowUser = getCurrentUser();
-        if (nowUser == null) {
-            return "redirect:/fail";
+        UserEntity nowUser;
+        try {
+            nowUser = getCurrentUser();
+        } catch (UserNotLoginException e) {
+
+            return "redirect:/error";
         }
 
         UserDetailEntity nowUserDetail = nowUser.getUserDetail();
-
         // 表明误删除了数据库条目，因为UserDetail是随User一起创建的
         if (nowUserDetail == null) {
-            return "redirect:/fail";
+            return "redirect:/error";
         }
 
         UserDetailEditor userDetailEditor = userDetailService.getUserDetailEditor(nowUserDetail);
@@ -83,6 +92,7 @@ public class UserSettingsController {
     @RequestMapping(value = "/edit_detail", method = RequestMethod.POST)
     public String editDetailHandler(UserDetailEditor userDetailEditor, BindingResult result) {
         if (result.hasErrors()) {
+
             return "edit_detail";
         }
 
@@ -98,16 +108,17 @@ public class UserSettingsController {
             }
         }
 
-        UserEntity nowUser = getCurrentUser();
-        if (nowUser == null) {
-            return "redirect:/fail";
+        UserEntity nowUser;
+        try {
+            nowUser = getCurrentUser();
+        } catch (UserNotLoginException e) {
+            return "redirect:/error";
         }
 
         UserDetailEntity nowUserDetail = nowUser.getUserDetail();
-
         // 表明误删除了数据库条目，因为UserDetail是随User一起创建的
         if (nowUserDetail == null) {
-            return "redirect:/fail";
+            return "redirect:/error";
         }
 
         userDetailService.updateUserDetail(nowUserDetail, userDetailEditor);
@@ -118,10 +129,13 @@ public class UserSettingsController {
 
     public UserEntity getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if (principal instanceof CustomUserInfo) {
+
             return ((CustomUserInfo) principal).getUserEntity();
         } else {
-            return null;
+
+            throw new UserNotLoginException();
         }
     }
 

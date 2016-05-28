@@ -1,5 +1,6 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.controller.MainController;
 import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.editor.HallEditor;
@@ -7,8 +8,12 @@ import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.HallNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.utils.ConverterUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service("hallService")
 public class HallServiceImpl implements HallService {
+
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
 
     @Autowired
     HallDao hallDao;
@@ -45,24 +52,32 @@ public class HallServiceImpl implements HallService {
     }
 
 
-    public void createHall(HallEditor hallEditor) throws CinemaNotExistException {
+    public void createHall(HallEditor hallEditor) throws CinemaNotExistException, UserNotLoginException {
         CinemaEntity cinemaEntity = cinemaDao.findById(hallEditor.getCinemaId(), false, false, false);
 
         HallEntity hallEntity = getEntityFromEditor(hallEditor, false);
         hallEntity.setCinema(cinemaEntity);
 
         hallDao.doSave(hallEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : add hall - #" + hallEntity.getId());
     }
 
 
     // 只可改变hall信息，不可改变其所属cinema
-    public boolean updateHall(HallEditor hallEditor) {
-        return hallDao.doUpdateManually(hallEditor);
+    public boolean updateHall(HallEditor hallEditor) throws UserNotLoginException {
+        boolean flag = hallDao.doUpdateManually(hallEditor);
+
+        LOG.info(MainController.getCurrentUsername() + " : edit hall - #" + hallEditor.getId());
+
+        return  flag;
     }
 
 
-    public void deleteHall(HallEntity hallEntity) {
+    public void deleteHall(HallEntity hallEntity) throws UserNotLoginException {
         hallDao.doDelete(hallEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete hall - #" + hallEntity.getId());
     }
 
 

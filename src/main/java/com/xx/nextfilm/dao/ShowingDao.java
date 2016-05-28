@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ShowingDao {
 
-    ShowingEntity findById(Long id, boolean needFcm, boolean needSeats);
+    ShowingEntity findById(Long id, boolean needFcm, boolean needSeats, boolean needCinema);
 
     List<ShowingEntity> findByFCM(FCMEntity fcmEntity);
 

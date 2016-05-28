@@ -7,10 +7,13 @@ import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -68,12 +71,16 @@ public class FilmController {
         }
 
         try {
+
             filmService.createFilm(filmEditor);
 
             return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (ActorNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -126,6 +133,9 @@ public class FilmController {
         } catch (ActorNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -141,7 +151,7 @@ public class FilmController {
         } else {
             Gson gson = new Gson();
 
-            return "{\"result\": \"success\", \"films\": " +
+            return "{\"result\": \"success\", \"data\": " +
                     gson.toJson(BuilderUtils.getFilmShower2sFromFilmEntities(films)) + "}";
         }
     }
@@ -158,6 +168,9 @@ public class FilmController {
         } catch (FilmNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown film\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 

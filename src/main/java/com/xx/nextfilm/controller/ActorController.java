@@ -4,12 +4,17 @@ import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.ActorEditor;
 import com.xx.nextfilm.dto.shower.ActorShower1;
 import com.xx.nextfilm.entity.ActorEntity;
+import com.xx.nextfilm.entity.CustomUserInfo;
 import com.xx.nextfilm.exception.ActorNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.ActorService;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -64,7 +69,13 @@ public class ActorController {
             return "{\"result\": \"fail\", \"reason\": \"your birthday is not valid\"}";
         }
 
-        actorService.createActor(actorEditor);
+        try {
+            actorService.createActor(actorEditor);
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
+        }
+
 
         return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
@@ -112,7 +123,13 @@ public class ActorController {
             return "{\"result\": \"fail\", \"reason\": \"your birthday is not valid\"}";
         }
 
-        actorService.updateActor(actorEditor);
+        try {
+            actorService.updateActor(actorEditor);
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
+        }
+
 
         return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
@@ -129,7 +146,7 @@ public class ActorController {
         } else {
             Gson gson = new Gson();
 
-            return "{\"result\": \"success\", \"actors\": " +
+            return "{\"result\": \"success\", \"data\": " +
                     gson.toJson(BuilderUtils.getActorShower2sFromActorEntities(actors)) + "}";
         }
     }
@@ -140,12 +157,16 @@ public class ActorController {
     public String deleteActor(@RequestParam Long id) {
         try {
             ActorEntity actorEntity = actorService.findActorById(id);
+
             actorService.deleteActor(actorEntity);
 
             return "{\"result\": \"success\", \"reason\": \"no content\"}";
         } catch (ActorNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown actor\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 

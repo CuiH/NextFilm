@@ -9,12 +9,15 @@ import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.FCMService;
 import com.xx.nextfilm.service.FilmService;
 import com.xx.nextfilm.service.HallService;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -74,7 +77,12 @@ public class CinemaController {
             return "{\"result\": \"fail\", \"reason\": \"your city is not valid\"}";
         }
 
-        cinemaService.createCinema(cinemaEditor);
+        try {
+            cinemaService.createCinema(cinemaEditor);
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
+        }
 
         return "{\"result\": \"success\", \"reason\": \"no content\"}";
     }
@@ -93,6 +101,9 @@ public class CinemaController {
         } catch (FilmNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown film\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -137,14 +148,19 @@ public class CinemaController {
             return "{\"result\": \"fail\", \"reason\": \"your city is not valid\"}";
         }
 
-        boolean r = cinemaService.updateCinema(cinemaEditor);
+        try {
+            boolean r = cinemaService.updateCinema(cinemaEditor);
 
-        if (r) {
+            if (r) {
 
-            return "{\"result\": \"success\", \"reason\": \"no content\"}";
-        } else {
+                return "{\"result\": \"success\", \"reason\": \"no content\"}";
+            } else {
 
-            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+                return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+            }
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -170,6 +186,9 @@ public class CinemaController {
         } catch (CinemaNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 

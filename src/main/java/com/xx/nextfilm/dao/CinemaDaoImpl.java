@@ -54,6 +54,8 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
         criteria.add(Restrictions.eq("name", name));
         List<CinemaEntity> cinemas = (List<CinemaEntity>) criteria.list();
 
+        if (cinemas == null) return new ArrayList<CinemaEntity>();
+
         return cinemas;
     }
 

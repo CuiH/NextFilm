@@ -10,7 +10,7 @@ public class CinemaShower2 {
     private Long id;
 
     private String name;
-    private String address;;
+    private String address;
     private String imageUrl;
 
 

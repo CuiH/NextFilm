@@ -30,11 +30,11 @@
             <i class="right chevron icon divider"></i>
             <a href="/show_all_cinema" class="section">All Cinemas</a>
             <i class="right chevron icon divider"></i>
-            <a href="/edit_cinema?id=${cinemaId}" class="section">影院详情</a>
+            <a href="/edit_cinema?id=${showingEditor2.cinemaId}" class="section">影院详情</a>
             <i class="right chevron icon divider"></i>
             <a class="section">${showingEditor2.film.name}</a>
             <i class="right chevron icon divider"></i>
-            <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="section">All Showings</a>
+            <a href="/show_all_showing?cinemaId=${showingEditor2.cinemaId}&filmId=${showingEditor2.film.id}" class="section">All Showings</a>
             <i class="right chevron icon divider"></i>
             <div class="active section">Edit Showing</div>
         </div>
@@ -115,7 +115,7 @@
 <div id="model_success" class="ui small modal">
     <div class="header">修改成功</div>
     <div class="actions">
-        <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
+        <a href="/show_all_showing?cinemaId=${showingEditor2.cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
         <div class="ui positive button">留在此页</div>
     </div>
 </div>

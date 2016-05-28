@@ -4,6 +4,7 @@ import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.HallNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.CinemaService;
 import com.xx.nextfilm.service.HallService;
 import com.xx.nextfilm.utils.ValidatorUtils;
@@ -37,8 +38,8 @@ public class HallController {
     @RequestMapping(value = "/add_hall", method = RequestMethod.GET)
     public String addHall(@RequestParam Long cinemaId, ModelMap modelMap) {
         HallEditor hallEditor = new HallEditor();
-
         hallEditor.setCinemaId(cinemaId);
+
         modelMap.addAttribute(hallEditor);
 
         return "add_hall";
@@ -75,6 +76,9 @@ public class HallController {
         } catch (CinemaNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 
@@ -83,8 +87,9 @@ public class HallController {
     public String editHall(@RequestParam Long cinemaId, @RequestParam Long id, ModelMap modelMap) {
         try {
             HallEditor hallEditor = hallService.getHallEditorById(id);
+            hallEditor.setCinemaId(cinemaId);
+
             modelMap.addAttribute("hallEditor", hallEditor);
-            modelMap.addAttribute("cinemaId", cinemaId);
 
             return "edit_hall";
         } catch (HallNotExistException e) {
@@ -117,15 +122,21 @@ public class HallController {
             return "{\"result\": \"fail\", \"reason\": \"your column num is not valid\"}";
         }
 
-        boolean r = hallService.updateHall(hallEditor);
+        try {
+            boolean r = hallService.updateHall(hallEditor);
 
-        if (r) {
+            if (r) {
 
-            return "{\"result\": \"success\", \"reason\": \"no content\"}";
-        } else {
+                return "{\"result\": \"success\", \"reason\": \"no content\"}";
+            } else {
 
-            return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+                return "{\"result\": \"fail\", \"reason\": \"unknown error\"}";
+            }
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
+
     }
 
 
@@ -140,6 +151,9 @@ public class HallController {
         } catch (HallNotExistException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"unknown hall\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
 

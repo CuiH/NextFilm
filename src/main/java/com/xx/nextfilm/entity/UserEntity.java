@@ -20,7 +20,9 @@ public class UserEntity {
     private Date lastLogin;
     private String phoneNum;
     private String email;
+
     private List<UserProfileEntity> userProfiles = new ArrayList<UserProfileEntity>();
+
     private UserDetailEntity userDetail;
 
     @Id
