@@ -94,7 +94,6 @@
         });
 
         $(".delete_film").click(function() {
-            console.log(1);
             $.ajax({
                 type: "GET",
                 dataType: "html",

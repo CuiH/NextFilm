@@ -284,8 +284,8 @@ public class BuilderUtils {
     }
 
 
-    private static PurchaseOrderShower getPurchaseOrderShowerFromPurchaseOrderEntity(PurchaseOrderEntity purchaseOrderEntity) {
-        PurchaseOrderShower pos = new PurchaseOrderShower();
+    public static PurchaseOrderShower1 getPurchaseOrderShower1FromPurchaseOrderEntity(PurchaseOrderEntity purchaseOrderEntity) {
+        PurchaseOrderShower1 pos = new PurchaseOrderShower1();
 
         pos.setId(purchaseOrderEntity.getId());
         pos.setFilmId(purchaseOrderEntity.getFilmId());
@@ -297,18 +297,49 @@ public class BuilderUtils {
         pos.setStartTime(ConverterUtils.convertDateTimeToString(purchaseOrderEntity.getStartTime()));
         pos.setDiscount(ConverterUtils.convertDoubleToString(purchaseOrderEntity.getDiscount()));
         pos.setStatus(purchaseOrderEntity.getStatus());
+        pos.setSeatNum(ConverterUtils.convertShortToString(purchaseOrderEntity.getSeatNum()));
         pos.setTotalPrice(ConverterUtils.convertDoubleToString(purchaseOrderEntity.getTotalPrice()));
         pos.setOrderItems(BuilderUtils.getOrderItemShowersFromOrderItemEntities(purchaseOrderEntity.getOrderItems()));
 
         return pos;
     }
 
-    public static List<PurchaseOrderShower> getPurchaseOrderShowersFromPurchaseOrderEntities(List<PurchaseOrderEntity> poes) {
-        List<PurchaseOrderShower> purchaseOrders = new ArrayList<PurchaseOrderShower>();
+    public static List<PurchaseOrderShower1> getPurchaseOrderShower1sFromPurchaseOrderEntities(List<PurchaseOrderEntity> poes) {
+        List<PurchaseOrderShower1> purchaseOrders = new ArrayList<PurchaseOrderShower1>();
 
         if (poes != null) {
             for (PurchaseOrderEntity poe: poes) {
-                purchaseOrders.add(BuilderUtils.getPurchaseOrderShowerFromPurchaseOrderEntity(poe));
+                purchaseOrders.add(BuilderUtils.getPurchaseOrderShower1FromPurchaseOrderEntity(poe));
+            }
+        }
+
+        return purchaseOrders;
+    }
+
+
+    private static PurchaseOrderShower2 getPurchaseOrderShower2FromPurchaseOrderEntity(PurchaseOrderEntity purchaseOrderEntity) {
+        PurchaseOrderShower2 pos = new PurchaseOrderShower2();
+
+        pos.setId(purchaseOrderEntity.getId());
+        pos.setFilmId(purchaseOrderEntity.getFilmId());
+        pos.setFilmName(purchaseOrderEntity.getFilmName());
+        pos.setCinemaId(purchaseOrderEntity.getCinemaId());
+        pos.setCinemaName(purchaseOrderEntity.getCinemaName());
+        pos.setCreateTime(ConverterUtils.convertDateTimeToString(purchaseOrderEntity.getCreateTime()));
+        pos.setStartTime(ConverterUtils.convertDateTimeToString(purchaseOrderEntity.getStartTime()));
+        pos.setStatus(purchaseOrderEntity.getStatus());
+        pos.setSeatNum(ConverterUtils.convertShortToString(purchaseOrderEntity.getSeatNum()));
+        pos.setTotalPrice(ConverterUtils.convertDoubleToString(purchaseOrderEntity.getTotalPrice()));
+
+        return pos;
+    }
+
+    public static List<PurchaseOrderShower2> getPurchaseOrderShower2sFromPurchaseOrderEntities(List<PurchaseOrderEntity> poes) {
+        List<PurchaseOrderShower2> purchaseOrders = new ArrayList<PurchaseOrderShower2>();
+
+        if (poes != null) {
+            for (PurchaseOrderEntity poe: poes) {
+                purchaseOrders.add(BuilderUtils.getPurchaseOrderShower2FromPurchaseOrderEntity(poe));
             }
         }
 

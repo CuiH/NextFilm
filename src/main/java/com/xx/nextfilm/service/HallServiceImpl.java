@@ -1,6 +1,6 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.controller.MainController;
+import com.xx.nextfilm.controller.back.MainController;
 import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.HallDao;
 import com.xx.nextfilm.dto.editor.HallEditor;
@@ -13,7 +13,6 @@ import com.xx.nextfilm.utils.ConverterUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

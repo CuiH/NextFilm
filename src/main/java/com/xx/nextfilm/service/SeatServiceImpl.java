@@ -23,8 +23,8 @@ public class SeatServiceImpl implements SeatService{
     }
 
 
-    public void updateSeatStatus(Long id, String status) {
-        seatDao.updateStatusById(id, status);
+    public boolean updateSeatStatusById(Long id, String status) {
+        return seatDao.updateStatusById(id, status);
     }
 
 }

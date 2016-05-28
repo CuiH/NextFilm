@@ -1,4 +1,4 @@
-package com.xx.nextfilm.controller;
+package com.xx.nextfilm.controller.back;
 
 import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
@@ -229,6 +229,7 @@ public class ShowingController {
     public String deleteHall(@RequestParam Long id) {
         try {
             ShowingEntity showingEntity = showingService.findShowingById(id, false, false, false);
+
             showingService.deleteShowing(showingEntity);
 
             return "{\"result\": \"success\", \"reason\": \"no content\"}";

@@ -1,12 +1,11 @@
 package com.xx.nextfilm.dto.shower;
 
-import java.util.List;
-
 /**
  * Created by cuihao on 2016/5/28.
  *
+ * 用于订单列表页面
  */
-public class PurchaseOrderShower {
+public class PurchaseOrderShower2 {
 
     private Long id;
     private String createTime;
@@ -16,11 +15,8 @@ public class PurchaseOrderShower {
     private String filmName;
     private Long cinemaId;
     private String cinemaName;
-    private String hallName;
     private String startTime;
-    private String discount;
-
-    private List<OrderItemShower> orderItems;
+    private String seatNum;
 
 
     public Long getId() {
@@ -95,15 +91,6 @@ public class PurchaseOrderShower {
     }
 
 
-    public String getHallName() {
-        return hallName;
-    }
-
-    public void setHallName(String hallName) {
-        this.hallName = hallName;
-    }
-
-
     public String getStartTime() {
         return startTime;
     }
@@ -113,22 +100,12 @@ public class PurchaseOrderShower {
     }
 
 
-    public String getDiscount() {
-        return discount;
+    public String getSeatNum() {
+        return seatNum;
     }
 
-    public void setDiscount(String discount) {
-        this.discount = discount;
+    public void setSeatNum(String seatNum) {
+        this.seatNum = seatNum;
     }
-
-
-    public List<OrderItemShower> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItemShower> orderItems) {
-        this.orderItems = orderItems;
-    }
-
 
 }

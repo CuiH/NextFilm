@@ -21,6 +21,7 @@ public class PurchaseOrderEntity {
     private String hallName;
     private Date startTime;
     private Double discount;
+    private Short seatNum;
 
     private List<OrderItemEntity> orderItems;
 
@@ -150,7 +151,18 @@ public class PurchaseOrderEntity {
     }
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "purchaseOrder", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Basic
+    @Column(name = "seat_num")
+    public Short getSeatNum() {
+        return seatNum;
+    }
+
+    public void setSeatNum(Short seatNum) {
+        this.seatNum = seatNum;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseOrder", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public List<OrderItemEntity> getOrderItems() {
         return orderItems;
     }

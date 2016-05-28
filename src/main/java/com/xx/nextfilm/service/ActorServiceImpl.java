@@ -1,6 +1,6 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.controller.MainController;
+import com.xx.nextfilm.controller.back.MainController;
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dto.editor.ActorEditor;
 import com.xx.nextfilm.dto.shower.ActorShower1;

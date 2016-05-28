@@ -9,10 +9,8 @@ public interface SeatDao {
 
     SeatEntity findById(Long id);
 
-    SeatEntity findBySerialNum(String serialNum);
-
     void doSave(SeatEntity seat);
 
-    void updateStatusById(Long id, String status);
+    boolean updateStatusById(Long id, String status);
 
 }

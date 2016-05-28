@@ -1,16 +1,12 @@
 package com.xx.nextfilm.service;
 
-import com.xx.nextfilm.controller.MainController;
+import com.xx.nextfilm.controller.back.MainController;
 import com.xx.nextfilm.dao.PurchaseOrderDao;
 import com.xx.nextfilm.dao.SeatDao;
 import com.xx.nextfilm.dao.ShowingDao;
 import com.xx.nextfilm.dto.editor.ReservationEditor;
 import com.xx.nextfilm.entity.*;
-import com.xx.nextfilm.exception.SeatHasBeenReservedException;
-import com.xx.nextfilm.exception.SeatNotExistException;
-import com.xx.nextfilm.exception.ShowingNotExistException;
-import com.xx.nextfilm.exception.UserNotLoginException;
-import com.xx.nextfilm.utils.ConverterUtils;
+import com.xx.nextfilm.exception.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
             orderItem.setPurchaseOrder(purchaseOrder);
         }
 
+        purchaseOrder.setSeatNum(Short.parseShort("" + orderItems.size()));
 
         purchaseOrder.setCinemaId(showing.getFcm().getCinema().getId());
         purchaseOrder.setCinemaName(showing.getFcm().getCinema().getName());
@@ -109,8 +106,21 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
 
-    public List<PurchaseOrderEntity> findReservationsByUser(UserEntity user) {
-        return purchaseOrderDao.findByUser(user);
+    public void deleteReservation(PurchaseOrderEntity purchaseOrder) throws UserNotLoginException {
+        purchaseOrderDao.doDelete(purchaseOrder);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete reservation - #" + purchaseOrder.getId());
+    }
+
+
+    public PurchaseOrderEntity findReservationById(Long id, boolean needOrderItems)
+            throws PurchaseOrderNotExistException {
+        return purchaseOrderDao.findById(id, needOrderItems);
+    }
+
+
+    public List<PurchaseOrderEntity> findReservationsByUser(UserEntity user, boolean needOrderItems) {
+        return purchaseOrderDao.findByUser(user, needOrderItems);
     }
 
 }

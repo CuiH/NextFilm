@@ -38,13 +38,16 @@
 		<!-- 拦截的url -->
 		<intercept-url pattern="/home" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/change_password" access="hasRole('ROLE_USER')" />
-
 		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/view_reservation" access="hasRole('ROLE_USER')" />
+		<!--<intercept-url pattern="/view_all_reservation" access="hasRole('ROLE_USER')" />-->
+		<!--<intercept-url pattern="/make_reservation" access="hasRole('ROLE_USER')" />-->
 
 		<intercept-url pattern="/edit*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/add*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/delete*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/show*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/find*" access="hasRole('ROLE_ADMIN')" />
 
 		<!-- csrf相关 -->
 		<csrf request-matcher-ref="csrfSecurityRequestMatcher"/>

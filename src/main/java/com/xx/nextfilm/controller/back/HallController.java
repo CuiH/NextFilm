@@ -1,4 +1,4 @@
-package com.xx.nextfilm.controller;
+package com.xx.nextfilm.controller.back;
 
 import com.xx.nextfilm.dto.editor.HallEditor;
 import com.xx.nextfilm.entity.HallEntity;

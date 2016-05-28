@@ -10,10 +10,12 @@ import java.util.List;
  */
 public interface PurchaseOrderDao {
 
-    PurchaseOrderEntity findById(Long id);
+    PurchaseOrderEntity findById(Long id, boolean needOrderItems);
 
-    List<PurchaseOrderEntity> findByUser(UserEntity user);
+    List<PurchaseOrderEntity> findByUser(UserEntity user, boolean needOrderItems);
 
     void doSave(PurchaseOrderEntity purchaseOrder);
+
+    void doDelete(PurchaseOrderEntity purchaseOrder);
 
 }

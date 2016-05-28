@@ -13,6 +13,10 @@ public interface ReservationService {
 
     void makeReservation(UserEntity user, ReservationEditor reservation);
 
-    List<PurchaseOrderEntity> findReservationsByUser(UserEntity user);
+    void deleteReservation(PurchaseOrderEntity purchaseOrder);
+
+    PurchaseOrderEntity findReservationById(Long id, boolean needOrderItems);
+
+    List<PurchaseOrderEntity> findReservationsByUser(UserEntity user, boolean needOrderItems);
 
 }
