@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -34,45 +35,89 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
     }
 
 
-    public List<FilmEntity> findByName(String name) {
+    public List<FilmEntity> findByName(String name, boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.like("name", "%"+name+"%"));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
 
+        for (FilmEntity filmEntity: films) {
+            if (needActors) {
+                Hibernate.initialize(filmEntity.getActors());
+            }
+
+            if (needDirectors) {
+                Hibernate.initialize(filmEntity.getDirectors());
+            }
+        }
+
         return films;
     }
 
 
-    public List<FilmEntity> findByAlias(String alias) {
+    public List<FilmEntity> findByAlias(String alias, boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.like("alias", "%"+alias+"%"));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
 
+        if (needDirectors) {
+            for (FilmEntity filmEntity: films) {
+                Hibernate.initialize(filmEntity.getDirectors());
+            }
+        }
+
+        for (FilmEntity filmEntity: films) {
+            if (needActors) {
+                Hibernate.initialize(filmEntity.getActors());
+            }
+        }
+
         return films;
     }
 
 
-    public List<FilmEntity> findByType(String type) {
+    public List<FilmEntity> findByType(String type, boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("type", type));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
 
+        for (FilmEntity filmEntity: films) {
+            if (needDirectors) {
+                Hibernate.initialize(filmEntity.getDirectors());
+            }
+
+            if (needActors) {
+                Hibernate.initialize(filmEntity.getActors());
+            }
+        }
+
         return films;
     }
 
 
-    public List<FilmEntity> findByCategory(String category) {
+    public List<FilmEntity> findByCategory(String category, boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("category", category));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
+
+        for (FilmEntity filmEntity: films) {
+            if (needDirectors) {
+                Hibernate.initialize(filmEntity.getDirectors());
+            }
+        }
+
+        if (needActors) {
+            for (FilmEntity filmEntity: films) {
+                Hibernate.initialize(filmEntity.getActors());
+            }
+        }
 
         return films;
     }

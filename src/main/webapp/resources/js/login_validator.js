@@ -30,6 +30,9 @@ $(document).ready(function() {
                 event.preventDefault();
             }
 
+            $("#submit_form").text("Loading");
+            $("#submit_form").addClass("disabled");
+
             $.ajax({
                 type: "POST",
                 dataType: "html",
@@ -38,13 +41,21 @@ $(document).ready(function() {
                 success: function(data) {
                     data = JSON.parse(data);
                     if (data["result"] == "success") {
+                        $("#submit_form").text("Success");
+
                         window.location.replace("/home");
                     } else {
+                        $("#submit_form").text("Submit");
+                        $("#submit_form").removeClass("disabled");
+
                         $("#login_error").text(data["reason"]);
                         $("#login_error").removeClass("not-show");
                     }
                 },
                 error: function() {
+                    $("#submit_form").text("Submit");
+                    $("#submit_form").removeClass("disabled");
+
                     alert("error");
                 }
             });

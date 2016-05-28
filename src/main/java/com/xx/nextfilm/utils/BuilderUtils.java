@@ -34,6 +34,28 @@ public class BuilderUtils {
     }
 
 
+    private static ActorShower3 getActorShower3FromActorEntity(ActorEntity actor) {
+        ActorShower3 actorShower3 = new ActorShower3();
+
+        actorShower3.setId(actor.getId());
+        actorShower3.setName(actor.getName());
+
+        return  actorShower3;
+    }
+
+    public static List<ActorShower3> getActorShower3sFromActorEntities(List<ActorEntity> actorEntities) {
+        List<ActorShower3> actors = new ArrayList<ActorShower3>();
+
+        if (actorEntities != null) {
+            for (ActorEntity actor: actorEntities) {
+                actors.add(BuilderUtils.getActorShower3FromActorEntity(actor));
+            }
+        }
+
+        return actors;
+    }
+
+
     private static FilmShower2 getFilmShower2FromFilmEntity(FilmEntity film) {
         FilmShower2 filmShower2 = new FilmShower2();
 
@@ -75,6 +97,35 @@ public class BuilderUtils {
         if (filmEntities != null) {
             for (FilmEntity film: filmEntities) {
                 films.add(BuilderUtils.getFilmShower3FromFilmEntity(film));
+            }
+        }
+
+        return films;
+    }
+
+
+    public static FilmShower4 getFilmShower4FromFilmEntity(FilmEntity film) {
+        FilmShower4 filmShower4 = new FilmShower4();
+
+        filmShower4.setId(film.getId());
+        filmShower4.setName(film.getName());
+        filmShower4.setOnDate(ConverterUtils.convertDateToString(film.getOnDate()));
+        filmShower4.setImageUrl(film.getImageUrl());
+        filmShower4.setBrief(film.getBrief());
+        filmShower4.setCategory(film.getCategory());
+        filmShower4.setActors(BuilderUtils.getActorShower3sFromActorEntities(film.getActors()));
+        filmShower4.setDirectors(BuilderUtils.getActorShower3sFromActorEntities(film.getDirectors()));
+
+        return filmShower4;
+
+    }
+
+    public static List<FilmShower4> getFilmShower4sFromFilmEntities(List<FilmEntity> filmEntities) {
+        List<FilmShower4> films = new ArrayList<FilmShower4>();
+
+        if (filmEntities != null) {
+            for (FilmEntity film: filmEntities) {
+                films.add(BuilderUtils.getFilmShower4FromFilmEntity(film));
             }
         }
 

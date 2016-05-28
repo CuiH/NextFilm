@@ -11,13 +11,13 @@ public interface FilmDao {
 
     FilmEntity findById(Long id, boolean needDirectors, boolean needActors);
 
-    List<FilmEntity> findByName(String name);
+    List<FilmEntity> findByName(String name, boolean needDirectors, boolean needActors);
 
-    List<FilmEntity> findByAlias(String alias);
+    List<FilmEntity> findByAlias(String alias, boolean needDirectors, boolean needActors);
 
-    List<FilmEntity> findByType(String type);
+    List<FilmEntity> findByType(String type, boolean needDirectors, boolean needActors);
 
-    List<FilmEntity> findByCategory(String category);
+    List<FilmEntity> findByCategory(String category, boolean needDirectors, boolean needActors);
 
     void doSave(FilmEntity film);
 

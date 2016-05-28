@@ -68,9 +68,9 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public List<FilmEntity> findFilmsByName(String name) {
-        List<FilmEntity> list1 = filmDao.findByName(name);
-        List<FilmEntity> list2 = filmDao.findByAlias(name);
+    public List<FilmEntity> findFilmsByName(String name, boolean needDirectors, boolean needActors) {
+        List<FilmEntity> list1 = filmDao.findByName(name, needDirectors, needActors);
+        List<FilmEntity> list2 = filmDao.findByAlias(name, needDirectors, needActors);
 
         for (FilmEntity film: list2) {
             boolean flag = false;
@@ -90,13 +90,13 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    public List<FilmEntity> findFilmsByType(String type) {
-        return filmDao.findByType(type);
+    public List<FilmEntity> findFilmsByType(String type, boolean needDirectors, boolean needActors) {
+        return filmDao.findByType(type, needDirectors, needActors);
     }
 
 
-    public List<FilmEntity> findFilmsByCategory(String category) {
-        return filmDao.findByCategory(category);
+    public List<FilmEntity> findFilmsByCategory(String category, boolean needDirectors, boolean needActors) {
+        return filmDao.findByCategory(category, needDirectors, needActors);
     }
 
 
