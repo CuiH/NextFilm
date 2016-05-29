@@ -9,7 +9,17 @@ $(function() {
 	})
 
 	function search_submit(e) {
-		str = document.getElementById("search_fuck").value
+		str = document.getElementById("search_fuck").value;
+		if (document.getElementById('fuck').childNodes.length != 5) {
+			var x = document.getElementById('fuck');
+			//alert('number'+x.childNodes.length);
+			//alert(x.childNodes);
+			for (var i = x.childNodes.length - 1; i >= 5; i--) {
+				//alert(i);
+				x.removeChild(x.childNodes[i]);
+			};
+			//alert(i);
+		};
 		//alert(str)
 		$.ajax({
 		type: "GET",
