@@ -44,7 +44,8 @@ $(function() {
 				};
 
 			} else {
-				alert(data["result"]);
+				document.getElementsByClassName('film_name')[0].innerHTML = str;
+				document.getElementsByClassName('film_number')[0].innerHTML = '0';
 			}
 		},
 		error: function() {
