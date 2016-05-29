@@ -18,9 +18,15 @@ p {
 	margin: 0 auto;
 }
 
-.sspan {
+#ad-right .sspan {
 	margin-top: 15px;
 	display: block;
+}
+
+#film-new-container .sspan {
+	margin-top: 15px;
+	display: block;
+	font-size: 16pt;
 }
 
 #footer {
@@ -41,10 +47,29 @@ p {
 	padding-top: 45px;
 }
 
-#film-new-container img {
+.show-img {
 	display: block;
 	max-width:250px;
 	max-height:300px;
 	width: auto;
 	height: auto;
+}
+
+.show-p {
+	width:15em; 
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
+	-o-text-overflow:ellipsis; 
+	overflow:hidden;
+}
+
+#cinema-new-container .sspan {
+	margin-top: 15px;
+	display: block;
+	font-size: 12pt;
+}
+
+#cinema-new-list .sspan {
+	font-size: 12pt;
+	font-weight: bold;
 }
