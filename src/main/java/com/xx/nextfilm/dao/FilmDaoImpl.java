@@ -4,6 +4,7 @@ import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.security.access.method.P;
@@ -37,7 +38,8 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
 
     public List<FilmEntity> findByName(String name, boolean needDirectors, boolean needActors) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.like("name", "%"+name+"%"));
+        criteria.add(Restrictions.or(Restrictions.like("name", name, MatchMode.ANYWHERE),
+                Restrictions.like("alias", name, MatchMode.ANYWHERE)));
         List<FilmEntity> films = (List<FilmEntity>) criteria.list();
 
         if (films == null) return new ArrayList<FilmEntity>();
@@ -48,6 +50,29 @@ public class FilmDaoImpl extends AbstractDao<Long, FilmEntity> implements FilmDa
             }
 
             if (needDirectors) {
+                Hibernate.initialize(filmEntity.getDirectors());
+            }
+        }
+
+        return films;
+    }
+
+
+    public List<FilmEntity> findSome(int num, boolean needDirectors, boolean needActors) {
+        Criteria criteria = createEntityCriteria();
+        criteria.setMaxResults(num);
+        List<FilmEntity> films = (List<FilmEntity>) criteria.list();
+
+        if (films == null) return new ArrayList<FilmEntity>();
+
+        for (FilmEntity filmEntity: films) {
+            if (needActors) {
+                Hibernate.initialize(filmEntity.getActors());
+            }
+        }
+
+        if (needDirectors) {
+            for (FilmEntity filmEntity: films) {
                 Hibernate.initialize(filmEntity.getDirectors());
             }
         }

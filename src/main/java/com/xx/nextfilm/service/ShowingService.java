@@ -9,6 +9,7 @@ import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,10 +19,11 @@ public interface ShowingService {
 
     ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats, boolean needCinema);
 
+    List<ShowingEntity> findShowingsByFCMAndDate(FCMEntity fcmEntity, Date date);
+
     List<ShowingShower2> findShowingsByCinemaAndFilmWithShower2(CinemaEntity cinemaEntity, FilmEntity filmEntity);
 
     ShowingEditor2 getShowingEditor2ById(Long id);
-
 
     void createShowing(ShowingEditor1 showingEditor1);
 

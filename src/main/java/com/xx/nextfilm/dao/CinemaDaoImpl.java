@@ -35,12 +35,11 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
         if (needFcms) {
             Hibernate.initialize(cinema.getFcms());
 
-            //　同时加载FCM中所有上映信息
+            //　同时加载FCM中film信息，主要用在根据影院、日期查场次
             List<FCMEntity> fcms = cinema.getFcms();
             if (fcms != null) {
                 for (FCMEntity fcm: fcms) {
                     Hibernate.initialize(fcm.getFilm());
-                    Hibernate.initialize(fcm.getShowings());
                 }
             }
         }
@@ -49,12 +48,39 @@ public class CinemaDaoImpl extends AbstractDao<Long, CinemaEntity> implements Ci
     }
 
 
-    public List<CinemaEntity> findByName(String name) {
+    public List<CinemaEntity> findSome(int num, boolean needFilms, boolean needHalls, boolean needFcms) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("name", name));
+        criteria.setMaxResults(num);
         List<CinemaEntity> cinemas = (List<CinemaEntity>) criteria.list();
 
         if (cinemas == null) return new ArrayList<CinemaEntity>();
+
+        // 延迟加载待实现
+
+        return cinemas;
+    }
+
+
+    public List<CinemaEntity> findByName(String name, boolean needFilms, boolean needHalls, boolean needFcms) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.like("name", "%" + name + "%"));
+        List<CinemaEntity> cinemas = (List<CinemaEntity>) criteria.list();
+
+        if (cinemas == null) return new ArrayList<CinemaEntity>();
+
+        for (CinemaEntity cinemaEntity: cinemas) {
+            if (needHalls) {
+                Hibernate.initialize(cinemaEntity.getHalls());
+            }
+
+            if (needFilms) {
+                Hibernate.initialize(cinemaEntity.getFilms());
+            }
+
+            if (needFcms) {
+                Hibernate.initialize(cinemaEntity.getFcms());
+            }
+        }
 
         return cinemas;
     }

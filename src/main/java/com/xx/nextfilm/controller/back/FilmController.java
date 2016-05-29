@@ -141,8 +141,8 @@ public class FilmController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/find_film", method = RequestMethod.GET)
-    public String findActor(@RequestParam String name) {
+    @RequestMapping(value = "/find_film", method = RequestMethod.GET, produces = "plain/text; charset=UTF-8")
+    public String findFilm(@RequestParam String name) {
         List<FilmEntity> films = filmService.findFilmsByName(name, false, false);
 
         if (films.size() == 0) {

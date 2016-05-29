@@ -12,6 +12,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +50,23 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
     public List<ShowingEntity> findByFCM(FCMEntity fcmEntity) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("fcm", fcmEntity));
+        List<ShowingEntity> showings = (List<ShowingEntity>) criteria.list();
+
+        if (showings == null) return new ArrayList<ShowingEntity>();
+
+        return showings;
+    }
+
+
+    public List<ShowingEntity> findByFCMAndDate(FCMEntity fcmEntity, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        Date next = calendar.getTime();
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("fcm", fcmEntity));
+        criteria.add(Restrictions.between("startTime", date, next));
         List<ShowingEntity> showings = (List<ShowingEntity>) criteria.list();
 
         if (showings == null) return new ArrayList<ShowingEntity>();

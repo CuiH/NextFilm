@@ -3,20 +3,20 @@ package com.xx.nextfilm.dto.shower;
 import java.util.List;
 
 /**
- * Created by CuiH on 2016/5/18.
+ * Created by CuiH on 2016/5/29.
  *
- * 用于影院详情页面
+ * 用于影院列表页面
  */
-public class CinemaShower1 {
+public class CinemaShower3 {
 
     private Long id;
 
     private String name;
     private String address;
-    private String phone;
     private String brief;
     private String imageUrl;
-    private String description;
+
+    private List<FilmShower3> films;
 
 
     public Long getId() {
@@ -46,15 +46,6 @@ public class CinemaShower1 {
     }
 
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-
     public String getBrief() {
         return brief;
     }
@@ -73,12 +64,12 @@ public class CinemaShower1 {
     }
 
 
-    public String getDescription() {
-        return description;
+    public List<FilmShower3> getFilms() {
+        return films;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFilms(List<FilmShower3> films) {
+        this.films = films;
     }
-
+    
 }

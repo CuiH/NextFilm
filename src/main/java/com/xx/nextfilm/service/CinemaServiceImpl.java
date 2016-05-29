@@ -68,8 +68,13 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
 
-    public List<CinemaEntity> findCinemasByName(String name) {
-        return cinemaDao.findByName(name);
+    public List<CinemaEntity> findSomeCinemas(int num, boolean needFilms, boolean needHalls, boolean needFcms) {
+        return cinemaDao.findSome(num, needFilms, needHalls, needFcms);
+    }
+
+
+    public List<CinemaEntity> findCinemasByName(String name, boolean needFilms, boolean needHalls, boolean needFcms) {
+        return cinemaDao.findByName(name, needFilms, needHalls, needFcms);
     }
 
 
@@ -112,22 +117,6 @@ public class CinemaServiceImpl implements CinemaService {
         List<CinemaEntity> cinemaEntities = findAllCinemas(false, false, false);
 
         return BuilderUtils.getCinemaShower2sFromCinemaEntities(cinemaEntities);
-    }
-
-    // 根据ID获取该影院所有上映的电影id List
-    public List<Long> getAllShowingFilmIdsById(Long id) throws CinemaNotExistException {
-        CinemaEntity cinemaEntity = findCinemaById(id, true, false, false);
-
-        List<FilmEntity> films = cinemaEntity.getFilms();
-
-        if (films == null) return new ArrayList<Long>();
-
-        List<Long> ids = new ArrayList<Long>();
-        for (FilmEntity filmEntity: films) {
-            ids.add(filmEntity.getId());
-        }
-
-        return ids;
     }
 
 

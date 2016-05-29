@@ -4,6 +4,7 @@ import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.ShowingEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ public interface ShowingDao {
     ShowingEntity findById(Long id, boolean needFcm, boolean needSeats, boolean needCinema);
 
     List<ShowingEntity> findByFCM(FCMEntity fcmEntity);
+
+    List<ShowingEntity> findByFCMAndDate(FCMEntity fcmEntity, Date date);
 
     void doSave(ShowingEntity showing);
 

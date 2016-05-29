@@ -48,6 +48,31 @@
 
 <script>
     $(document).ready(function() {
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/get_film?name=24",
+                dataType:"jsonp",
+                jsonpCallback:"ch",
+                data: $("#login_form").serialize(),
+                success: function(data) {
+                    // 解析一下
+                    console.log(data);
+                    //data = JSON.parse(data);
+
+                    // 首先判断是否成功
+                    if (data["result"] == "success") {
+                        alert(data["data"][0]["name"]);
+                    } else {
+                        alert("2");
+                    }
+                },
+                error: function() {
+                    alert("3");
+                }
+            });
+        });
+
         $("#try").click(function () {
             var d = "showingId=8&seats=1T1&seats=2T2";
             $.ajax({

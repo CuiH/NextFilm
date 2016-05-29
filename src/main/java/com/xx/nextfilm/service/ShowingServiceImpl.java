@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +57,11 @@ public class ShowingServiceImpl implements ShowingService {
         FCMEntity fcmEntity = fcmDao.findByFilmAndCinema(filmEntity, cinemaEntity);
 
         return BuilderUtils.getShowingShower2sFromShowingEntities(showingDao.findByFCM(fcmEntity));
+    }
+
+
+    public List<ShowingEntity> findShowingsByFCMAndDate(FCMEntity fcmEntity, Date date) {
+        return showingDao.findByFCMAndDate(fcmEntity, date);
     }
 
 

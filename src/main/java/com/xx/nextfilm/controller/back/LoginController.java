@@ -1,10 +1,10 @@
 package com.xx.nextfilm.controller.back;
 
+import com.xx.nextfilm.entity.UserEntity;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.service.UserService;
-import com.xx.nextfilm.dto.editor.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +34,21 @@ public class LoginController {
     @RequestMapping(value = "/login_success", method = RequestMethod.GET)
     public String loginSuccess() {
         return "{\"result\": \"success\", \"reason\": \"no content\"}";
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/is_login", method = RequestMethod.GET)
+    public String isLogin() {
+        try {
+            String username = MainController.getCurrentUsername();
+
+            return "{\"result\": \"success\", \"data\":\"" + username + "\"}";
+        } catch (UserNotLoginException e) {
+
+            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
+        }
+
     }
 
 }

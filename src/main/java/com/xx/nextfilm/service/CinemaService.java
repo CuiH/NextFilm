@@ -15,7 +15,9 @@ public interface CinemaService {
 
     CinemaEditor getCinemaEditorById(Long id);
 
-    List<CinemaEntity> findCinemasByName(String name);
+    List<CinemaEntity> findCinemasByName(String name, boolean needFilms, boolean needHalls, boolean needFcms);
+
+    List<CinemaEntity> findSomeCinemas(int num, boolean needFilms, boolean needHalls, boolean needFcms);
 
     List<CinemaEntity> findCinemasByCityCode(String cityCode);
 
@@ -28,7 +30,5 @@ public interface CinemaService {
     List<CinemaShower2> findAllCinemasWithShower2();
 
     List<CinemaEntity> findAllCinemas(boolean needFilms, boolean needHalls, boolean needFcms);
-
-    List<Long> getAllShowingFilmIdsById(Long id);
 
 }

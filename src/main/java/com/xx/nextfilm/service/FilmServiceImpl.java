@@ -45,6 +45,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
+    public List<FilmEntity> findSomeFilms(int num, boolean needDirectors, boolean needActors) {
+        return filmDao.findSome(num, needDirectors, needActors);
+    }
+
+
     public FilmEditor getFilmEditorById(Long id) throws FilmNotExistException {
         FilmEntity filmEntity = findFilmById(id, true, true);
 
@@ -69,24 +74,24 @@ public class FilmServiceImpl implements FilmService {
 
 
     public List<FilmEntity> findFilmsByName(String name, boolean needDirectors, boolean needActors) {
-        List<FilmEntity> list1 = filmDao.findByName(name, needDirectors, needActors);
-        List<FilmEntity> list2 = filmDao.findByAlias(name, needDirectors, needActors);
-
-        for (FilmEntity film: list2) {
-            boolean flag = false;
-            for (FilmEntity f: list1) {
-                if (film.getId() == f.getId()) {
-                    flag = true;
-                    break;
-                }
-            }
-
-            if (flag == false) {
-                list1.add(film);
-            }
-        }
-
-        return list1;
+        return filmDao.findByName(name, needDirectors, needActors);
+//        List<FilmEntity> list2 = filmDao.findByAlias(name, needDirectors, needActors);
+//
+//        for (FilmEntity film: list2) {
+//            boolean flag = false;
+//            for (FilmEntity f: list1) {
+//                if (film.getId() == f.getId()) {
+//                    flag = true;
+//                    break;
+//                }
+//            }
+//
+//            if (flag == false) {
+//                list1.add(film);
+//            }
+//        }
+//
+//        return list1;
     }
 
 

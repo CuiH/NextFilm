@@ -17,6 +17,8 @@ public interface FilmService {
 
     FilmEditor getFilmEditorById(Long id);
 
+    List<FilmEntity> findSomeFilms(int num, boolean needDirectors, boolean needActors);
+
     List<FilmEntity> findFilmsByName(String name, boolean needDirectors, boolean needActors);
 
     List<FilmEntity> findFilmsByType(String type, boolean needDirectors, boolean needActors);

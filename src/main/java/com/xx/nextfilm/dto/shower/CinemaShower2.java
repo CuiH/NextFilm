@@ -3,7 +3,7 @@ package com.xx.nextfilm.dto.shower;
 /**
  * Created by CuiH on 2016/5/18.
  *
- * 用于影院列表页面
+ * 用于编辑
  */
 public class CinemaShower2 {
 

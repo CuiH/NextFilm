@@ -56,14 +56,47 @@ public class BuilderUtils {
     }
 
 
-    private static FilmShower2 getFilmShower2FromFilmEntity(FilmEntity film) {
+    public static FilmShower1 getFilmShower1FromFilmEntity(FilmEntity film) {
+        FilmShower1 filmShower1 = new FilmShower1();
+
+        filmShower1.setId(film.getId());
+        filmShower1.setName(film.getName());
+        filmShower1.setAlias(film.getAlias());
+        filmShower1.setBrief(film.getBrief());
+        filmShower1.setLanguage(film.getLanguage());
+        filmShower1.setLength(film.getLength());
+        filmShower1.setOnDate(ConverterUtils.convertDateToString(film.getOnDate()));
+        filmShower1.setImageUrl(film.getImageUrl());
+        filmShower1.setCategory(film.getCategory());
+        filmShower1.setType(film.getType());
+
+        filmShower1.setActors(BuilderUtils.getActorShower2sFromActorEntities(film.getActors()));
+        filmShower1.setDirectors(BuilderUtils.getActorShower2sFromActorEntities(film.getDirectors()));
+
+        return filmShower1;
+    }
+
+    public static List<FilmShower1> getFilmShower1sFromFilmEntities(List<FilmEntity> filmEntities) {
+        List<FilmShower1> films = new ArrayList<FilmShower1>();
+
+        if (filmEntities != null) {
+            for (FilmEntity film: filmEntities) {
+                films.add(BuilderUtils.getFilmShower1FromFilmEntity(film));
+            }
+        }
+
+        return films;
+    }
+
+
+    public static FilmShower2 getFilmShower2FromFilmEntity(FilmEntity film) {
         FilmShower2 filmShower2 = new FilmShower2();
 
         filmShower2.setId(film.getId());
         filmShower2.setName(film.getName());
         filmShower2.setBrief(film.getBrief());
         filmShower2.setImageUrl(film.getImageUrl());
-        film.setLanguage(film.getLanguage());
+        filmShower2.setLanguage(film.getLanguage());
 
         return filmShower2;
     }
@@ -264,6 +297,21 @@ public class BuilderUtils {
     }
 
 
+    public static CinemaShower1 getCinemaShower1FromCinemaEntity(CinemaEntity cinemaEntity) {
+        CinemaShower1 cinema = new CinemaShower1();
+
+        cinema.setId(cinemaEntity.getId());
+        cinema.setName(cinemaEntity.getName());
+        cinema.setAddress(cinemaEntity.getAddress());
+        cinema.setPhone(cinemaEntity.getPhone());
+        cinema.setBrief(cinemaEntity.getBrief());
+        cinema.setImageUrl(cinemaEntity.getImageUrl());
+        cinema.setDescription(cinemaEntity.getDescription());
+
+        return cinema;
+    }
+
+
     private static CinemaShower2 getCinemaShower2FromCinemaEntity(CinemaEntity cinemaEntity) {
         CinemaShower2 cinema = new CinemaShower2();
 
@@ -281,6 +329,33 @@ public class BuilderUtils {
         if (cinemaEntities != null) {
             for (CinemaEntity cinemaEntity: cinemaEntities) {
                 cinemas.add(BuilderUtils.getCinemaShower2FromCinemaEntity(cinemaEntity));
+            }
+        }
+
+        return cinemas;
+    }
+
+
+    private static CinemaShower3 getCinemaShower3FromCinemaEntity(CinemaEntity cinemaEntity) {
+        CinemaShower3 cinema = new CinemaShower3();
+
+        cinema.setId(cinemaEntity.getId());
+        cinema.setName(cinemaEntity.getName());
+        cinema.setAddress(cinemaEntity.getAddress());
+        cinema.setImageUrl(cinemaEntity.getImageUrl());
+        cinema.setBrief(cinemaEntity.getBrief());
+
+        cinema.setFilms(BuilderUtils.getFilmShower3sFromFilmEntities(cinemaEntity.getFilms()));
+
+        return cinema;
+    }
+
+    public static List<CinemaShower3> getCinemaShower3sFromCinemaEntities(List<CinemaEntity> cinemaEntities) {
+        List<CinemaShower3> cinemas = new ArrayList<CinemaShower3>();
+
+        if (cinemaEntities != null) {
+            for (CinemaEntity cinemaEntity: cinemaEntities) {
+                cinemas.add(BuilderUtils.getCinemaShower3FromCinemaEntity(cinemaEntity));
             }
         }
 

@@ -13,6 +13,8 @@ public interface FilmDao {
 
     List<FilmEntity> findByName(String name, boolean needDirectors, boolean needActors);
 
+    List<FilmEntity> findSome(int num, boolean needDirectors, boolean needActors);
+
     List<FilmEntity> findByAlias(String alias, boolean needDirectors, boolean needActors);
 
     List<FilmEntity> findByType(String type, boolean needDirectors, boolean needActors);
