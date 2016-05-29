@@ -16,6 +16,8 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
+	<script type="text/javascript" src="js/register.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/register.css">
 </head>
 <body style="width: 100%;height: 100%;background-image: url(image/register_bg3.jpg);
@@ -30,25 +32,25 @@
     			<p style="color: white;margin: 40px 40px 40px 27px;font-size: 20pt;">Welcome to NextFilm</p>
     		</div>
 
-				<div id="signForm" style="max-width: 500px;">
-					<form class="center-block form-horizontal" style="margin: 8px;">
+				<div style="max-width: 500px;">
+					<form id="signForm" class="center-block form-horizontal" style="margin: 8px;">
 
 					  <div class="form-group">
 					    <div class="col-sm-8" style="width: 95%;">
-					      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+					      <input name="username" type="text" class="form-control" id="inputEmail3" placeholder="Username">
 					    </div>
 					  </div>
 
 					  <div class="form-group">
 					    <div class="col-sm-8" style="width: 95%;">
-					      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+					      <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
 					    </div>
 					  </div>
 
 					  <div class="form-group">
 					    <div class="col-sm-offset-1 col-sm-10" style="margin: 0 auto;">
-					      <button type="submit" class="btn btn-success" style="width: 90px; margin: 20px 10% 0 15%;">Sign in</button>
-					      <button type="submit" class="btn btn-default" style="width: 90px; margin: 20px 0 0 0;">Sign up</button>
+					      <button id="signin-btn" type="button" class="btn btn-success" style="width: 90px; margin: 20px 10% 0 15%;">Sign in</button>
+					      <button id="signup-btn" type="button" class="btn btn-default" style="width: 90px; margin: 20px 0 0 0;">Sign up</button>
 					    </div>
 					  </div>
 					</form>
