@@ -2,7 +2,6 @@ $(function(){
 	$('#myCarousel').carousel({
 		interval: 2000
 	})
-
 	// fetch film information
 	$.ajax({
 		type: "GET",
@@ -13,17 +12,8 @@ $(function(){
 	        
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
-	            // DOM 操作
-	            var i = 0;
-	            var count = data["data"].length;
-	            list = $("img.show-img")
-	            spList = $("#film-new-container span")
-	            pList = $("#film-new-list p")
-	            for (i = 0; i < count; i++) {
-					list[i]["src"] = data["data"][i]["imageUrl"]
-					$(spList[i]).html(data["data"][i]["name"])
-					$(pList[i]).html(data["data"][i]["brief"])
-	            }
+	        
+				$("#film-new-list").loadTemplate($("#template"), data["data"]);
 	            
 	        } else {
 	            // DOM 操作

@@ -56,7 +56,11 @@ p {
 }
 
 .show-p {
-	width: 250px;
+	width:15em; 
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
+	-o-text-overflow:ellipsis; 
+	overflow:hidden;
 }
 
 #cinema-new-container .sspan {

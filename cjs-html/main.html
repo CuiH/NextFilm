@@ -13,10 +13,12 @@
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
 
+	<script type="text/javascript" src="js/jquery.loadTemplate-1.5.7.min.js"></script>
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="js/main.js"></script>
+
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
@@ -121,34 +123,7 @@
 				<hr>
 				<!-- Columns are always 25% wide, on mobile and desktop -->
 				<div id="film-new-list" class="row">
-					<div class="col-md-3">
-						<div>
-							<img class="show-img" src="image/n1.jpg">
-							<span class="sspan">[广州]2015维纳斯音乐节</span>
-							<p class="show-p">故事发生在一个所有哺乳类动物和谐共存的美好世界中，兔子朱迪（金妮弗·古德温 Ginnifer Goodwin 配音）从小就梦想着能够成为一名惩恶扬善的刑警。</p>
-						</div>
-					</div>
-				 	<div class="col-md-3">
-				 		<div>
-							<img class="show-img" src="image/c2.jpg">
-							<span class="sspan">[广州]2015维纳斯音乐节</span>
-							<p class="show-p">故事发生在一个所有哺乳类动物和谐共存的美好世界中，兔子朱迪（金妮弗·古德温 Ginnifer Goodwin 配音）从小就梦想着能够成为一名惩恶扬善的刑警。</p>
-						</div>
-				 	</div>
-				 	<div class="col-md-3">
-				 		<div>
-							<img class="show-img" src="image/c3.jpg">
-							<span class="sspan">[广州]2015维纳斯音乐节</span>
-							<p class="show-p">故事发生在一个所有哺乳类动物和谐共存的美好世界中，兔子朱迪（金妮弗·古德温 Ginnifer Goodwin 配音）从小就梦想着能够成为一名惩恶扬善的刑警。</p>
-						</div>
-				 	</div>
-				 	<div class="col-md-3">
-				 		<div>
-							<img class="show-img" src="image/c4.jpg">
-							<span class="sspan">[广州]2015维纳斯音乐节</span>
-							<p class="show-p">故事发生在一个所有哺乳类动物和谐共存的美好世界中，兔子朱迪（金妮弗·古德温 Ginnifer Goodwin 配音）从小就梦想着能够成为一名惩恶扬善的刑警。</p>
-						</div>
-				 	</div>
+
 				</div>
 			</div>
 		</div> <!-- film-new-container-bg -->
@@ -177,6 +152,16 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/html" id="template">
+	    <div class="col-md-3">
+			<div>
+				<img data-src="imageUrl" class="show-img">
+				<span data-content="name" class="sspan"></span>
+				<p data-content="brief" class="show-p"></p>
+			</div>
+		</div>
+	</script>
 
 	<div id="footer">
 		<div id="footer-container">
