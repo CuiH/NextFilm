@@ -55,5 +55,4 @@ $(function(){
 	        alert("server error2")
 	    }
 	})
-
 })

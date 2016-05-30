@@ -1,0 +1,73 @@
+html, body{
+	height:100%;
+	width: 100%;
+	background-color: #ECECEC;
+}
+
+p {
+	font-family: 'microsoft yahei';
+}
+
+hr {
+	border:1px #DDD solid;
+}
+
+.avatar {
+	border-radius: 25px;
+	max-width:50px;
+	max-height:50px;
+	width: auto;
+	height: auto;
+}
+
+#film-container-bg {
+	padding: 15px;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#film-container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#film-left {
+	margin-right: 20px;
+}
+
+#footer {
+	background-color: #D8D8D8;
+	padding-top: 15px;
+}
+
+#footer-container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#footer-container p {
+	display: inline-block;
+}
+
+.show-img {
+	display: block;
+	max-width:450px;
+	max-height:400px;
+	width: auto;
+	height: auto;
+}
+
+.show-p {
+	width:15em; 
+	white-space:nowrap; 
+	text-overflow:ellipsis; 
+	-o-text-overflow:ellipsis; 
+	overflow:hidden;
+}
+
+.sspan {
+	width: 100px;
+	padding: 10px;
+	display: inline-block;
+	border-right: outset;
+}
