@@ -75,6 +75,18 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
     }
 
 
+    public List<ShowingEntity> findSomeByFCMAndDate(FCMEntity fcmEntity, Date date, int num) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("fcm", fcmEntity));
+        criteria.add(Restrictions.ge("startTime", date));
+        criteria.setMaxResults(num);
+        List<ShowingEntity> showings = (List<ShowingEntity>) criteria.list();
+
+        if (showings == null) return new ArrayList<ShowingEntity>();
+
+        return showings;
+    }
+
     public void doSave(ShowingEntity showing) {
         persist(showing);
     }

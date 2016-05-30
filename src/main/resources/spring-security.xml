@@ -27,6 +27,7 @@
 			<beans:list>
 				<beans:value>/login</beans:value>
 				<beans:value>/logout</beans:value>
+				<beans:value>/edit_seat</beans:value>
 				<beans:value>/edit_showing_film</beans:value>
 				<beans:value>/make_reservation</beans:value>
 			</beans:list>

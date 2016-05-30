@@ -182,7 +182,8 @@ public class FilmController {
 
     @ModelAttribute("categories")
     public String[] initializeCategories() {
-        return new String[]{"喜剧", "惊悚", "剧情"};
+        return new String[]{"喜剧", "惊悚", "剧情", "科幻", "爱情", "动作",
+                "犯罪", "魔幻", "青春", "文艺", "动画", "恐怖", "悬疑"};
     }
 
 }

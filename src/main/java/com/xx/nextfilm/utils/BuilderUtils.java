@@ -238,24 +238,6 @@ public class BuilderUtils {
     }
 
 
-    public static List<ShowingFilmShower> getShowingFilmShower(List<FilmShower3> allFilms, List<Long> showingFilms) {
-        List<ShowingFilmShower> showingFilmShowers = new ArrayList<ShowingFilmShower>();
-        for (FilmShower3 filmShower3: allFilms) {
-            ShowingFilmShower showingFilmShower = new ShowingFilmShower();
-
-            showingFilmShower.setId(filmShower3.getId());
-            showingFilmShower.setName(filmShower3.getName());
-
-            if (showingFilms.indexOf(showingFilmShower.getId()) != -1) showingFilmShower.setSelected(true);
-            else showingFilmShower.setSelected(false);
-
-            showingFilmShowers.add(showingFilmShower);
-        }
-
-        return  showingFilmShowers;
-    }
-
-
     public static ShowingShower1 getShowingShower1FromShowingEntity(ShowingEntity showing) {
         ShowingShower1 showingShower1 = new ShowingShower1();
 
@@ -312,7 +294,7 @@ public class BuilderUtils {
     }
 
 
-    private static CinemaShower2 getCinemaShower2FromCinemaEntity(CinemaEntity cinemaEntity) {
+    public static CinemaShower2 getCinemaShower2FromCinemaEntity(CinemaEntity cinemaEntity) {
         CinemaShower2 cinema = new CinemaShower2();
 
         cinema.setId(cinemaEntity.getId());

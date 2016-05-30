@@ -57,7 +57,7 @@ public class ReservationController {
             return "{\"result\": \"fail\", \"reason\": \"unknown seat\"}";
         } catch (ShowingNotExistException e) {
 
-            return "{\"result\": \"fail\", \"reason\": \"not showing\"}";
+            return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
         } catch (SeatHasBeenReservedException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"seat has already been reserved\"}";

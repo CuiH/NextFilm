@@ -5,6 +5,7 @@ import com.xx.nextfilm.dao.CinemaDao;
 import com.xx.nextfilm.dao.FCMDao;
 import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
@@ -57,5 +58,9 @@ public class FCMServiceImpl implements FCMService {
         LOG.info(MainController.getCurrentUsername() + " : edit fcm - cinema_id#" + cinemaId);
     }
 
+
+    public List<FCMEntity> findSomeFCMsByFilm(FilmEntity filmEntity, int num) {
+        return fcmDao.findSomeByFilm(filmEntity, num);
+    }
 
 }

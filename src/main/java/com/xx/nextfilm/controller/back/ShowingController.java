@@ -3,7 +3,6 @@ package com.xx.nextfilm.controller.back;
 import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
-import com.xx.nextfilm.dto.shower.ShowingShower1;
 import com.xx.nextfilm.dto.shower.ShowingShower2;
 import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FilmEntity;
@@ -131,7 +130,7 @@ public class ShowingController {
             List<ShowingShower2> showingShower2s = showingService.findShowingsByCinemaAndFilmWithShower2(cinemaEntity, filmEntity);
             modelMap.addAttribute("showings", showingShower2s);
 
-            // 定向用
+            // 导航用
             modelMap.addAttribute("cinemaId", cinemaId);
             modelMap.addAttribute("filmId", filmEntity.getId());
             modelMap.addAttribute("filmName", filmEntity.getName());
@@ -202,24 +201,6 @@ public class ShowingController {
         } catch (UserNotLoginException e) {
 
             return "{\"result\": \"fail\", \"reason\": \"not login\"}";
-        }
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "/view_showing", method = RequestMethod.GET, produces = "plain/text; charset=UTF-8")
-    public String getShowing(@RequestParam Long id) {
-        try {
-            ShowingEntity showingEntity = showingService.findShowingById(id, true, true, true);
-
-            Gson gson = new Gson();
-
-            return "{\"result\": \"success\", \"data\": " +
-                    gson.toJson(BuilderUtils.getShowingShower1FromShowingEntity(showingEntity)) + "}";
-        } catch (ShowingNotExistException e) {
-
-
-            return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
         }
     }
 

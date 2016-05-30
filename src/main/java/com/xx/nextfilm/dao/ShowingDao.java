@@ -18,6 +18,8 @@ public interface ShowingDao {
 
     List<ShowingEntity> findByFCMAndDate(FCMEntity fcmEntity, Date date);
 
+    List<ShowingEntity> findSomeByFCMAndDate(FCMEntity fcmEntity, Date date, int num);
+
     void doSave(ShowingEntity showing);
 
     void doUpdate(ShowingEntity showing);

@@ -65,6 +65,11 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
+    public List<ShowingEntity> findSomeShowingsByFCMAndDate(FCMEntity fcmEntity, Date date, int num) {
+        return showingDao.findSomeByFCMAndDate(fcmEntity, date, num);
+    }
+
+
     public ShowingEditor2 getShowingEditor2ById(Long id) throws ShowingNotExistException {
         ShowingEntity showingEntity = findShowingById(id, true, true, false);
 

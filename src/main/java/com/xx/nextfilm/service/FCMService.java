@@ -1,6 +1,7 @@
 package com.xx.nextfilm.service;
 
 import com.xx.nextfilm.entity.CinemaEntity;
+import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 
 import java.util.List;
@@ -11,5 +12,7 @@ import java.util.List;
 public interface FCMService {
 
     void updateFCM(Long cinemaId, List<Long> filmIds);
+
+    List<FCMEntity> findSomeFCMsByFilm(FilmEntity filmEntity, int num);
 
 }

@@ -24,6 +24,11 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String frontLogin() {
+        return "nextfilm/login";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/login_fail", method = RequestMethod.GET)
     public String loginFail() {
@@ -34,21 +39,6 @@ public class LoginController {
     @RequestMapping(value = "/login_success", method = RequestMethod.GET)
     public String loginSuccess() {
         return "{\"result\": \"success\", \"reason\": \"no content\"}";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "/is_login", method = RequestMethod.GET)
-    public String isLogin() {
-        try {
-            String username = MainController.getCurrentUsername();
-
-            return "{\"result\": \"success\", \"data\":\"" + username + "\"}";
-        } catch (UserNotLoginException e) {
-
-            return "{\"result\": \"fail\", \"reason\": \"not login\"}";
-        }
-
     }
 
 }

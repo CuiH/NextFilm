@@ -13,6 +13,8 @@ public interface FCMDao {
 
     FCMEntity findByFilmAndCinema(FilmEntity film, CinemaEntity cinema);
 
+    List<FCMEntity> findSomeByFilm(FilmEntity film, int num);
+
     void doUpdateManually(CinemaEntity cinema, List<FilmEntity> films);
 
 }

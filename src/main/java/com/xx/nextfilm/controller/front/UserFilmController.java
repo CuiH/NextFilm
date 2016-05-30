@@ -47,7 +47,9 @@ public class UserFilmController {
 
     @ResponseBody
     @RequestMapping(value = "/view_film", method = RequestMethod.GET, produces = "application/javascript; charset=UTF-8")
-    public String viewFilm(@RequestParam Long id) {
+    public String viewFilm(@RequestParam Long id, HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+
         try {
             FilmEntity filmEntity = filmService.findFilmById(id, true, true);
 
