@@ -1,300 +1,132 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-<head>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>新一代电影网</title>
-	<!-- 新 Bootstrap 核心 CSS 文件 -->
-  <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
-
-	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-	<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-
-	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
-
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-
-	<script type="text/javascript" src="js/main.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/common.css">
-	<link rel="stylesheet" type="text/css" href="css/style1.css">
-</head>
-<body>
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
-		<div class="navbar-header">
-		  <a class="navbar-brand" href="#">
-			<img class="img-circle" alt="Brand" src="image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
-			<p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
-		  </a>
-		</div>
-
-		 <!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-				<ul class="nav navbar-nav">
-
-					<li class="dropdown">
-					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市 <span class="caret"></span></a>
-					  <ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
-					  </ul>
-					</li>
-
-					<li><a href="#">电影</a></li>
-				</ul>
-
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-					  <input type="text" class="form-control" style="color: red;" placeholder="搜索电影、场馆、艺人">
-					  <span class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
-					</div>
-				</form>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="register.html">登录|注册</a></li>
-					<li class="dropdown">
-					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
-					  <ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					  </ul>
-					</li>
-				</ul>
-		</div><!-- /.navbar-collapse -->
-
-	  </div> <!-- container fluid --> 
-	</nav>
-
-	<div id="main-container" style="min-height: 90%;">
-		<div class="type_list clearfix">
-    <!-- <ul class="type_tab clearfix">
-        <li class="on">按演出时间</li>
-        <li style="display: none">按门票价格</li>
-    </ul> -->
-    <div class="type_list_box">
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/114328f6689dc074ee8729f17171c5d4.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/73c60ea249f746a78d3299902ade5e08" title="[北京]陈奕迅 ANOTHER EASON&#39;S LIFE演唱会北京站加场(预售)">
-                            [北京]陈奕迅 ANOTHER EASON'S LIFE演唱会北京站加场(预售)                        </a>
-                    </p>
-                    <p class="ftit">Eason将为你重新定义一场真正的演唱会</p>
-                    <p class="time">2016年10月21日</p>
-                    <p class="place">国家体育场(鸟巢)</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>新一代电影网</title>
+        <!-- 新 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+        <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/cinemas.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" type="text/css" href="css/style1.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img class="img-circle" alt="Brand" src="image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
+                        <p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
+                    </a>
                 </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>380</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/73c60ea249f746a78d3299902ade5e08">立即购买</a>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">电影</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id='search_fuck' style="color: red;"  placeholder="搜索影院、场馆">
+                            <span class="glyphicon glyphicon-search" id='search_btn'  aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="register.html">登录|注册</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </div><!-- /.navbar-collapse -->
+                    </div> <!-- container fluid -->
+                </nav>
+                <div id="main-container" style="min-height: 90%;">
+                    <div class="type_list clearfix">
+                        <!-- <ul class="type_tab clearfix">
+                            <li class="on">按演出时间</li>
+                            <li style="display: none">按门票价格</li>
+                        </ul> -->
+                        <div class="type_list_box" id = 'fuck'>
+                            <div class="showList">
+                                搜索 <strong class="film_name"></strong> 获得约 <b class = "film_number"></b> 条结果
+                            </div>
+                            <dl class="ui_abeam search_channel" hidden>
+                                <dt class="uipic">
+                                <a target="_blank" href="/movie/155903443?fyrq=" title="">
+                                    <img width="96" height="128" src="http://img5.gewara.com/cw96h128/images/movie/201605/s_6e62e7d_1549f7abdfd__7d7c.jpg">
+                                </a>
+                                </dt>
+                                <dd class="uiText">
+                                <h2><em class="ffst">[影院]</em><a target="_blank" href="/movie/155903443"><span class="dd_cinema" style="background-color: #2ed2c1;font-weight: bold;"></span></a></h2><br>
+                                <span ><em lass="ffst" >地址：</em><span class="dd_address"></span></span><br>
+                                <span><em lass="ffst">简介：</em><span class="dd_brief"></span></span><br>
+                                <span><em lass="ffst">放映中：</em><span class="dd_films"></span></span><br>
+                                
+                                </dd>
+                            </dl>
+                            
+                        </div>
+                    </div>
                 </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/c95c79de50a80302b24c2e3fb2deda0b.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/83d04fa2fdca41f187f301a067639814" title="[南昌]陈奕迅 ANOTHER EASON&#39;S LIFE演唱会南昌站">
-                            [南昌]陈奕迅 ANOTHER EASON'S LIFE演唱会南昌站                        </a>
-                    </p>
-                    <p class="ftit">Eason将为你重新定义一场真正的演唱会</p>
-                    <p class="time">2016年7月9日</p>
-                    <p class="place">南昌国际体育中心体育场</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
+                <div id="footer">
+                    <div id="footer-container">
+                        <div class="row">
+                            <div class="col-md-4" style="border-right: outset;">
+                                <div style="margin: 0 auto; width: 200px;">
+                                    <img src="image/social_19.png">
+                                    <p style="font-size: 18pt;">NextFilm</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="border-right: outset;height: 64px;">
+                                <div style="margin: 0 auto;width: 240px;">
+                                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_47.png">
+                                    <p style="font-size: 18pt;display: inline-block;">4001-100-100</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="height: 64px;">
+                                <div style="margin: 0 auto;width: 340px;">
+                                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_01.png">
+                                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_54.png">
+                                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_37.png">
+                                    <p style="font-size: 18pt;display: inline-block;">关注我们</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 700px; margin: 0 auto;margin-top: 15px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p style="float: right;font-size: 12pt;">@系统分析与设计小组TeamXX</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="font-size: 12pt;">@开源框架Bootstrap</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>280</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/83d04fa2fdca41f187f301a067639814">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/2b83a9e889bacb74844fb1837a96a042.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/55e14238c33f4052828e55c17a72e142" title="[南宁]陈奕迅 ANOTHER EASON&#39;S LIFE演唱会南宁站(预售)">
-                            [南宁]陈奕迅 ANOTHER EASON'S LIFE演唱会南宁站(预售)                        </a>
-                    </p>
-                    <p class="ftit">Eason将为你重新定义一场真正的演唱会</p>
-                    <p class="time">2016年6月18日</p>
-                    <p class="place">广西体育中心体育馆</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
-                </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">预售</span>
-                                        <p class="price"><span>280</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/55e14238c33f4052828e55c17a72e142">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/513106b6c9f9423b7f56b08e627d201e.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/b208e5c03fdb496bacb9920049e904ae" title="[北京]陈奕迅 ANOTHER EASON&#39;S LIFE演唱会北京站(已售罄)">
-                            [北京]陈奕迅 ANOTHER EASON'S LIFE演唱会北京站(已售罄)                        </a>
-                    </p>
-                    <p class="ftit">Eason将为你重新定义一场真正的演唱会</p>
-                    <p class="time">2016年10月22日</p>
-                    <p class="place">国家体育场(鸟巢)</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
-                </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>380</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/b208e5c03fdb496bacb9920049e904ae">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/556444f76853b9a6789c4609db99dac5.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/eedef99067d24943a022d04f19781a95" title="[贵阳]陈奕迅 ANOTHER EASON&#39;S LIFE演唱会贵阳站">
-                            [贵阳]陈奕迅 ANOTHER EASON'S LIFE演唱会贵阳站                        </a>
-                    </p>
-                    <p class="ftit">EASON将为你重新定义一场真正的演唱会</p>
-                    <p class="time">2016年7月2日</p>
-                    <p class="place">贵阳市金阳奥体中心</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
-                </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>280</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/eedef99067d24943a022d04f19781a95">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/8f191e45e6aecfd2a7a5a35e8b1f6274.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/9738e74702474f1897883ee332960421" title="[青岛]2016 陈奕迅 Another Eason‘s Life世界巡回演唱会 青岛站">
-                            [青岛]2016 陈奕迅 Another Eason‘s Life世界巡回演唱会 青岛站                        </a>
-                    </p>
-                    <p class="ftit">2016绝不可错过的情歌之王</p>
-                    <p class="time">2016年6月11日</p>
-                    <p class="place">青岛体育中心国信体育场</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
-                </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>280</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/9738e74702474f1897883ee332960421">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-                <dl class="clearfix">
-            <dt><img title="" alt="" src="./微信电影演出票唯一购票官网_files/e0ec1ca491739d68dcaf7d0ca3e32b8e.jpg">
-                        </dt>
-            <dd>
-                <div class="ddleft fll">
-                    <p class="mtit">
-
-                        <a href="http://www.wepiao.com/index.php?r=item/detail/id/e2c919fd56214286952294f118571a87" title="[成都]陈奕迅ANOTHER EASON&#39;S LIFE演唱会成都站（已售罄）">
-                            [成都]陈奕迅ANOTHER EASON'S LIFE演唱会成都站（已售罄）                        </a>
-                    </p>
-                    <p class="ftit">如果你喜欢陈奕迅，一定要看一场他的演唱会</p>
-                    <p class="time">2016年6月24日</p>
-                    <p class="place">成都体育中心</p>
-                                        <!-- <p class="op">
-                                                                        <span class="real">现票</span>
-                                                                    </p> -->
-                </div>
-                <div class="ddright flr">
-                                            <span class="pre_sale wp-icon-all">售票中</span>
-                                        <p class="price"><span>380</span>元起</p>
-                    <a class="buy_btn" href="http://www.wepiao.com/index.php?r=item/detail/id/e2c919fd56214286952294f118571a87">立即购买</a>
-                </div>
-            </dd>
-        </dl>
-        
-    </div>
-</div>
-
-	</div>
-
-	<div id="footer">
-		<div id="footer-container">
-			<div class="row">
-				<div class="col-md-4" style="border-right: outset;">
-					<div style="margin: 0 auto; width: 200px;">
-						<img src="image/social_19.png">
-						<p style="font-size: 18pt;">NextFilm</p>
-					</div>
-				</div>
-				<div class="col-md-4" style="border-right: outset;height: 64px;">
-					<div style="margin: 0 auto;width: 240px;">
-						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_47.png">
-						<p style="font-size: 18pt;display: inline-block;">4001-100-100</p>
-					</div>
-				</div>
-				<div class="col-md-4" style="height: 64px;">
-					<div style="margin: 0 auto;width: 340px;">
-						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_01.png">
-						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_54.png">
-						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_37.png">
-						<p style="font-size: 18pt;display: inline-block;">关注我们</p>
-					</div>
-				</div>
-			</div>
-			<div style="width: 700px; margin: 0 auto;margin-top: 15px;">
-				<div class="row">
-					<div class="col-md-6">
-						<p style="float: right;font-size: 12pt;">@系统分析与设计小组TeamXX</p>
-					</div>
-					<div class="col-md-6">
-						<p style="font-size: 12pt;">@开源框架Bootstrap</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</body>
-</html>
+            </body>
+        </html>

@@ -44,8 +44,8 @@
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" style="color: red;" placeholder="搜索电影、场馆、艺人">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
+                            <input type="text" class="form-control" id='search_fuck' style="color: red;"  placeholder="搜索电影、艺人">
+                            <span class="glyphicon glyphicon-search" id='search_btn'  aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
                         </div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
@@ -72,24 +72,20 @@
                         </ul> -->
                         <div class="type_list_box" id = 'fuck'>
                             <div class="showList">
-                                搜索<strong>愤怒的小鸟</strong>获得约 <b>12</b> 条结果，以下是第 <b>1-12</b> 条。
-                                用时：<b style="text-align: right">0.038</b>秒
+                                搜索 <strong class="film_name"></strong> 获得约 <b class = "film_number"></b> 条结果
                             </div>
-                            <dl class="ui_abeam search_channel">
+                            <dl class="ui_abeam search_channel" hidden>
                                 <dt class="uipic">
                                 <a target="_blank" href="/movie/155903443?fyrq=" title="">
                                     <img width="96" height="128" src="http://img5.gewara.com/cw96h128/images/movie/201605/s_6e62e7d_1549f7abdfd__7d7c.jpg">
                                 </a>
                                 </dt>
                                 <dd class="uiText">
-                                <h2><em class="ffst">[电影]</em><a target="_blank" href="/movie/155903443"><span style="background-color:#ffebad;">愤怒的小鸟</span></a></h2>
-                                <span class="mr10">  </span><span class="c666">(3015455关注)</span><br>
-                                <span><em>精彩看点：</em></span><br>
-                                <span class="ihalf"><em>上映时间：</em>2016年5月20日</span><span class="ihalf"><em>语言/片长：</em>英语/ 97分钟</span><br>
-                                <span class="ihalf"><em>电影类型：</em>动画,喜剧,动作</span><span class="ihalf"><em>国家地区：</em>美国</span><br>
-                                <span><em>导演/主演：</em>费格尔·雷利 克雷·卡提斯/杰森·苏戴奇斯 乔什·盖德 丹尼·麦克布耐德 玛娅·鲁道夫 彼特·丁拉基 比尔·哈德尔 吉甘-迈克尔·凯 吉奥弗瑞·阿伦德 托尼·海尔 吉丽安·贝尔</span><br>
-                                <span><em>票价：</em><b class="mr10">18-200元</b></span>
-                                <a class="button minBt redBt" href="/movie/opi.xhtml?mid=155903443&amp;fyrq=" target="_blank"><span>选座购票</span></a>
+                                <h2><em class="ffst">[电影]</em><a target="_blank" href="/movie/155903443"><span class="dd_film" style="background-color: #2ed2c1;font-weight: bold;"></span></a></h2><br>
+                                <span class="ihalf"><em >上映时间：</em><span class="dd_time"></span></span>
+                                <span class="ihalf"><em>电影类型：</em><span class="dd_type"></span></span><br>
+                                <span><em>导演/主演：</em><span class="dd_actors"></span></span><br>
+                                <span><em>简介：</em><span class="dd_brief"></span></span><br>
                                 </dd>
                             </dl>
                             
