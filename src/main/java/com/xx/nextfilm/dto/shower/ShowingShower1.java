@@ -16,7 +16,10 @@ public class ShowingShower1 {
     private String priceManual;
 
     private List<SeatShower> seats;
+
     private FilmShower2 film;
+    private HallShower2 hall;
+    private CinemaShower2 cinema;
 
 
     public Long getId() {
@@ -70,6 +73,24 @@ public class ShowingShower1 {
 
     public void setFilm(FilmShower2 film) {
         this.film = film;
+    }
+
+
+    public HallShower2 getHall() {
+        return hall;
+    }
+
+    public void setHall(HallShower2 hall) {
+        this.hall = hall;
+    }
+
+
+    public CinemaShower2 getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(CinemaShower2 cinema) {
+        this.cinema = cinema;
     }
 
 }

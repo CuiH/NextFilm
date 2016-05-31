@@ -30,11 +30,11 @@
             <i class="right chevron icon divider"></i>
             <a href="/show_all_cinema" class="section">All Cinemas</a>
             <i class="right chevron icon divider"></i>
-            <a href="/edit_cinema?id=${cinemaId}" class="section">影院详情</a>
+            <a href="/edit_cinema?id=${showingEditor2.cinemaId}" class="section">影院详情</a>
             <i class="right chevron icon divider"></i>
             <a class="section">${showingEditor2.film.name}</a>
             <i class="right chevron icon divider"></i>
-            <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="section">All Showings</a>
+            <a href="/show_all_showing?cinemaId=${showingEditor2.cinemaId}&filmId=${showingEditor2.film.id}" class="section">All Showings</a>
             <i class="right chevron icon divider"></i>
             <div class="active section">Edit Showing</div>
         </div>
@@ -100,9 +100,9 @@
                         <td>${seat.id}</td>
                         <td>${seat.rowPos}</td>
                         <td>${seat.columnPos}</td>
-                        <td>${seat.status}</td>
+                        <td class="status">${seat.status}</td>
                         <security:authorize access="hasRole('ROLE_ADMIN')">
-                            <td><button class="ui blue button edit" seatid="${seat.id}">edit</button></td>
+                            <td><button class="ui blue button edit-seat" seat-id="${seat.id}">edit</button></td>
                         </security:authorize>
                     </tr>
                 </c:forEach>
@@ -115,7 +115,7 @@
 <div id="model_success" class="ui small modal">
     <div class="header">修改成功</div>
     <div class="actions">
-        <a href="/show_all_showing?cinemaId=${cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
+        <a href="/show_all_showing?cinemaId=${showingEditor2.cinemaId}&filmId=${showingEditor2.film.id}" class="ui negative button">返回列表页</a>
         <div class="ui positive button">留在此页</div>
     </div>
 </div>
@@ -128,12 +128,60 @@
     </div>
 </div>
 
+<div id="model_ok" class="ui small modal">
+    <div class="header">修改成功</div>
+    <div class="content">
+        <p>请刷新页面</p>
+    </div>
+    <div class="actions">
+        <div id="refresh_page" onclick="window.location.reload();" class="ui negative button">刷新页面</div>
+    </div>
+</div>
+
+<div id="model_not_ok" class="ui small modal">
+    <div class="header">修改失败</div>
+    <div class="content"></div>
+    <div class="actions">
+        <div class="ui negative button">返回</div>
+    </div>
+</div>
+
 <script src="/res/js/edit_showing_validator.js"></script>
 
 <script>
     $(document).ready(function(){
-        $(".edit").click(function(){
-            alert($(this).attr("seatid"));
+        $("#refresh_page").click(function() {
+            window.location.reload();
+        });
+
+        $(".edit-seat").click(function(){
+            var old_status = $(this).parent().parent().children(".status").html();
+
+            var new_status;
+            if (old_status == "1") {
+                new_status = "0";
+            } else {
+                new_status = "1";
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "/edit_seat",
+                data: "id=" + $(this).attr("seat-id") + "&status=" + new_status,
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["result"] == "success") {
+                        $("#model_ok").modal('show');
+                    } else {
+                        $("#model_not_ok .content").html("<p>" + data["reason"] + "</p>");
+                        $("#model_not_ok").model('show');
+                    }
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
         });
 
         $("#submit_form").click(function() {

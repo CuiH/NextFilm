@@ -12,6 +12,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ import java.util.List;
 @Repository("showDao")
 public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements ShowingDao {
 
-    public ShowingEntity findById(Long id, boolean needFcm, boolean needSeats) {
+    public ShowingEntity findById(Long id, boolean needFcm, boolean needSeats, boolean needCinema) {
         ShowingEntity showingEntity = getByKey(id);
 
         if (showingEntity == null) throw new ShowingNotExistException();
@@ -31,6 +33,10 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
             //　同时加载FCM中电影信息
             FCMEntity fcm = showingEntity.getFcm();
             Hibernate.initialize(fcm.getFilm());
+
+            if (needCinema) {
+                Hibernate.initialize(fcm.getCinema());
+            }
         }
 
         if (needSeats) {
@@ -51,6 +57,35 @@ public class ShowingDaoImpl extends AbstractDao<Long, ShowingEntity> implements 
         return showings;
     }
 
+
+    public List<ShowingEntity> findByFCMAndDate(FCMEntity fcmEntity, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE, 1);
+        Date next = calendar.getTime();
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("fcm", fcmEntity));
+        criteria.add(Restrictions.between("startTime", date, next));
+        List<ShowingEntity> showings = (List<ShowingEntity>) criteria.list();
+
+        if (showings == null) return new ArrayList<ShowingEntity>();
+
+        return showings;
+    }
+
+
+    public List<ShowingEntity> findSomeByFCMAndDate(FCMEntity fcmEntity, Date date, int num) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("fcm", fcmEntity));
+        criteria.add(Restrictions.ge("startTime", date));
+        criteria.setMaxResults(num);
+        List<ShowingEntity> showings = (List<ShowingEntity>) criteria.list();
+
+        if (showings == null) return new ArrayList<ShowingEntity>();
+
+        return showings;
+    }
 
     public void doSave(ShowingEntity showing) {
         persist(showing);

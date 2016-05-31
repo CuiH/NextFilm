@@ -9,6 +9,6 @@ public interface SeatService {
 
     SeatEntity findSeatById(Long id);
 
-    void updateSeatStatus(Long id, String status);
+    boolean updateSeatStatusById(Long id, String status);
 
 }

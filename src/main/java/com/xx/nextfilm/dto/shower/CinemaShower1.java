@@ -18,9 +18,6 @@ public class CinemaShower1 {
     private String imageUrl;
     private String description;
 
-    private List<HallShower2> halls;
-    private List<FCMShower> fcms;
-
 
     public Long getId() {
         return id;
@@ -82,24 +79,6 @@ public class CinemaShower1 {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-
-    public List<HallShower2> getHalls() {
-        return halls;
-    }
-
-    public void setHalls(List<HallShower2> halls) {
-        this.halls = halls;
-    }
-
-
-    public List<FCMShower> getFcms() {
-        return fcms;
-    }
-
-    public void setFcms(List<FCMShower> fcms) {
-        this.fcms = fcms;
     }
 
 }

@@ -11,9 +11,11 @@ public interface CinemaDao {
 
     CinemaEntity findById(Long id, boolean needFilms, boolean needHalls, boolean needFcms);
 
-    List<CinemaEntity> findByName(String name);
+    List<CinemaEntity> findByName(String name, boolean needFilms, boolean needHalls, boolean needFcms);
 
     List<CinemaEntity> findByCityCode(String cityCode);
+
+    List<CinemaEntity> findSome(int num, boolean needFilms, boolean needHalls, boolean needFcms);
 
     void doSave(CinemaEntity cinema);
 

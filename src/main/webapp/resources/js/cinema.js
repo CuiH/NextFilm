@@ -39,7 +39,7 @@ $(document).ready(function() {
                 if (data["result"] == "success") {
                     $("#search_results").text("");
 
-                    var tem = data["films"];
+                    var tem = data["data"];
                     for (var i = 0; i < tem.length; i++) {
                         var str = '<div class="card">' +
                                     '<div id="search-film' + tem[i]["id"] + '" class="blurring dimmable image">' +

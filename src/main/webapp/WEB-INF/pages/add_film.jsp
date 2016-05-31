@@ -110,6 +110,7 @@
 </div>
 
 <div id="model_search" class="ui modal">
+    <i class="close icon"></i>
     <div class="header">
         Add
     </div>
@@ -151,14 +152,6 @@
 
 <script>
     $(document).ready(function() {
-//        // 禁止回车提交
-//        $(window).keydown(function(event){
-//            if(event.keyCode == 13) {
-//                event.preventDefault();
-//                return false;
-//            }
-//        });
-
         $("#submit_form").click(function() {
             var d_list = $("#director-field").children("a");
             if (d_list.length == 0) {

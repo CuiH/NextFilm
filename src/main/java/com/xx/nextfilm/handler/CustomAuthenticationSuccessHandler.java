@@ -1,6 +1,8 @@
 package com.xx.nextfilm.handler;
 
 import com.xx.nextfilm.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,8 @@ import java.util.Date;
 public class CustomAuthenticationSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
 
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
+
     @Autowired
     UserService userService;
 
@@ -29,6 +33,8 @@ public class CustomAuthenticationSuccessHandler extends
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         Date now = new Date();
         userService.updateUserLastLoginByUsername(userName, now);
+
+        LOG.info(userName + " : login");
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

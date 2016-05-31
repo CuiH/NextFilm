@@ -22,28 +22,26 @@ public class SeatDaoImpl extends AbstractDao<Long, SeatEntity> implements SeatDa
     }
 
 
-    public SeatEntity findBySerialNum(String serialNum) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("serial_num", serialNum));
-
-        SeatEntity seatEntity = (SeatEntity) criteria.uniqueResult();
-
-        return  seatEntity;
-    }
-
-
     public void doSave(SeatEntity seat) {
         persist(seat);
     }
 
 
-    public void updateStatusById(Long id, String status) {
+    public boolean updateStatusById(Long id, String status) {
         String hql = "UPDATE seat set status = :status "  +
                 "WHERE id = :id";
         Query query = createEntityQuery(hql);
         query.setParameter("status", status);
         query.setParameter("id", id);
-        query.executeUpdate();
+        int l = query.executeUpdate();
+
+        if (l == 0) {
+
+            return false;
+        } else {
+
+            return true;
+        }
     }
 
 }

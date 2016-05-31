@@ -45,6 +45,9 @@
                 <p>
                     <a class="ui brown button my-button-2" href="/show_all_film">查看所有film</a>
                 </p>
+                <p>
+                    <a class="ui blue button my-button-2" href="/show_all_reservation">查看所有reservation</a>
+                </p>
 
                 <div style="margin-top:40px;">
                     <form method="post" action="/logout">

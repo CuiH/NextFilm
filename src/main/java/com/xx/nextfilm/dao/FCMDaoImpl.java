@@ -30,12 +30,29 @@ public class FCMDaoImpl extends AbstractDao<Long, FCMEntity> implements FCMDao {
     }
 
 
+    public List<FCMEntity> findSomeByFilm(FilmEntity film, int num) {
+        Criteria criteria = createEntityCriteria();
+        criteria.setMaxResults(num);
+        criteria.add(Restrictions.eq("film", film));
+        List<FCMEntity> fcms = (List<FCMEntity>) criteria.list();
+
+        if (fcms == null) return new ArrayList<FCMEntity>();
+
+        // 同时加载fcm中cinema信息
+        for (FCMEntity fcm: fcms) {
+            Hibernate.initialize(fcm.getCinema());
+        }
+
+        return fcms;
+    }
+
+
     public void doUpdateManually(CinemaEntity cinema, List<FilmEntity> films) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("cinema", cinema));
         List<FCMEntity> fcms = (List<FCMEntity>) criteria.list();
 
-        if (fcms == null) throw new FCMNotExistException();
+        if (fcms == null) fcms = new ArrayList<FCMEntity>();
 
         for (FCMEntity fcm: fcms) {
             Hibernate.initialize(fcm.getFilm());

@@ -15,6 +15,7 @@
 		<spring.security.version>4.0.4.RELEASE</spring.security.version>
 		<hibernate.version>5.1.0.FINAL</hibernate.version>
 		<servlet.version>3.1.0</servlet.version>
+		<log4j2.version>2.5</log4j2.version>
 	</properties>
 
 	<dependencies>
@@ -183,6 +184,20 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
+		</dependency>
+
+
+		<!-- log4j -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
 		</dependency>
 
 	</dependencies>

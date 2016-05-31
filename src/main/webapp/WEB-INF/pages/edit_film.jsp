@@ -127,6 +127,7 @@
 </div>
 
 <div id="model_search" class="ui modal">
+    <i class="close icon"></i>
     <div class="header">
         Add
     </div>
@@ -166,10 +167,6 @@
 <script src="/res/js/edit_film_validator.js"></script>
 
 <script>
-    $(document).on("keypress", "form", function(event) {
-        return event.keyCode != 13;
-    });
-
     $(document).ready(function() {
         $('i.delete').click(function () {
             $(this).parent().remove();

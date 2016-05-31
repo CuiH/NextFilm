@@ -90,7 +90,7 @@ public class ShowingEntity {
     }
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "showing" ,cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "showing", cascade = CascadeType.REMOVE)
     public List<SeatEntity> getSeats() {
         return seats;
     }

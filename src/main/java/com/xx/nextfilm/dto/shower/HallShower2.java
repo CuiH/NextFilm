@@ -3,7 +3,7 @@ package com.xx.nextfilm.dto.shower;
 /**
  * Created by CuiH on 2016/5/18.
  *
- * 用于影院详情页面（放在cinema的fcm的showing中）
+ * 用于影院详情页面（放在cinema的fcm的showing中）、场次详情页面（放在showing中）
  */
 public class HallShower2 {
 

@@ -1,5 +1,6 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.controller.back.MainController;
 import com.xx.nextfilm.dao.ActorDao;
 import com.xx.nextfilm.dao.FilmDao;
 import com.xx.nextfilm.dto.editor.FilmEditor;
@@ -10,8 +11,11 @@ import com.xx.nextfilm.entity.ActorEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.ActorNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
+import com.xx.nextfilm.exception.UserNotLoginException;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +30,8 @@ import java.util.List;
 @Service("filmService")
 public class FilmServiceImpl implements FilmService {
 
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
+
     @Autowired
     FilmDao filmDao;
 
@@ -36,6 +42,11 @@ public class FilmServiceImpl implements FilmService {
     public FilmEntity findFilmById(Long id, boolean needDirectors, boolean needActors)
             throws FilmNotExistException {
         return filmDao.findById(id, needDirectors, needActors);
+    }
+
+
+    public List<FilmEntity> findSomeFilms(int num, boolean needDirectors, boolean needActors) {
+        return filmDao.findSome(num, needDirectors, needActors);
     }
 
 
@@ -58,72 +69,61 @@ public class FilmServiceImpl implements FilmService {
         filmEditor.setOwnedActors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getActors()));
         filmEditor.setOwnedDirectors(BuilderUtils.getActorShower2sFromActorEntities(filmEntity.getDirectors()));
 
-//        List<Long> a = new ArrayList<Long>();
-//        List<ActorEntity> actors = filmEntity.getActors();
-//        if (actors != null) {
-//            for (ActorEntity actor: actors) {
-//                a.add(actor.getId());
-//            }
-//        }
-//        filmEditor.setActors(a);
-//
-//        List<Long> d = new ArrayList<Long>();
-//        List<ActorEntity> directors = filmEntity.getDirectors();
-//        if (directors != null) {
-//            for (ActorEntity director: directors) {
-//                d.add(director.getId());
-//            }
-//        }
-//        filmEditor.setDirectors(d);
-
         return filmEditor;
     }
 
 
-    public List<FilmEntity> findFilmsByName(String name) {
-        List<FilmEntity> list1 = filmDao.findByName(name);
-        List<FilmEntity> list2 = filmDao.findByAlias(name);
-
-        for (FilmEntity film: list2) {
-            boolean flag = false;
-            for (FilmEntity f: list1) {
-                if (film.getId() == f.getId()) {
-                    flag = true;
-                    break;
-                }
-            }
-
-            if (flag == false) {
-                list1.add(film);
-            }
-        }
-
-        return list1;
+    public List<FilmEntity> findFilmsByName(String name, boolean needDirectors, boolean needActors) {
+        return filmDao.findByName(name, needDirectors, needActors);
+//        List<FilmEntity> list2 = filmDao.findByAlias(name, needDirectors, needActors);
+//
+//        for (FilmEntity film: list2) {
+//            boolean flag = false;
+//            for (FilmEntity f: list1) {
+//                if (film.getId() == f.getId()) {
+//                    flag = true;
+//                    break;
+//                }
+//            }
+//
+//            if (flag == false) {
+//                list1.add(film);
+//            }
+//        }
+//
+//        return list1;
     }
 
 
-    public List<FilmEntity> findFilmsByType(String type) {
-        return filmDao.findByType(type);
+    public List<FilmEntity> findFilmsByType(String type, boolean needDirectors, boolean needActors) {
+        return filmDao.findByType(type, needDirectors, needActors);
     }
 
 
-    public List<FilmEntity> findFilmsByCategory(String category) {
-        return filmDao.findByCategory(category);
+    public List<FilmEntity> findFilmsByCategory(String category, boolean needDirectors, boolean needActors) {
+        return filmDao.findByCategory(category, needDirectors, needActors);
     }
 
 
-    public void createFilm(FilmEditor filmEditor) throws ActorNotExistException {
-        filmDao.doSave(getEntityFromEditor(filmEditor, false));
+    public void createFilm(FilmEditor filmEditor) throws ActorNotExistException, UserNotLoginException {
+        FilmEntity filmEntity = getEntityFromEditor(filmEditor, false);
+        filmDao.doSave(filmEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : add film - #" + filmEntity.getId());
     }
 
 
-    public void updateFilm(FilmEditor filmEditor) throws ActorNotExistException {
+    public void updateFilm(FilmEditor filmEditor) throws ActorNotExistException, UserNotLoginException {
         filmDao.doUpdate(getEntityFromEditor(filmEditor, true));
+
+        LOG.info(MainController.getCurrentUsername() + " : edit film - #" + filmEditor.getId());
     }
 
 
-    public void deleteFilm(FilmEntity film) {
+    public void deleteFilm(FilmEntity film) throws UserNotLoginException {
         filmDao.doDelete(film);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete film - #" + film.getId());
     }
 
 

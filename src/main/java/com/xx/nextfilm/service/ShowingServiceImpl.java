@@ -1,7 +1,7 @@
 package com.xx.nextfilm.service;
 
+import com.xx.nextfilm.controller.back.MainController;
 import com.xx.nextfilm.dao.*;
-import com.xx.nextfilm.dto.shower.SeatShower;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.dto.shower.ShowingShower2;
@@ -9,11 +9,13 @@ import com.xx.nextfilm.entity.*;
 import com.xx.nextfilm.exception.*;
 import com.xx.nextfilm.utils.BuilderUtils;
 import com.xx.nextfilm.utils.ConverterUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,8 @@ import java.util.List;
 @Transactional
 @Service("showService")
 public class ShowingServiceImpl implements ShowingService {
+
+    private static final Logger LOG = LogManager.getLogger("com.xx.nextfilm");
 
     @Autowired
     ShowingDao showingDao;
@@ -42,9 +46,9 @@ public class ShowingServiceImpl implements ShowingService {
     SeatDao seatDao;
 
 
-    public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats)
+    public ShowingEntity findShowingById(Long id, boolean needFcm, boolean needSeats, boolean needCinema)
             throws ShowingNotExistException {
-        return showingDao.findById(id, needFcm, needSeats);
+        return showingDao.findById(id, needFcm, needSeats, needCinema);
     }
 
 
@@ -56,8 +60,18 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
+    public List<ShowingEntity> findShowingsByFCMAndDate(FCMEntity fcmEntity, Date date) {
+        return showingDao.findByFCMAndDate(fcmEntity, date);
+    }
+
+
+    public List<ShowingEntity> findSomeShowingsByFCMAndDate(FCMEntity fcmEntity, Date date, int num) {
+        return showingDao.findSomeByFCMAndDate(fcmEntity, date, num);
+    }
+
+
     public ShowingEditor2 getShowingEditor2ById(Long id) throws ShowingNotExistException {
-        ShowingEntity showingEntity = findShowingById(id, true, true);
+        ShowingEntity showingEntity = findShowingById(id, true, true, false);
 
         ShowingEditor2 showingEditor2 = new ShowingEditor2();
 
@@ -67,22 +81,15 @@ public class ShowingServiceImpl implements ShowingService {
         showingEditor2.setEndTime(ConverterUtils.convertDateTimeToString(showingEntity.getEndTime()));
         showingEditor2.setPriceManual(ConverterUtils.convertDoubleToString(showingEntity.getPriceManual()));
         showingEditor2.setFilm(BuilderUtils.getFilmShower3FromFilmEntity(showingEntity.getFcm().getFilm()));
-
-        List<SeatShower> seats = new ArrayList<SeatShower>();
-        List<SeatEntity> seatEntities = showingEntity.getSeats();
-        if (seatEntities != null) {
-            for (SeatEntity seat: seatEntities) {
-                seats.add(BuilderUtils.getSeatShower1FromSeatEntity(seat));
-            }
-        }
-        showingEditor2.setSeats(seats);
+        showingEditor2.setSeats(BuilderUtils.getSeatShowersFromSeatEntities(showingEntity.getSeats()));
 
         return showingEditor2;
     }
 
 
     public void createShowing(ShowingEditor1 showingEditor1)
-            throws HallNotExistException, FilmNotExistException, CinemaNotExistException, FCMNotExistException {
+            throws HallNotExistException, FilmNotExistException,
+            CinemaNotExistException, FCMNotExistException, UserNotLoginException {
         HallEntity hall = hallDao.findById(showingEditor1.getHallId(), false);
         FilmEntity film = filmDao.findById(showingEditor1.getFilmId(), false, false);
         CinemaEntity cinema = cinemaDao.findById(showingEditor1.getCinemaId(), false, false, false);
@@ -93,6 +100,8 @@ public class ShowingServiceImpl implements ShowingService {
         showingEntity.setFcm(fcm);
 
         showingDao.doSave(showingEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : add showing - #" + showingEntity.getId());
 
         // 根据hall大小添加座位
         Short rowNum = hall.getRowNum();
@@ -110,14 +119,21 @@ public class ShowingServiceImpl implements ShowingService {
     }
 
 
+
     // 只可改变showing信息，不可改变所属hall、关联的影片
-    public boolean updateShowing(ShowingEditor2 showingEditor2) {
-        return showingDao.doUpdateManually(showingEditor2);
+    public boolean updateShowing(ShowingEditor2 showingEditor2) throws UserNotLoginException {
+        boolean flag =  showingDao.doUpdateManually(showingEditor2);
+
+        LOG.info(MainController.getCurrentUsername() + " : edit showing - #" + showingEditor2.getId());
+
+        return flag;
     }
 
 
-    public void deleteShowing(ShowingEntity showingEntity) {
+    public void deleteShowing(ShowingEntity showingEntity) throws UserNotLoginException {
         showingDao.doDelete(showingEntity);
+
+        LOG.info(MainController.getCurrentUsername() + " : delete showing - #" + showingEntity.getId());
     }
 
 

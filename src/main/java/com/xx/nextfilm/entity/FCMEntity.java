@@ -13,7 +13,7 @@ public class FCMEntity {
 
     // 查询影院详情的时候加载，在CinemaDao中
     private FilmEntity film;
-    // 未使用，只是CinemaEntity中的对应项
+
     private CinemaEntity cinema;
     // 查询影院详情的时候加载，在CinemaDao中
     private List<ShowingEntity> showings;
