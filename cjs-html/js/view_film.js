@@ -10,7 +10,7 @@ $(function(){
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
 	        
-				$("#film-container-bg").loadTemplate($("#template"), data["data"]);
+				$("#film-container").loadTemplate($("#template"), data["data"]);
 	            
 	        } else {
 	            // DOM 操作

@@ -67,6 +67,7 @@ hr {
 	padding: 10px;
 	display: inline-block;
 	border-right: outset;
+	text-align: center;
 }
 
 #film-directors div {

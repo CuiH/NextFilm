@@ -2,6 +2,30 @@ $(function(){
 	$('#myCarousel').carousel({
 		interval: 2000
 	})
+
+	$.ajax({
+		type: "GET",
+	    dataType: "html",
+	    url: "http://172.18.43.152:8080/is_login",
+	    success: function(data) {
+	        
+	        // 首先判断是否成功
+	        data = JSON.parse(data)
+	        if (data["result"] == "success") {
+	        
+				alert("ok")
+	            
+	        } else {
+	            // DOM 操作
+	            alert("Network error")
+	        }
+	    },
+	    error: function() {
+	        alert("server error1")
+	    }		
+	});
+
+	// $("#user-name")
 	// fetch film information
 	$.ajax({
 		type: "GET",
