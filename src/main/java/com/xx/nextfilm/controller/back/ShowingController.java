@@ -233,7 +233,7 @@ public class ShowingController {
 
 
 
-
+    // 生成showing数据用
 //    @ResponseBody
 //    @RequestMapping(value = "/admin", method = RequestMethod.GET)
 //    public String admin(@RequestParam Long fcmId) {

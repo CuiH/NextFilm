@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by CuiH on 2016/5/17.
@@ -158,17 +160,78 @@ public class ShowingServiceImpl implements ShowingService {
         HallEntity hall3 = hallDao.findById(35l, false);
         HallEntity hall4 = hallDao.findById(36l, false);
 
+        List<HallEntity> halls = new ArrayList<HallEntity>();
+        halls.add(hall1);
+        halls.add(hall2);
+        halls.add(hall3);
+        halls.add(hall4);
+
         FCMEntity fcm = fcmDao.findById(fcmId);
 
-        tem("2016-6-21T11:00", hall1, fcm, 48d);
-        tem("2016-6-21T15:00", hall2, fcm, 49d);
-        tem("2016-6-21T18:00", hall3, fcm, 50d);
-        tem("2016-6-22T11:00", hall4, fcm, 51d);
-        tem("2016-6-22T16:00", hall1, fcm, 52d);
-        tem("2016-6-22T19:00", hall2, fcm, 53d);
-        tem("2016-6-23T11:00", hall3, fcm, 54d);
-        tem("2016-6-23T17:00", hall4, fcm, 55d);
-        tem("2016-6-23T21:00", hall1, fcm, 56d);
+        Random random = new Random();
+        int index;
+
+        // 6.21
+        index = random.nextInt(4);
+        tem("2016-6-21T11:00", halls.get(index), fcm, 48d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-21T15:00", halls.get(index), fcm, 49d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-21T18:00", halls.get(index), fcm, 50d);
+        if (index == 1) {
+            tem("2016-6-21T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-21T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-21T23:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if (index == 2) {
+            tem("2016-6-21T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-21T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if(index == 3) {
+            tem("2016-6-21T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+        }
+
+        // 6.22
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-22T11:00", halls.get(index), fcm, 51d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-22T16:00", halls.get(index), fcm, 52d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-22T19:00", halls.get(index), fcm, 53d);
+        if (index == 1) {
+            tem("2016-6-22T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-22T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-22T23:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if (index == 2){
+            tem("2016-6-22T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-22T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if(index == 3) {
+            tem("2016-6-22T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+        }
+
+        // 6.23
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-23T11:00", halls.get(index), fcm, 54d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-23T17:00", halls.get(index), fcm, 55d);
+        random = new Random();
+        index = random.nextInt(4);
+        tem("2016-6-23T20:00", halls.get(index), fcm, 56d);
+        if (index == 1) {
+            tem("2016-6-23T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-23T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-23T23:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if (index == 2){
+            tem("2016-6-23T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+            tem("2016-6-23T22:00", halls.get(random.nextInt(4)), fcm, 50d);
+        } else if(index == 3) {
+            tem("2016-6-23T21:00", halls.get(random.nextInt(4)), fcm, 50d);
+        }
     }
 
     private void tem(String startTime, HallEntity hall, FCMEntity fcm, Double price){
