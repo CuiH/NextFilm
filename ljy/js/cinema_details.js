@@ -46,24 +46,26 @@ $(function() {
 				index = that.value;
 
 				siblings = that.parentNode.childNodes;
+
 				for (var i = 0; i < siblings.length; i++) {
-					if (hasClass(siblings[i]), 'panel-primary') {
-						removeClass(siblings[i], 'panel-primary');
+					if (siblings[i].classList) {
+						siblings[i].classList.remove("panel-primary");
 					};
 
 				};
 
-				that.className += "panel-primary";
+				that.classList.add("panel-primary");
 			} else {
 				index = that.parentNode.value;
 
 				siblings = that.parentNode.parentNode.childNodes;
 				for (var i = 0; i < siblings.length; i++) {
-					if (hasClass(siblings[i]), 'panel-primary') {
-						removeClass(siblings[i], 'panel-primary');
+					if (siblings[i].classList) {
+						siblings[i].classList.remove("panel-primary");
 					};
+
 				};
-				that.parentNode.className += "panel-primary";
+				that.parentNode.classList.add("panel-primary");
 				//alert(that.parentNode.siblings());
 			}
 			//alert(index);
@@ -75,7 +77,7 @@ $(function() {
 
 
 
-	function hasClass(elem, cls) {
+	/*function hasClass(elem, cls) {
 		cls = cls || '';
 		if (cls.replace(/\s/g, '').length == 0) return false;
 		return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
@@ -95,7 +97,7 @@ $(function() {
 			}
 			elem.className = newClass.replace(/^\s+|\s+$/g, '');
 		}
-	}
+	}*/
 
 	function bindDateClick() {
 
@@ -113,14 +115,14 @@ $(function() {
 		$.ajax({
 			type: "GET",
 			dataType: "jsonp",
-			url: "http://172.18.43.152:8080/get_showing?cinemaId=" + id + "&date="+time[d.target.value],
+			url: "http://172.18.43.152:8080/get_showing?cinemaId=" + id + "&date=" + time[d.target.value],
 			jsonpCallback: "ljy",
 			success: function(data) {
 				// 解析一下
 				// 首先判断是否成功
 				//console.log(data);
 
-				//data = JSON.parse('{"result": "success", "data": [{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]}]}');
+				//data = JSON.parse('{"result": "success", "data": [{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]},{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]}]}');
 
 
 
@@ -143,7 +145,7 @@ $(function() {
 		var btn_list = document.getElementsByClassName('date_btn');
 		var myDate = new Date();
 		for (var i = 0; i < btn_list.length; i++) {
-			btn_list[i].value =i;//getValue(myDate);
+			btn_list[i].value = i; //getValue(myDate);
 			btn_list[i].innerHTML = getD(myDate);
 			myDate = addOneDay(myDate);
 
@@ -206,7 +208,7 @@ $(function() {
 
 	}
 
-	function change_tr (node, i) {
+	function change_tr(node, i) {
 		//console.log(showings[i].startTime);
 		node.getElementsByTagName('th')[0].innerHTML = showings[i].startTime.split('T')[1];
 		//console.log(node.getElementsByClassName('endTime')[0].innerHTML);
@@ -255,4 +257,4 @@ info = "none"
 date_select = "none"
 film = "none"
 showings = "none"
-time = ['2016-6-21', '2016-6-22','2016-6-23']
+time = ['2016-6-21', '2016-6-22', '2016-6-23']
