@@ -77,3 +77,19 @@ hr {
 #film-actors div {
 	display: inline-block;
 }
+
+#show-container-bg {
+	width: 1150px;
+	margin: 0 auto;
+}
+
+#show-container-header {
+	background-color: grey;
+	margin: 0 auto;
+	width: 1150px;
+	padding: 10px;
+}
+
+.show-header {
+	text-align: center;
+}
