@@ -1,0 +1,52 @@
+/view_cienma?id=xxx
+
+注意是id，只是返回影院信息，显示在页面最上的
+
+jsonpcallback：cjs
+
+private Long id;
+
+private String name;
+private String address;
+private String phone;
+private String brief;
+private String imageUrl;
+private String description;
+
+
+
+/get_showing?cinemaId=xx&date=xx
+
+两个参数，注意date要格式正确
+
+jsonpcallback：ljy
+
+返回的result域和以前一样，data域是列表，有两个成员分别是film、showings
+
+其中film：
+private Long id;
+
+private String name;
+private String brief;
+private String language;
+private String imageUrl;
+
+
+showing：
+private Long id;
+
+private String startTime;
+private String endTime;
+private String priceManual;
+
+private HallShower2 hall;
+
+
+其中hall：
+private Long id;
+
+private String name;
+private String type;
+
+
+影院id、场次信息你可以去后台自己看
