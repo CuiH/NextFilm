@@ -89,7 +89,7 @@ public class HallServiceImpl implements HallService {
 
         hallEntity.setName(hallEditor.getName());
         hallEntity.setColumnNum(ConverterUtils.convertStringToShort(hallEditor.getColumnNum()));
-        hallEntity.setRowNum(ConverterUtils.convertStringToShort(hallEditor.getColumnNum()));
+        hallEntity.setRowNum(ConverterUtils.convertStringToShort(hallEditor.getRowNum()));
         hallEntity.setType(hallEditor.getType());
 
         return hallEntity;

@@ -4,14 +4,11 @@ import com.google.gson.Gson;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.dto.shower.ShowingShower2;
-import com.xx.nextfilm.entity.CinemaEntity;
-import com.xx.nextfilm.entity.FilmEntity;
-import com.xx.nextfilm.entity.ShowingEntity;
+import com.xx.nextfilm.entity.*;
 import com.xx.nextfilm.exception.*;
-import com.xx.nextfilm.service.CinemaService;
-import com.xx.nextfilm.service.FilmService;
-import com.xx.nextfilm.service.ShowingService;
+import com.xx.nextfilm.service.*;
 import com.xx.nextfilm.utils.BuilderUtils;
+import com.xx.nextfilm.utils.ConverterUtils;
 import com.xx.nextfilm.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +41,14 @@ public class ShowingController {
 
     @Autowired
     FilmService filmService;
+
+
+    @Autowired
+    HallService hallService;
+
+    @Autowired
+    FCMService fcmService;
+
 
     @Autowired
     MessageSource messageSource;
@@ -222,5 +229,17 @@ public class ShowingController {
             return "{\"result\": \"fail\", \"reason\": \"not login\"}";
         }
     }
+
+
+
+
+
+//    @ResponseBody
+//    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+//    public String admin(@RequestParam Long fcmId) {
+//        showingService.admin(fcmId);
+//
+//        return "haha";
+//    }
 
 }

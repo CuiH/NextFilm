@@ -106,7 +106,7 @@
                         $("#model_success").modal('show');
                     } else {
                         $("#model_fail .content").html("<p>" + data["reason"] + "</p>");
-                        $("#model_fail").model('show');
+                        $("#model_fail").modal('show');
                     }
                 },
                 error: function() {

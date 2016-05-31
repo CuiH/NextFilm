@@ -8,6 +8,7 @@ import com.xx.nextfilm.entity.CinemaEntity;
 import com.xx.nextfilm.entity.FCMEntity;
 import com.xx.nextfilm.entity.FilmEntity;
 import com.xx.nextfilm.exception.CinemaNotExistException;
+import com.xx.nextfilm.exception.FCMNotExistException;
 import com.xx.nextfilm.exception.FilmNotExistException;
 import com.xx.nextfilm.exception.UserNotLoginException;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,11 @@ public class FCMServiceImpl implements FCMService {
 
     @Autowired
     FCMDao fcmDao;
+
+
+    public FCMEntity findFCMById(Long id) throws FCMNotExistException {
+        return fcmDao.findById(id);
+    }
 
 
     public void updateFCM(Long cinemaId, List<Long> filmIds)

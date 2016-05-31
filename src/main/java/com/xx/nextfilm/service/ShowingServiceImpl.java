@@ -151,4 +151,50 @@ public class ShowingServiceImpl implements ShowingService {
         return showingEntity;
     }
 
+
+    public void admin(Long fcmId) {
+        HallEntity hall1 = hallDao.findById(33l, false);
+        HallEntity hall2 = hallDao.findById(34l, false);
+        HallEntity hall3 = hallDao.findById(35l, false);
+        HallEntity hall4 = hallDao.findById(36l, false);
+
+        FCMEntity fcm = fcmDao.findById(fcmId);
+
+        tem("2016-6-21T11:00", hall1, fcm, 48d);
+        tem("2016-6-21T15:00", hall2, fcm, 49d);
+        tem("2016-6-21T18:00", hall3, fcm, 50d);
+        tem("2016-6-22T11:00", hall4, fcm, 51d);
+        tem("2016-6-22T16:00", hall1, fcm, 52d);
+        tem("2016-6-22T19:00", hall2, fcm, 53d);
+        tem("2016-6-23T11:00", hall3, fcm, 54d);
+        tem("2016-6-23T17:00", hall4, fcm, 55d);
+        tem("2016-6-23T21:00", hall1, fcm, 56d);
+    }
+
+    private void tem(String startTime, HallEntity hall, FCMEntity fcm, Double price){
+        ShowingEntity showingEntity = new ShowingEntity();
+        showingEntity.setEndTime(ConverterUtils.convertStringToDateTime("1111-11-11T11:11"));
+        showingEntity.setPriceManual(price);
+
+        showingEntity.setStartTime(ConverterUtils.convertStringToDateTime(startTime));
+        showingEntity.setHall(hall);
+        showingEntity.setFcm(fcm);
+
+        showingDao.doSave(showingEntity);
+
+        // 根据hall大小添加座位
+        Short rowNum = hall.getRowNum();
+        Short columnNum = hall.getColumnNum();
+        for (Short row = 1; row <= rowNum; row++) {
+            for (Short column = 1; column <= columnNum; column++) {
+                SeatEntity seat = new SeatEntity();
+                seat.setRowPos(row);
+                seat.setColumnPos(column);
+                seat.setShowing(showingEntity);
+                seat.setStatus("1");
+                seatDao.doSave(seat);
+            }
+        }
+    }
+
 }

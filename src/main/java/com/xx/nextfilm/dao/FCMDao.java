@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface FCMDao {
 
+    FCMEntity findById(Long id);
+
     FCMEntity findByFilmAndCinema(FilmEntity film, CinemaEntity cinema);
 
     List<FCMEntity> findSomeByFilm(FilmEntity film, int num);

@@ -18,6 +18,15 @@ import java.util.List;
 @Repository("fcmDao")
 public class FCMDaoImpl extends AbstractDao<Long, FCMEntity> implements FCMDao {
 
+    public FCMEntity findById(Long id) {
+        FCMEntity fcmEntity = getByKey(id);
+
+        if (fcmEntity == null) throw new FCMNotExistException();
+
+        return fcmEntity;
+    }
+
+
     public FCMEntity findByFilmAndCinema(FilmEntity film, CinemaEntity cinema) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("film", film));

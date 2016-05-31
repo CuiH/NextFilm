@@ -15,4 +15,6 @@ public interface FCMService {
 
     List<FCMEntity> findSomeFCMsByFilm(FilmEntity filmEntity, int num);
 
+    FCMEntity findFCMById(Long id);
+
 }

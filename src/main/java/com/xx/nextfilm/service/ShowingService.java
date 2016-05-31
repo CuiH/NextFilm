@@ -3,10 +3,7 @@ package com.xx.nextfilm.service;
 import com.xx.nextfilm.dto.editor.ShowingEditor1;
 import com.xx.nextfilm.dto.editor.ShowingEditor2;
 import com.xx.nextfilm.dto.shower.ShowingShower2;
-import com.xx.nextfilm.entity.CinemaEntity;
-import com.xx.nextfilm.entity.FCMEntity;
-import com.xx.nextfilm.entity.FilmEntity;
-import com.xx.nextfilm.entity.ShowingEntity;
+import com.xx.nextfilm.entity.*;
 
 import java.util.Date;
 import java.util.List;
@@ -31,5 +28,9 @@ public interface ShowingService {
     boolean updateShowing(ShowingEditor2 showingEditor2);
 
     void deleteShowing(ShowingEntity showingEntity);
+
+
+
+    void admin(Long fcmId);
 
 }
