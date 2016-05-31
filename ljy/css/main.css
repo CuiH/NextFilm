@@ -13,6 +13,16 @@ p {
 	background-size: cover;
 }
 
+.jumbotron {
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
+
+}
+
+.bs-example {
+	margin-top: 60px;
+}
 
 
 .sspan {
