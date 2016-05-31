@@ -4,7 +4,7 @@ $(function(){
 		type: "GET",
 	    dataType: "jsonp",
 	    jsonpCallback: "ch",
-	    url: "http://172.18.43.152:8080/view_film?id=18",
+	    url: "http://172.18.43.152:8080/view_film?id=43",
 	    success: function(data) {
 	        
 	        // 首先判断是否成功

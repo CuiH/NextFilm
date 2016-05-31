@@ -16,8 +16,7 @@ hr {
 	border-radius: 25px;
 	max-width:50px;
 	max-height:50px;
-	width: auto;
-	height: auto;
+	width: 100%;
 }
 
 #film-container-bg {
@@ -53,8 +52,6 @@ hr {
 	display: block;
 	max-width:450px;
 	max-height:400px;
-	width: auto;
-	height: auto;
 }
 
 .show-p {
@@ -70,4 +67,12 @@ hr {
 	padding: 10px;
 	display: inline-block;
 	border-right: outset;
+}
+
+#film-directors div {
+	display: inline-block;
+}
+
+#film-actors div {
+	display: inline-block;
 }
