@@ -31,9 +31,4 @@ public class UserLoginAndLogonController {
 
     }
 
-    @RequestMapping(value = "/next_film", method = RequestMethod.GET)
-    public String home() {
-        return "nextfilm/home";
-    }
-
 }

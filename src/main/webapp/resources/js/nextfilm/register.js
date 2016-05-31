@@ -16,7 +16,6 @@ $(function(){
 					$("#mymodal").modal("show");
 
 					$(".modal-body").text("success");
-					window.location.replace("/next_film")
 				} else {
 					$('#signin-btn').text("Sign in");
 					$('#signin-btn').removeAttr("disabled")
