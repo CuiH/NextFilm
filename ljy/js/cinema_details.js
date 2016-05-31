@@ -130,12 +130,15 @@ $(function() {
 				// 首先判断是否成功
 				//console.log(data);
 
-				data = JSON.parse('{"result": "success", "data": [{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]},{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]}]}');
+				//data = JSON.parse('{"result": "success", "data": [{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]},{"film":{"id":43,"name":"美国队长3","brief":"奥创纪元之后，全球政府联合颁布法令，管控超能力活动。对这条法令的不同态度，使复仇者阵营一分为二，最终引发前任盟友间的史诗大战。","language":"英语","imageUrl":"http://img5.gewara.com/cw270h360/images/movie/201604/s_747af3c5_153f030b855__79af.jpg"},"showings":[{"id":32,"startTime":"2016-06-21T11:00","endTime":"1111-11-11T11:11","priceManual":"45.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":33,"startTime":"2016-06-21T12:00","endTime":"1111-11-11T11:11","priceManual":"50.0","hall":{"id":16,"name":"1号厅","type":"普通"}},{"id":35,"startTime":"2016-06-21T15:00","endTime":"1111-11-11T11:11","priceManual":"52.0","hall":{"id":13,"name":"IMAX厅","type":"IMAX"}}]}]}');
 
 
 
 				if (data["result"] == "success") {
 					//alert(data["result"]);
+					if (data.data.length == 0) {
+						alert("no films");
+					};
 					info = data.data;
 					refreshFilms();
 				} else {
