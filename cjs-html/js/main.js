@@ -27,6 +27,8 @@ $(function(){
 
 	// $("#user-name")
 	// fetch film information
+
+
 	$.ajax({
 		type: "GET",
 	    dataType: "jsonp",
@@ -36,7 +38,11 @@ $(function(){
 	        
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
-	        
+	        	
+	        	for(var x in data["data"]) {
+	        		data["data"][x]["id"] = "http://172.18.43.152:8080/view_film?id=" + data["data"][x]["id"]
+	        	}
+
 				$("#film-new-list").loadTemplate($("#template"), data["data"]);
 	            
 	        } else {
