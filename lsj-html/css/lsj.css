@@ -1,3 +1,8 @@
+.top-margin {
+	margin-top:5%;
+}
+
+
 /*!
  * Bootstrap v3.3.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -1002,6 +1007,10 @@ a:hover .weixin-info,
 	top: 3px;
 	left: 23px;
 }
+.banner_warp {
+	margin-top:5%;
+}
+
 .content-container .thumbnail .coupon em,.banner_warp .banner-left .coupon em,.type_list_box dt .coupon em{
 	display: inline-block;
 	letter-spacing: 0.1em;
@@ -2042,9 +2051,9 @@ border-radius:3px;margin-top:30px;}
 .banner_warp{height: 588px;background: url(../image/banner_bg2.jpg) no-repeat center top;margin:0 auto 40px;padding:0;}
 .banner_warp .col-md-12{padding:20px 0;margin:0;}
 .banner_warp .col-md-3{margin:0;padding:0;}
-.banner_warp .banner-right{background:rgba(255,255,255,0.8);vertical-align:middle;margin-top:4%;}
+.banner_warp .banner-right{background:rgba(255,255,255,0.8);vertical-align:middle;margin-top:0%;}
 .banner_warp .banner-right li{margin: 2% 4% 1%;}
-.banner_warp .banner-right .title{height: 78px;overflow: hidden;font-size:18px;line-height:1.4em; /*white-space: nowrap;overflow: hidden;*/}
+.banner_warp .banner-right .title{height: 54px;overflow: hidden;font-size:18px;line-height:1.4em; /*white-space: nowrap;overflow: hidden;*/}
 .banner_warp .banner-right .sub_title{font-size:14px;margin-bottom:3%;color: #666;margin-top: 12px;}
 .banner_warp .banner-right .bottom{padding-bottom:2%;margin-top:3%;color: #999;font-size: 12px;}
 .banner_warp .banner-right .share{width:32%;height:auto;overflow:hidden;}

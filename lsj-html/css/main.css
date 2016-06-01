@@ -1,0 +1,50 @@
+html, body{
+	height:100%;
+	width: 100%;
+}
+
+p {
+	font-family: 'microsoft yahei';
+}
+
+#ad-container-bg {
+	padding: 45px;
+	background: url(../image/bg.jpg) no-repeat scroll center;
+	background-size: cover;
+}
+
+#ad-container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.sspan {
+	margin-top: 15px;
+	display: block;
+}
+
+#footer {
+	background-color: #D8D8D8;
+	padding-top: 15px;
+}
+
+#footer-container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#footer-container p {
+	display: inline-block;
+}
+
+#film-new-container-bg {
+	padding-top: 45px;
+}
+
+#film-new-container img {
+	display: block;
+	max-width:250px;
+	max-height:300px;
+	width: auto;
+	height: auto;
+}
