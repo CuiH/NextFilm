@@ -53,11 +53,11 @@ public class UserCinemaController {
 
             Gson gson = new Gson();
 
-            return "cjs({\"result\": \"success\", \"data\": " +
-                    gson.toJson(BuilderUtils.getCinemaShower1FromCinemaEntity(cinemaEntity)) + "})";
+            return "{\"result\": \"success\", \"data\": " +
+                    gson.toJson(BuilderUtils.getCinemaShower1FromCinemaEntity(cinemaEntity)) + "}";
         } catch (CinemaNotExistException e) {
 
-            return "cjs({\"result\": \"fail\", \"reason\": \"unknown cinema\"})";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         }
     }
 

@@ -398,6 +398,7 @@ public class BuilderUtils {
         pos.setId(purchaseOrderEntity.getId());
         pos.setFilmId(purchaseOrderEntity.getFilmId());
         pos.setFilmName(purchaseOrderEntity.getFilmName());
+        pos.setFilmImageUrl(purchaseOrderEntity.getFilmImageUrl());
         pos.setCinemaId(purchaseOrderEntity.getCinemaId());
         pos.setCinemaName(purchaseOrderEntity.getCinemaName());
         pos.setHallName(purchaseOrderEntity.getHallName());
@@ -431,6 +432,7 @@ public class BuilderUtils {
         pos.setId(purchaseOrderEntity.getId());
         pos.setFilmId(purchaseOrderEntity.getFilmId());
         pos.setFilmName(purchaseOrderEntity.getFilmName());
+        pos.setFilmImageUrl(purchaseOrderEntity.getFilmImageUrl());
         pos.setCinemaId(purchaseOrderEntity.getCinemaId());
         pos.setCinemaName(purchaseOrderEntity.getCinemaName());
         pos.setCreateTime(ConverterUtils.convertDateTimeToString(purchaseOrderEntity.getCreateTime()));

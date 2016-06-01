@@ -80,6 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
         purchaseOrder.setCinemaName(showing.getFcm().getCinema().getName());
         purchaseOrder.setFilmId(showing.getFcm().getFilm().getId());
         purchaseOrder.setFilmName(showing.getFcm().getFilm().getName());
+        purchaseOrder.setFilmImageUrl(showing.getFcm().getFilm().getImageUrl());
         purchaseOrder.setHallName(showing.getHall().getName());
         // 可变
         purchaseOrder.setDiscount(0d);

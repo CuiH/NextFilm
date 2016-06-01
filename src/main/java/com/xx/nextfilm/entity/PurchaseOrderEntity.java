@@ -16,6 +16,7 @@ public class PurchaseOrderEntity {
     private String status;
     private Long filmId;
     private String filmName;
+    private String filmImageUrl;
     private Long cinemaId;
     private String cinemaName;
     private String hallName;
@@ -82,6 +83,17 @@ public class PurchaseOrderEntity {
 
     public void setFilmId(Long filmId) {
         this.filmId = filmId;
+    }
+
+
+    @Basic
+    @Column(name = "film_image_url")
+    public String getFilmImageUrl() {
+        return filmImageUrl;
+    }
+
+    public void setFilmImageUrl(String filmImageUrl) {
+        this.filmImageUrl = filmImageUrl;
     }
 
 
