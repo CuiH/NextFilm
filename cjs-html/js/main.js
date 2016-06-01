@@ -3,7 +3,6 @@ $(function(){
 		interval: 2000
 	})
 
-	// 判断是否登录成功
 	$.ajax({
 		type: "GET",
 	    dataType: "html",
@@ -25,6 +24,10 @@ $(function(){
 	        alert("server error1")
 	    }		
 	});
+
+	// $("#user-name")
+	// fetch film information
+
 
 	$.ajax({
 		type: "GET",
