@@ -21,13 +21,16 @@
     <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
-                <img class="img-circle" alt="Brand" src="image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
+                <img class="img-circle" alt="Brand" src="/res/image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
                 <p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
             </a>
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
             <ul class="nav navbar-nav">
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -40,18 +43,14 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
+
                 <li><a href="#">电影</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" id='search_fuck' style="color: red;"  placeholder="搜索电影、艺人">
-                    <span class="glyphicon glyphicon-search" id='search_btn'  aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
-                </div>
-            </form>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="register.html">登录|注册</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
+                    <a  id="user-name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -64,32 +63,8 @@
         </div><!-- /.navbar-collapse -->
     </div> <!-- container fluid -->
 </nav>
-<table class="ui selectable inverted table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th class="right aligned">Notes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>约翰</td>
-        <td>已审核</td>
-        <td class="right aligned">None</td>
-    </tr>
-    <tr>
-        <td>杰米</td>
-        <td>已审核</td>
-        <td class="right aligned">必须回答</td>
-    </tr>
-    <tr>
-        <td>吉尔</td>
-        <td>Denied</td>
-        <td class="right aligned">None</td>
-    </tr>
-    </tbody>
-</table>
+
+
 <div id="main-container" >
     <div id="fuck_you" class="failed" hidden>
         <h3>failed</h3>
@@ -101,34 +76,31 @@
         <div class="details_left_right">
             <div class="ui_pic left_img">
                 <div class="ui_movieBigType">
-                    <img  width="280" class ="cinema_image"height="210" src="./广州飞扬影城-正佳店【正在售票】_排片表_票价_影讯 - 格瓦拉生活网_files/blank.gif" style="background:url(http://img5.gewara.com/cw280h210/images/cinema/201408/s7c804801_1481c2ee7a9__7fef.jpg) center center no-repeat #e7e7e7;">
-
+                    <img  width="280" class ="cinema_image" height="210" src="" style="">
                 </div>
             </div>
             <div class="ui_text left_text">
                 <div class="detail_head_text">
                     <dl class="clear">
                         <dt>地 址：</dt>
-                        <dd class="cinema_address">天河路228号正佳广场7楼</dd>
+                        <dd class="cinema_address"></dd>
                     </dl>
                     <hr>
                     <dl class="clear">
                         <dt>电 话：</dt>
                         <dd class="cinema_phone">
-                            020-85590911 85598266
                         </dd>
                     </dl>
                     <hr>
                     <dl class="ui_hide">
                         <dt>影 院 简 介：</dt>
-                        <dd class="cinama_brief">bibliblidfalfkjdfiauflafladfoaidfuo</dd>
+                        <dd class="cinama_brief"></dd>
                     </dl>
                     <hr>
                     <dl class="clear">
                         <dt>特 色：</dt>
-                        <dd class="ffst">“５号天幕厅：中国巨幕ｘ杜比全景声，震撼视听新感受。”</dd>
+                        <dd class="ffst"></dd>
                     </dl>
-
                 </div>
             </div>
         </div>
@@ -137,25 +109,15 @@
             <div class="date_container ">
                 <span class="glyphicon glyphicon-tag"  style="font-size: 20px;color: rgb(212, 106, 64);" aria-hidden="true">选择日期</span>
                 <button type="button" id ='btn_0' class="btn date_btn btn-default" >5月30日</button>
-
                 <button type="button" id ='btn_1' class="btn date_btn btn-default ">6月1日</button>
-
                 <button type="button" id ='btn_2'class="btn date_btn btn-default ">6月1日</button>
-
-                <!--<button type="button" id ='btn_3'class="btn date_btn btn-default ">6月1日</button>
-
-               <button type="button" id ='btn_4'class="btn date_btn btn-default ">6月1日</button>
-               Indicates a dangerous or potentially negative action
-               <button type="button" id ='btn_5'class="btn date_btn btn-default">6月1日</button>
-               <button type="button" id ='btn_6'class="btn date_btn btn-default ">6月1日</button>-->
             </div>
+
             <div class="films_container">
                 <span  class="tag_span glyphicon glyphicon-tag"  style="font-size: 20px;color: rgb(212, 106, 64);" aria-hidden="true">选择影片</span>
                 <div class='films_list'>
                     <ul id='ul_par'>
-                        <li hidden  class='select panel '><img width="120px"  alt="爱丽丝梦游仙境2：镜中奇遇记" src="http://img5.gewara.com/cw96h128/images/movie/201604/s54cfd1ea_1544d51e139__7f47.jpg"><br><em>爱丽丝梦游仙</em></li>
-
-
+                        <li hidden class='select panel'><img width="120px"  alt="" src=""><br><em></em></li>
                     </ul>
                 </div>
             </div>
@@ -191,21 +153,21 @@
         <div class="row">
             <div class="col-md-4" style="border-right: outset;">
                 <div style="margin: 0 auto; width: 200px;">
-                    <img src="image/social_19.png">
+                    <img src="/res/image/social_19.png">
                     <p style="font-size: 18pt;">NextFilm</p>
                 </div>
             </div>
             <div class="col-md-4" style="border-right: outset;height: 64px;">
                 <div style="margin: 0 auto;width: 240px;">
-                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_47.png">
+                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="/res/image/social_47.png">
                     <p style="font-size: 18pt;display: inline-block;">4001-100-100</p>
                 </div>
             </div>
             <div class="col-md-4" style="height: 64px;">
                 <div style="margin: 0 auto;width: 340px;">
-                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_01.png">
-                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_54.png">
-                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_37.png">
+                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="/res/image/social_01.png">
+                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="/res/image/social_54.png">
+                    <img style="width: 50px;height:50px;margin-bottom: 14px;" src="/res/image/social_37.png">
                     <p style="font-size: 18pt;display: inline-block;">关注我们</p>
                 </div>
             </div>

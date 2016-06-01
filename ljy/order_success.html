@@ -11,10 +11,10 @@
         <script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
         <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/cinemas.js"></script>
+        <script type="text/javascript" src="js/films.js"></script>
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/common.css">
-        <link rel="stylesheet" type="text/css" href="css/style1.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/other_css/common.css">
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -44,7 +44,7 @@
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" id='search_fuck' style="color: red;"  placeholder="搜索影院、场馆">
+                            <input type="text" class="form-control" id='search_fuck' style="color: red;"  placeholder="搜索电影、艺人">
                             <span class="glyphicon glyphicon-search" id='search_btn'  aria-hidden="true" style="position: relative;left: -13%; color: #999;"></span>
                         </div>
                     </form>
@@ -64,30 +64,11 @@
                     </div><!-- /.navbar-collapse -->
                     </div> <!-- container fluid -->
                 </nav>
-                <div id="main-container" style="min-height: 90%;">
-                    <div class="type_list clearfix">
-                        <!-- <ul class="type_tab clearfix">
-                            <li class="on">按演出时间</li>
-                            <li style="display: none">按门票价格</li>
-                        </ul> -->
-                        <div class="type_list_box" id = 'fuck'>
-                            <div class="showList">
-                                搜索 <strong class="film_name"></strong> 获得约 <b class = "film_number"></b> 条结果
-                            </div>
-                            <dl class="ui_abeam search_channel" hidden>
-                                <dt class="uipic">
-                                <a target="_blank" href="/movie/155903443?fyrq=" title="">
-                                    <img width="96" height="128" src="http://img5.gewara.com/cw96h128/images/movie/201605/s_6e62e7d_1549f7abdfd__7d7c.jpg">
-                                </a>
-                                </dt>
-                                <dd class="uiText">
-                                <h2><em class="ffst">[影院]</em><a target="_blank" href="/movie/155903443"><span class="dd_cinema" style="background-color: #2ed2c1;font-weight: bold;"></span></a></h2><br>
-                                <span ><em lass="ffst" >地址：</em><span class="dd_address"></span></span><br>
-                                <span><em lass="ffst">简介：</em><span class="dd_brief"></span></span><br>
-                                <span><em lass="ffst">放映中：</em><span class="dd_films"></span></span><br>
-                                
-                                </dd>
-                            </dl>
+                <div id="main-container" >
+                    <div class="bs-example" data-example-id="simple-jumbotron">
+                        <div class="jumbotron">
+                            <span class="glyphicon glyphicon-ok" style="color:#7ac447;font-size:40px;" aria-hidden="true">订购成功</span>
+
                             
                         </div>
                     </div>

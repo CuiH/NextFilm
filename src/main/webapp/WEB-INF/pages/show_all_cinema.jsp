@@ -52,7 +52,7 @@
                         <td><a href="${cinema.imageUrl}">点击查看</a></td>
                         <security:authorize access="hasRole('ROLE_ADMIN')" >
                             <td><a class="ui blue button" href="/edit_cinema?id=${cinema.id}">edit</a></td>
-                            <td><div cinema-id="${cinema.id}" class="ui red button delete_cinema">delete</div></td>
+                            <td><div cinema-id="${cinema.id}" class="ui red button delete_cinema disabled">delete</div></td>
                         </security:authorize>
                     </tr>
                 </c:forEach>

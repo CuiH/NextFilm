@@ -1,3 +1,105 @@
+.detail_head_text hr {
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+.container {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+.date_container {
+    margin-top: 18px;
+    vertical-align: middle;
+}
+
+.films_list {
+    margin-top: 10px;
+}
+li {
+    float: left;
+}
+.select  {
+    text-align: center;
+
+}
+
+
+.films_container {
+    margin-top: 18px;
+    vertical-align: middle;
+}
+
+.time_list {
+    margin-bottom: 100px;
+}
+#ul_par em {
+    margin-top: 7px;
+    display: inline-block;
+    overflow: hidden;
+    width: 120px;
+}
+
+.date_btn {
+    margin-left: 10px;
+}
+.cinema_image {
+    margin-left: 17px;
+    border-radius: 5%;
+}
+
+.ciname_name_titile{
+    margin-left: 19px;
+    color: #999;
+    width: 100%;
+    height: 50px;
+    display: block;
+}
+.details_left_right {
+    display: block;
+}
+
+
+.select {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.left_img{
+    margin-right: 10px;
+    position: relative;
+    float: left;
+}
+
+.mod_bd{
+    display: block;
+}
+.left {
+    font-family: "黑体"；
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+body {
+
+    height: 100%;
+}
+
+#main-container {
+
+    padding-bottom: 120px;   
+}
+#footer {
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
 .type_list {
     margin-top: 30px;
     margin-right: 20%;
@@ -5,15 +107,26 @@
     margin-bottom: 70px;
 }
 
+tbody {
+   color: #999;
+}
 #fuck_you {
     margin-left: 20%;
     margin-right: 20%;
 }
 
-
 .detail_head_text dl {
+    color: #999;
     padding-top: 3px !important;
     padding-bottom: 3px !important;
+}
+
+.detail_head_text dd {
+
+    display: block;
+    color: #999;
+    width: 510px;
+
 }
 
 .ui_media {
@@ -1389,8 +1502,7 @@ label.bg_hover input {
     padding-bottom: 20px
 }
 .uipic, .uiText, .ui_left, .ui_right {
-    margin-bottom: -30000px;
-    padding-bottom: 30000px;
+
     float: left
 }
 .ui_vertical .uipic, .ui_vertical .uiText {
