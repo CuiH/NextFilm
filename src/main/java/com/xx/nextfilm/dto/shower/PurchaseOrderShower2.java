@@ -13,6 +13,7 @@ public class PurchaseOrderShower2 {
     private String status;
     private Long filmId;
     private String filmName;
+    private String filmImageUrl;
     private Long cinemaId;
     private String cinemaName;
     private String startTime;
@@ -70,6 +71,15 @@ public class PurchaseOrderShower2 {
 
     public void setFilmName(String filmName) {
         this.filmName = filmName;
+    }
+
+
+    public String getFilmImageUrl() {
+        return filmImageUrl;
+    }
+
+    public void setFilmImageUrl(String filmImageUrl) {
+        this.filmImageUrl = filmImageUrl;
     }
 
 

@@ -2,6 +2,7 @@ package com.xx.nextfilm.controller.front;
 
 import com.google.gson.Gson;
 import com.xx.nextfilm.dto.shower.CinemaShowingShower;
+import com.xx.nextfilm.dto.shower.FilmShower2;
 import com.xx.nextfilm.dto.shower.FilmShowingShower;
 import com.xx.nextfilm.entity.*;
 import com.xx.nextfilm.exception.CinemaNotExistException;
@@ -45,6 +46,25 @@ public class UserShowingController {
     FCMService fcmService;
 
 
+//    @ResponseBody
+//    @RequestMapping(value = "/get_showing_film", method = RequestMethod.GET, produces = "application/javascript; charset=utf-8")
+//    public String getShowingFilm(@RequestParam Long cinemaId, HttpServletResponse response) {
+//        response.addHeader("Access-Control-Allow-Origin", "*");
+//
+//        CinemaEntity cinemaEntity;
+//        try {
+//            cinemaEntity = cinemaService.findCinemaById(cinemaId, true, false, false);
+//        } catch (CinemaNotExistException e) {
+//
+//            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
+//        }
+//
+//        Gson gson = new Gson();
+//
+//        return "{\"result\": \"success\", \"data\": " + gson.toJson(
+//                BuilderUtils.getFilmShower2sFromFilmEntities(cinemaEntity.getFilms())) + "}";
+//    }
+
     // 某个影院某个日期的所有电影及场次
     @ResponseBody
     @RequestMapping(value = "/get_showing", method = RequestMethod.GET, produces = "application/javascript; charset=utf-8")
@@ -53,7 +73,7 @@ public class UserShowingController {
 
         if (date == null || !ValidatorUtils.isDateValid(date)) {
 
-            return "ljy({\"result\": \"fail\", \"reason\": \"invalid date\"})";
+            return "{\"result\": \"fail\", \"reason\": \"invalid date\"}";
         }
 
         CinemaEntity cinemaEntity;
@@ -61,7 +81,7 @@ public class UserShowingController {
             cinemaEntity = cinemaService.findCinemaById(cinemaId, false, false, true);
         } catch (CinemaNotExistException e) {
 
-            return "ljy({\"result\": \"fail\", \"reason\": \"unknown cinema\"})";
+            return "{\"result\": \"fail\", \"reason\": \"unknown cinema\"}";
         }
 
         List<FilmShowingShower> results = new ArrayList<FilmShowingShower>();
@@ -81,7 +101,7 @@ public class UserShowingController {
 
         Gson gson = new Gson();
 
-        return "ljy({\"result\": \"success\", \"data\": " + gson.toJson(results) + "})";
+        return "{\"result\": \"success\", \"data\": " + gson.toJson(results) + "}";
     }
 
 
@@ -121,6 +141,7 @@ public class UserShowingController {
         return "ljy({\"result\": \"success\", \"data\": " + gson.toJson(results) + "})";
     }
 
+
     @ResponseBody
     @RequestMapping(value = "/view_showing", method = RequestMethod.GET, produces = "application/javascript; charset=utf-8")
     public String viewShowing(@RequestParam Long id, HttpServletResponse response) {
@@ -131,13 +152,13 @@ public class UserShowingController {
             showingEntity = showingService.findShowingById(id, true, true, true);
         } catch (ShowingNotExistException e) {
 
-            return "ljy({\"result\": \"fail\", \"reason\": \"unknown showing\"})";
+            return "{\"result\": \"fail\", \"reason\": \"unknown showing\"}";
         }
 
         Gson gson = new Gson();
 
-        return "ljy({\"result\": \"success\", \"data\": " +
-                gson.toJson(BuilderUtils.getShowingShower1FromShowingEntity(showingEntity)) + "})";
+        return "{\"result\": \"success\", \"data\": " +
+                gson.toJson(BuilderUtils.getShowingShower1FromShowingEntity(showingEntity)) + "}";
     }
 
 }
