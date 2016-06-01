@@ -79,10 +79,53 @@
 					<h1>场次信息</h1>
 					<hr>
 				</div>
+
+				<div id="show-container-bg" style="margin-bottom: 30px;">
+					<div class="row" id="show-container-header">
+						<div class="col-md-6"><p>影片</p></div>
+						<div class="col-md-2"><p>时间</p></div>
+						<div class="col-md-1" style="text-indent: 10px;"><p>类型</p> </div>
+						<div class="col-md-1" style="text-indent: 10px;"><p>价格</p> </div>
+						<div class="col-md-2"></div>
+					</div>
+
+					<div id="show-main-container">
+
+					</div>
+				</div>
 			</div>
 
 		</div> <!-- ad-container -->
 	</div>
+
+	<script type="text/html" id="show-t1">
+		<div class="row" style="margin-top: 25px;">
+			<div data-content="cinema" data-format="nestedTemplateFormatter" data-format-options="#show-t2"></div>
+			<div data-content="showings" data-format="nestedTemplateFormatter" data-format-options="#show-t3"></div>
+		</div>
+	</script>
+
+	<script type="text/html" id="show-t4">
+		<p data-content="type"></p>
+	</script>
+
+	<script type="text/html" id="show-t3">
+		<div class="col-md-2"><p data-content="startTime"></p></div>
+		<div class="col-md-1" data-content="hall" data-format="nestedTemplateFormatter" data-format-options="#show-t4"></div>
+		<div class="col-md-1"><p data-content="priceManual"></p></div>
+		<div class="col-md-2"><button>购买</button></div>
+	</script>
+
+
+	<script type="text/html" id="show-t2">
+		<div class="col-md-6">
+			<img data-src="imageUrl" style="width: 160px; height: 100px;margin-right: 20px;margin-left: 20px;">
+			<div style="display: inline-block;">
+				<p data-content="name"></p>
+				<p data-content="address"></p>
+			</div>
+		</div>
+	</script>
 
 	<script type="text/html" id="t2">
 		<div style="display: inline-block;margin-right: 25px;">

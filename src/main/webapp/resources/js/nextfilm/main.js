@@ -3,6 +3,7 @@ $(function(){
 		interval: 2000
 	})
 
+
 	$.ajax({
 		type: "GET",
 	    dataType: "html",
@@ -36,7 +37,9 @@ $(function(){
 	        
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
-	        
+				for(var x in data["data"]) {
+					data["data"][x]["id"] = "http://localhost:8080/view_film_page?id=" + data["data"][x]["id"]
+				}
 				$("#film-new-list").loadTemplate($("#template"), data["data"]);
 	            
 	        } else {

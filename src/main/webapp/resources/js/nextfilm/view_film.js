@@ -1,10 +1,25 @@
 $(function(){
 
+	var Request = new Object();
+	Request = GetRequest();
+	function GetRequest() {
+		var url = location.search;
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for(var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]]=decodeURI(strs[i].split("=")[1]);
+			}
+		}
+		return theRequest;
+	}
+
 	$.ajax({
 		type: "GET",
 	    dataType: "jsonp",
 	    jsonpCallback: "ch",
-	    url: "http://172.18.43.152:8080/view_film?id=43",
+	    url: "http://172.18.43.152:8080/view_film?id="  + Request["id"],
 	    success: function(data) {
 	        
 	        // 首先判断是否成功
@@ -26,7 +41,7 @@ $(function(){
 		type: "GET",
 	    dataType: "jsonp",
 	    jsonpCallback: "ljy",
-	    url: "http://172.18.43.152:8080/get_showing2?filmId=40",
+	    url: "http://172.18.43.152:8080/get_showing2?filmId=" + Request["id"],
 	    success: function(data) {
 	        
 	        // 首先判断是否成功
