@@ -17,9 +17,9 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript" src="js/view_film.js"></script>
+	<script type="text/javascript" src="js/orders.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/view_film.css">
+	<link rel="stylesheet" type="text/css" href="css/orders.css">
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -70,29 +70,59 @@
 	  </div> <!-- container fluid --> 
 	</nav>
 
-	<div id="main-container" style="min-height: 90%;">
+	<div id="main-container" style="min-height: 80%;">
 		<div id="film-container-bg">
 			<div id="film-container"></div>
 
-			<div style="margin-top: 35px;" id="show-container">
+			<div id="show-container">
 				<div>
-					<h1>场次信息</h1>
+					<h1>订单信息</h1>
 					<hr>
 				</div>
 
 				<div id="show-container-bg" style="margin-bottom: 30px;">
 					<div class="row" id="show-container-header">
-						<div class="col-md-5"><p>影片</p></div>
+						<div class="col-md-4"><p>影片</p></div>
 						<div class="col-md-2"><p>订票时间</p></div>
-						<div class="col-md-1"><p>开始时间</p></div>
+						<div class="col-md-2"><p>开始时间</p></div>
 						<div class="col-md-1" style="text-indent: 10px;"><p>座位数</p> </div>
 						<div class="col-md-1" style="text-indent: 10px;"><p>价格</p> </div>
-						<div class="col-md-1"><p>状态</p></div>
+						<div class="col-md-1" style="text-indent: 10px;"><p>状态</p></div>
 						<div class="col-md-1"></div>
 					</div>
 
 					<div id="show-main-container">
+						<div class="row" style="margin-top: 15px;">
+							<div class="col-md-4">
+								<img data-src="filmImageUrl" style="width: 160px; height: 200px;margin-right: 20px;margin-left: 20px;" src="http://img5.gewara.com/cw270h360/images/movie/201605/s_6931090c_15475289521__7ed9.jpg">
+								<div style="display: inline-block;">
+									<p data-content="filmName">X战警：天启</p>
+									<p data-content="cinemaName">广州UA花城汇影院</p>
+								</div>
+							</div>
+							<div class="col-md-2"><p style="margin-top: 50%" data-content="createTime">2016-06-02T00:08</p></div>
+							<div class="col-md-2"><p style="margin-top: 50%" data-content="startTime">2016-06-21T11:00</p></div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="seatNum">1</p> </div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="totalPrice">48.0</p> </div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="status">已预订</p></div>
+							<div class="col-md-1"></div>
+						</div>
 
+						<div class="row" style="margin-top: 15px;">
+							<div class="col-md-4">
+								<img data-src="filmImageUrl" style="width: 160px; height: 200px;margin-right: 20px;margin-left: 20px;" src="http://img5.gewara.com/cw270h360/images/movie/201605/s_6931090c_15475289521__7ed9.jpg">
+								<div style="display: inline-block;">
+									<p data-content="filmName">X战警：天启</p>
+									<p data-content="cinemaName">广州UA花城汇影院</p>
+								</div>
+							</div>
+							<div class="col-md-2"><p style="margin-top: 50%" data-content="createTime">2016-06-02T00:08</p></div>
+							<div class="col-md-2"><p style="margin-top: 50%" data-content="startTime">2016-06-21T11:00</p></div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="seatNum">1</p> </div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="totalPrice">48.0</p> </div>
+							<div class="col-md-1"><p style="margin-top: 115%" data-content="status">已预订</p></div>
+							<div class="col-md-1"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -100,69 +130,21 @@
 		</div> <!-- ad-container -->
 	</div>
 
-	<script type="text/html" id="reservation-t2">
-		<div class="col-md-6">
-			<img data-src="imageUrl" style="width: 160px; height: 100px;margin-right: 20px;margin-left: 20px;">
-			<div style="display: inline-block;">
-				<p data-content="name"></p>
-				<p data-content="address"></p>
-			</div>
-		</div>
-	</script>
-
-	<script type="text/html" id="t2">
-		<div style="display: inline-block;margin-right: 25px;">
-			<img class="avatar" data-src="imageUrl">
-			<p data-content="name">linxux</p>
-		</div>
-	</script>
-
-	<script type="text/html" id="template">
-		<div>
-			<h1 data-content="name"></h1>
-			<p data-content="alias"></p>
-			<hr>
-		</div>
-
-		<div class="row" style="padding: 10px;">
-			<div id="film-left" class="col-md-3">
-				<img class="show-img" data-src="imageUrl">
-			</div>
-
-			<div class="col-md-8" style:"margin-top:25px;">
-				<div id="film-directors">
-					<p style="margin-right: 20px;display: inline-block;vertical-align: 45px;">导演:</p>
-					<div style="display: inline-block; margin-right: 20px;" id="director">
-						<div style="display: inline-block;" data-content="directors" data-format="nestedTemplateFormatter" data-format-options="#t2">
-							
-						</div>
-					</div>
-					<hr>						
-				</div>
-
-				<div id="film-actors">
-					<p style="margin-right: 20px;display: inline-block;vertical-align: 45px;">演员:</p>
-					<div style="display: inline-block; margin-right: 20px;">
-						<div data-content="actors" data-format="nestedTemplateFormatter" data-format-options="#t2"></div>
-					
-				</div>
-				<hr>
-
-				<div id="film-brief">
-					<p style="display: inline-block;">剧情:</p>
-					<span style="display: block; margin-left: 40px;text-indent: 25px;width: 600px;" data-content="brief"></span>
-				</div>
-
-				<hr>
-				<div>
-					<p style="margin-right: 20px;display: inline-block;">分类:</p>
-					<span data-content="category" class="sspan">美国</span>
-					<span data-content="type" class="sspan">美国</span>
-					<span data-content="onDate" class="sspan">美国</span>
-					<span data-content="language" class="sspan">美国</span>
-					<span data-content="length" class="sspan">美国</span>
+	<script type="text/html" id="show-t1">
+		<div class="row" style="margin-top: 15px;">
+			<div class="col-md-5">
+				<img data-src="filmImageUrl" style="width: 160px; height: 100px;margin-right: 20px;margin-left: 20px;">
+				<div style="display: inline-block;">
+					<p data-content="cinemaName"></p>
+					<p data-content="filmName"></p>
 				</div>
 			</div>
+			<div class="col-md-2"><p data-content="createTime"></p></div>
+			<div class="col-md-1"><p data-content="startTime"></p></div>
+			<div class="col-md-1" style="text-indent: 10px;"><p data-content="seatNum"></p> </div>
+			<div class="col-md-1" style="text-indent: 10px;"><p data-content="totalPrice"></p> </div>
+			<div class="col-md-1"><p data-content="status"></p></div>
+			<div class="col-md-1"></div>
 		</div>
 	</script>
 
