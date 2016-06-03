@@ -1,0 +1,161 @@
+@charset "utf-8";
+
+div.venueBanner.clearfix {
+	width: 1349px;
+	height: 440px;
+}
+
+.venueBanner .showBanner {
+    padding-top: 66px;
+    padding-left: 60px;
+}
+
+div.col-md-6.bLeft {
+	display: block;
+	width: 452px;
+	height: 302px;
+}
+
+div.col-md-6.bRight h5 {
+    font-size: 25px;
+}
+
+div.onlineShow.container {
+	width: 1200px;
+	height: 1509px;
+}
+
+div.col-md-9.col-xs-12.onlineIntroLeft.tabs {
+	width: 922.5px;
+	height: 1509px;
+}
+
+div.venueTab.clearfix {
+	width: 892.5px;
+	height: 49px;
+	margin-top: 10px;
+}
+
+div.col-md-12.clearfix.tab_item li {
+	list-style: none;
+	font-size: 30px;
+	text-align: left;
+}
+
+div.venueContainer.clearfix {
+	width: 892.5px;
+	height: 1460px;
+	margin-top: 0px;
+}
+
+div#venueInfoBox.type_list_box {
+	width: 892.5px;
+	height: 1330px;
+	display: block;
+}
+
+.type_list_box ul {
+    border: 1px solid #eee;
+    margin-top: 30px;
+    padding: 20px;
+    clear: both;
+}
+
+ul.clearfix {
+	width: 892.5px;
+	height: 310px;
+	margin-bottom: 20px;
+}
+
+img {
+	vertical-align: middle;
+}
+
+li {
+	font-weight: 700;
+	list-style: none;
+	line-height: 1.42857143;
+	float: left;
+}
+
+li.ListLeft {
+	width: 200px;
+	height: 268px;
+}
+
+li.ListRight {
+	width: 600px;
+	height: 268px;
+}
+
+div.message {
+	width: 584px;
+	height: 188px;
+	margin-bottom: 80px;
+	margin-left: 14px;
+	font-family: "微软雅黑";
+	display: block;
+}
+
+div.ddleft.f11 {
+	width: 480px;
+	height: 188px;
+	float: left;
+	margin-right: 0px;
+}
+
+.message .ddright.flr {
+	width: 84px;
+	height: 188px;
+	margin-left: 20px;
+	font-weight: 700;
+	float: right;
+}
+
+p.mtit {
+	width: 480px;
+	height: 80px;
+	font-family: "微软雅黑";
+	font-size: 20px;
+	font-weight: 700;
+}
+
+p.ftit {
+	width: 480px;
+    height: 14px;
+    margin-bottom: 40px;
+}
+
+p.time {
+    width: 480px;
+	height: 14px;
+	margin-bottom: 40px;
+}
+
+span.pre_sale_wp_icon-all {
+	width: 46px;
+	height: 22px;
+	background-color: blue;
+}
+
+p.price {
+	width: 84px;
+	height: 30px;
+	font-size:10px;
+    margin-top: 100px;
+}
+
+.price span {
+    width: 50px;
+    height: 30px;
+    color: green;
+    font-size: 30px;
+}
+
+a.buy_btn {
+	width: 84px;
+	height: 34px;
+	background-color: rgb(0,0.255);
+	font-size: 20px;
+	margin-top: 12px;
+}
