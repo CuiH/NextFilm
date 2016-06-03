@@ -41,4 +41,9 @@ public class UserLoginAndLogonController {
         return "nextfilm/view_film_page";
     }
 
+    @RequestMapping(value = "/view_reservation", method = RequestMethod.GET)
+    public String view_reservation() {
+        return "nextfilm/view_reservation";
+    }
+
 }
