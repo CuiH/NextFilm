@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>新一代电影网</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="css/personal_page.css">
+  <style type="text/css">
+  	div.up-container {
+  		background-image: url("image/background.jpg");
+  	}
+  </style>>
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.loadTemplate-1.5.7.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/main.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">
+			<img class="img-circle" alt="Brand" src="image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
+			<p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
+		  </a>
+		</div>
+
+		 <!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav">
+
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市 <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					  </ul>
+					</li>
+
+					<li><a href="#">电影</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+					  <a  id="user-name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">userxxxxxxx <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#">我的Nextfilm</a></li>
+						<li><a href="#">我的订单</a></li>
+						<li><a href="#">个人设置</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">退出</a></li>
+					  </ul>
+					</li>
+				</ul>
+		</div><!-- /.navbar-collapse -->
+
+	  </div> <!-- container fluid --> 
+	</nav>
+	<div class="up">
+		<div class="up-container">
+			<div class="up-row">
+			    <img src="http://static.show.wepiao.com/thumb/auto/80/107//pc/img/defaultpic.gif" width="100" height="100" class="image-circle">
+				<div class="text-center">
+					<h1 class="sex">
+						<span class="#">
+							<img src="image/female.png" width="30" height="30">
+						</span>
+					</h1>
+					<p>
+						<a href="#" class="change Personpage" role="button">修改个人资料</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<a id="profile-top" style="position:absolute;top:522px;"></a>
+	</div>
+
+	<div id="down">
+		<div class="down-container">
+			<div class="row-down">
+				<div class="col-md-2">
+					<nav class="left_menu">
+						<ul class="nav-text-right">
+							<li class="active">
+								<a href="#">我的订单</a>
+							</li>
+							<li>
+								<a href="#", target="_blank">我的关注</a>
+							</li>
+							<li>
+								<a href="#">个人信息</a>
+							</li>
+							<li>
+								<a href="#">收货地址</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-md-10" id="ucenterbox">
+					<div class="uncenter">
+						<ul>
+							<li class="on">
+								<a href="#">全部</a>
+							</li>
+							<li class>
+								<a href="#">待付款</a>
+							</li>
+							<li class>
+								<a href="#">已完成</a>
+							</li>
+						</ul>
+					</div>
+					<h2>暂无订单</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<div id="footer-container">
+			<div class="row">
+				<div class="col-md-4" style="border-right: outset;">
+					<div style="margin: 0 auto; width: 200px;">
+						<img src="image/social_19.png">
+						<p style="font-size: 18pt;">NextFilm</p>
+					</div>
+				</div>
+				<div class="col-md-4" style="border-right: outset;height: 64px;">
+					<div style="margin: 0 auto;width: 240px;">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_47.png">
+						<p style="font-size: 18pt;display: inline-block;">4001-100-100</p>
+					</div>
+				</div>
+				<div class="col-md-4" style="height: 64px;">
+					<div style="margin: 0 auto;width: 340px;">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_01.png">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_54.png">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_37.png">
+						<p style="font-size: 18pt;display: inline-block;">关注我们</p>
+					</div>
+				</div>
+			</div>
+			<div style="width: 700px; margin: 0 auto;margin-top: 15px;">
+				<div class="row">
+					<div class="col-md-6">
+						<p style="float: right;font-size: 12pt;">@系统分析与设计小组TeamXX</p>
+					</div>
+					<div class="col-md-6">
+						<p style="font-size: 12pt;">@开源框架Bootstrap</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

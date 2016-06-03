@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>新一代电影网</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.loadTemplate-1.5.7.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/main.js"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<style type="text/css">
+		div.venueBanner.clearfix {
+			background-image: url("image/cinema_01.jpg");
+		}
+		a {
+			text-decoration: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/cinema_info.css">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">
+			<img class="img-circle" alt="Brand" src="image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
+			<p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
+		  </a>
+		</div>
+
+		 <!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav">
+
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">城市 <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					  </ul>
+					</li>
+
+					<li><a href="#">电影</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="register.html">登录|注册</a></li>
+					<li class="dropdown">
+					  <a  id="user-name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+					  </ul>
+					</li>
+				</ul>
+		</div><!-- /.navbar-collapse -->
+
+	  </div> <!-- container fluid --> 
+	</nav>
+	<div class="venueBanner clearfix">
+	    <div class="container showBanner">
+		    <div class="row">
+			    <div class="col-md-6 bLeft">
+				    <img width="400" height="302" src="image/cinema_0.jpg" alt="广州哈艺时尚影城" title="广州哈艺时尚影城">
+			    </div>
+		        <div class="col-md-6 bRight">
+			        <h5>哈艺时尚影城（科韵站）</h5>
+			        <p class="Info"><br>影城介绍：<span>哈艺时尚影城科韵路店位于广州市天河区棠安路288号天盈建博汇一楼，内设8个厅，合计904个座位，可全天候播放50多场电影；装修现代感强，空间高，环绕音响；是全广州第一家全部采用NEC激光放映设备的影院；影城全覆盖负离子发生器，让您坐在森林里看电影。</span>
+			        <p class="p"><br>地址：<span>广州市天河区棠安路288-298号天盈建博汇建材市场1楼</span></p>
+			        <p class="t">电话：<span>020-29072988&nbsp;&nbsp;&nbsp;&nbsp;020-29072988</span></p>
+			        <!--	<p class="c">特色服务：<span>暂无</span></p>
+			        <p class="y">营业时间：<span>未知</span></p>-->
+		        </div>
+		    </div>
+	    </div>
+	</div>
+    <div class="onlineShow container">
+    	<div class="col-md-9 col-xs-12 onlineIntroLeft tabs">
+			<div class="venueTab clearfix">
+                <div class="col-md-12 clearfix tab_item">
+			        <ul>
+			            <li class="on">在售演出</li>
+			            <!-- <li class=""><a class="venuetroduction-block" data-panel="#venueText">场馆介绍<span class="tabline"></span></a></li> -->
+			            <!-- <li><a class="venueImgs-block" data-panel="#vanueImgs">场馆图集<span class="tabline"></span></a></li> -->
+			        </ul>
+			    </div>
+			</div>
+			<div class="venueContainer clearfix">
+				<div class="type_list_box" id="venueInfoBox">
+					<ul class="clearfix">
+						<li class="Listleft">
+							<img src="image/film1.jpg" alt="爱丽丝梦游仙境2：镜中奇遇记" title="爱丽丝梦游仙境2：镜中奇遇记" width="200">
+						</li>
+						<li class="ListRight">
+						    <div class="message">
+							    <div class="ddleft f11">
+								    <p class="mtit">
+								        爱丽丝梦游仙境2：镜中奇遇记
+								    </p>
+								    <p class="ftit">家庭-奇幻-冒险</p>
+								    <p class="time">首映：2016-05-27</p>
+								    <p class="op"></p>
+							    </div>
+							    <div class="ddright flr">
+								    <span class="pre_sale wp-icon-all" style="padding:5px;">售票中</span>
+								    <p class="price"><span>70</span>元起</p>
+								    <a href="#" class="buy_btn">立即购票</a>
+								 </div>
+							</div>
+						</li>
+					</ul>
+					<ul class="clearfix">
+						
+						<li class="Listleft">
+							<img src="image/film2.jpg" alt="X战警：天启" title="X战警：天启" width="200">
+						</li>
+						<li class="ListRight">
+						    <div class="message">
+							    <div class="ddleft f11">
+								    <p class="mtit">
+								        X战警：天启
+								    </p>
+								    <p class="ftit">动作-科幻-奇幻</p>
+								    <p class="time">首映：2016-06-03</p>
+								    <p class="op"></p>
+							    </div>
+							    <div class="ddright flr">
+								    <span class="pre_sale wp-icon-all" style="padding:5px;">售票中</span>
+								    <p class="price"><span>70</span>元起</p>
+								    <a href="#" class="buy_btn">立即购票</a>
+							    </div>
+                            </div>
+						</li>
+					</ul>
+					<ul class="clearfix">
+						<li class="Listleft">
+							<img src="image/film3.jpg" alt="魔兽" title="魔兽" width="200">
+						</li>
+						<li class="ListRight">
+						    <div class="message">
+							    <div class="ddleft f11">
+								    <p class="mtit">
+								        魔兽
+								    </p>
+								    <p class="ftit">动作-战争-奇幻</p>
+								    <p class="time">首映：2016-06-08</p>
+								    <p class="op"></p>
+							    </div>
+							    <div class="ddright flr">
+								    <span class="pre_sale wp-icon-all" style="padding:5px;">售票中</span>
+								    <p class="price"><span>70</span>元起</p>
+								    <a href="#" class="buy_btn">立即购票</a>
+							    </div>
+							</div>
+						</li>
+					</ul>
+					<ul class="clearfix">
+						<li class="Listleft">
+							<img src="image/film4.jpg" alt="记忆碎片" title="记忆碎片" width="200">
+						</li>
+						<li class="ListRight">
+						    <div class="message">
+							    <div class="ddleft f11">
+								    <p class="mtit">
+								        记忆碎片
+								    </p>
+								    <p class="ftit">悬疑-喜剧-犯罪</p>
+								    <p class="time">首映：2016-06-03</p>
+								    <p class="op"></p>
+							    </div>
+							    <div class="ddright flr">
+								    <span class="pre_sale wp-icon-all" style="padding:5px;">售票中</span>
+								    <p class="price"><span>70</span>元起</p>
+								    <a href="#" class="buy_btn">立即购票</a>
+							    </div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+	    </div>
+    </div>
+
+	<div id="footer">
+		<div id="footer-container">
+			<div class="row">
+				<div class="col-md-4" style="border-right: outset;">
+					<div style="margin: 0 auto; width: 200px;">
+						<img src="image/social_19.png">
+						<p style="font-size: 18pt;">NextFilm</p>
+					</div>
+				</div>
+				<div class="col-md-4" style="border-right: outset;height: 64px;">
+					<div style="margin: 0 auto;width: 240px;">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_47.png">
+						<p style="font-size: 18pt;display: inline-block;">4001-100-100</p>
+					</div>
+				</div>
+				<div class="col-md-4" style="height: 64px;">
+					<div style="margin: 0 auto;width: 340px;">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_01.png">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_54.png">
+						<img style="width: 50px;height:50px;margin-bottom: 14px;" src="image/social_37.png">
+						<p style="font-size: 18pt;display: inline-block;">关注我们</p>
+					</div>
+				</div>
+			</div>
+			<div style="width: 700px; margin: 0 auto;margin-top: 15px;">
+				<div class="row">
+					<div class="col-md-6">
+						<p style="float: right;font-size: 12pt;">@系统分析与设计小组TeamXX</p>
+					</div>
+					<div class="col-md-6">
+						<p style="font-size: 12pt;">@开源框架Bootstrap</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
