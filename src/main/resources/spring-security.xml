@@ -50,6 +50,10 @@
 		<intercept-url pattern="/show*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/find*" access="hasRole('ROLE_ADMIN')" />
 
+
+		<intercept-url pattern="/reservation" access="hasRole('ROLE_USER')" />
+
+
 		<!-- csrf相关 -->
 		<csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
 
@@ -76,6 +80,5 @@
 			<password-encoder hash="plaintext"/>
 		</authentication-provider>
 	</authentication-manager>
-
 
 </beans:beans>

@@ -19,14 +19,9 @@ public class LoginController {
     UserService userService;
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login() {
         return "login";
-    }
-
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String frontLogin() {
-        return "nextfilm/login";
     }
 
     @ResponseBody

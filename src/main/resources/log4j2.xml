@@ -2,7 +2,7 @@
 <Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
 
 	<Appenders>
-		<File name="FILE" fileName="D:\log.txt" append="true">
+		<File name="FILE" fileName="E:\log.txt" append="true">
 			<PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | %m%n"/>
 		</File>
 

@@ -3,18 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>新一代电影网</title>
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <link href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.css" rel="stylesheet">
     <script src="bootstrap-3.3.5-dist/js/jquery-1.11.3.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/cinema_details.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/other_css/common_detail.css">
-    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.js"></script>
+
+    <script type="text/javascript" src="js/films.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -64,125 +60,31 @@
         </div><!-- /.navbar-collapse -->
     </div> <!-- container fluid -->
 </nav>
-<table class="ui selectable inverted table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th class="right aligned">Notes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>约翰</td>
-        <td>已审核</td>
-        <td class="right aligned">None</td>
-    </tr>
-    <tr>
-        <td>杰米</td>
-        <td>已审核</td>
-        <td class="right aligned">必须回答</td>
-    </tr>
-    <tr>
-        <td>吉尔</td>
-        <td>Denied</td>
-        <td class="right aligned">None</td>
-    </tr>
-    </tbody>
-</table>
 <div id="main-container" >
-    <div id="fuck_you" class="failed" hidden>
-        <h3>failed</h3>
-    </div>
-    <div id="fuck_you" class="show_ci" hidden>
-        <div class="ciname_name_titile">
-            <h1 class="left">广州飞扬影城-正佳店</h1>
-        </div>
-        <div class="details_left_right">
-            <div class="ui_pic left_img">
-                <div class="ui_movieBigType">
-                    <img  width="280" class ="cinema_image"height="210" src="./广州飞扬影城-正佳店【正在售票】_排片表_票价_影讯 - 格瓦拉生活网_files/blank.gif" style="background:url(http://img5.gewara.com/cw280h210/images/cinema/201408/s7c804801_1481c2ee7a9__7fef.jpg) center center no-repeat #e7e7e7;">
-
-                </div>
+    <div class="type_list clearfix">
+        <!-- <ul class="type_tab clearfix">
+            <li class="on">按演出时间</li>
+            <li style="display: none">按门票价格</li>
+        </ul> -->
+        <div class="type_list_box" id = 'fuck'>
+            <div class="showList">
+                搜索 <strong class="film_name"></strong> 获得约 <b class = "film_number"></b> 条结果<br/><hr/>
             </div>
-            <div class="ui_text left_text">
-                <div class="detail_head_text">
-                    <dl class="clear">
-                        <dt>地 址：</dt>
-                        <dd class="cinema_address">天河路228号正佳广场7楼</dd>
-                    </dl>
-                    <hr>
-                    <dl class="clear">
-                        <dt>电 话：</dt>
-                        <dd class="cinema_phone">
-                            020-85590911 85598266
-                        </dd>
-                    </dl>
-                    <hr>
-                    <dl class="ui_hide">
-                        <dt>影 院 简 介：</dt>
-                        <dd class="cinama_brief">bibliblidfalfkjdfiauflafladfoaidfuo</dd>
-                    </dl>
-                    <hr>
-                    <dl class="clear">
-                        <dt>特 色：</dt>
-                        <dd class="ffst">“５号天幕厅：中国巨幕ｘ杜比全景声，震撼视听新感受。”</dd>
-                    </dl>
+            <dl class="ui_abeam search_channel" hidden>
+                <dt class="uipic">
+                    <a target="_blank" href="/movie/155903443?fyrq=" title="">
+                        <img width="96" height="128" src="http://img5.gewara.com/cw96h128/images/movie/201605/s_6e62e7d_1549f7abdfd__7d7c.jpg">
+                    </a>
+                </dt>
+                <dd class="uiText">
+                    <h2><em class="ffst">[电影]</em><a target="_blank" href="/movie/155903443"><span class="dd_film" style="background-color: #2ed2c1;font-weight: bold;"></span></a></h2><br>
+                    <span class="ihalf"><em >上映时间：</em><span class="dd_time"></span></span>
+                    <span class="ihalf"><em>电影类型：</em><span class="dd_type"></span></span><br>
+                    <span><em>导演/主演：</em><span class="dd_actors"></span></span><br>
+                    <span><em>简介：</em><span class="dd_brief"></span></span><br>
+                </dd>
+            </dl>
 
-                </div>
-            </div>
-        </div>
-        <div class="container">
-
-            <div class="date_container ">
-                <span class="glyphicon glyphicon-tag"  style="font-size: 20px;color: rgb(212, 106, 64);" aria-hidden="true">选择日期</span>
-                <button type="button" id ='btn_0' class="btn date_btn btn-default" >5月30日</button>
-
-                <button type="button" id ='btn_1' class="btn date_btn btn-default ">6月1日</button>
-
-                <button type="button" id ='btn_2'class="btn date_btn btn-default ">6月1日</button>
-
-                <!--<button type="button" id ='btn_3'class="btn date_btn btn-default ">6月1日</button>
-
-               <button type="button" id ='btn_4'class="btn date_btn btn-default ">6月1日</button>
-               Indicates a dangerous or potentially negative action
-               <button type="button" id ='btn_5'class="btn date_btn btn-default">6月1日</button>
-               <button type="button" id ='btn_6'class="btn date_btn btn-default ">6月1日</button>-->
-            </div>
-            <div class="films_container">
-                <span  class="tag_span glyphicon glyphicon-tag"  style="font-size: 20px;color: rgb(212, 106, 64);" aria-hidden="true">选择影片</span>
-                <div class='films_list'>
-                    <ul id='ul_par'>
-                        <li hidden  class='select panel '><img width="120px"  alt="爱丽丝梦游仙境2：镜中奇遇记" src="http://img5.gewara.com/cw96h128/images/movie/201604/s54cfd1ea_1544d51e139__7f47.jpg"><br><em>爱丽丝梦游仙</em></li>
-
-
-                    </ul>
-                </div>
-            </div>
-            <div class='time_list'>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>放映时间</th>
-                        <th>结束时间</th>
-                        <th>票价</th>
-                        <th>放映厅</th>
-                        <th>选座购票</th>
-                    </tr>
-                    </thead>
-                    <tbody id='tbody_par'>
-                    <tr hidden class="tr_row">
-                        <th scope="row">1</th>
-                        <td class="endTime">Mark</td>
-                        <td class ="price">Otto</td>
-                        <td class ="hall">@mdo</td>
-                        <td><button class='btn btn-success'>选座购票</button></td>
-                    </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>

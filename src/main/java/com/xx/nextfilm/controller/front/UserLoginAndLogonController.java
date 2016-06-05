@@ -31,19 +31,24 @@ public class UserLoginAndLogonController {
 
     }
 
-    @RequestMapping(value = "/next_film", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String main() {
+        return "nextfilm/login";
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String home() {
-        return "nextfilm/home";
+        return "nextfilm/main";
     }
 
-    @RequestMapping(value = "/view_film_page", method = RequestMethod.GET)
+    @RequestMapping(value = "/film", method = RequestMethod.GET)
     public String view_film() {
-        return "nextfilm/view_film_page";
+        return "nextfilm/film_detail";
     }
 
-    @RequestMapping(value = "/view_reservation", method = RequestMethod.GET)
+    @RequestMapping(value = "/reservation", method = RequestMethod.GET)
     public String view_reservation() {
-        return "nextfilm/view_reservation";
+        return "nextfilm/all_reservation";
     }
 
 }

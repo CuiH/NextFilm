@@ -50,6 +50,7 @@ hr {
 
 .show-img {
 	display: block;
+	width: 100%;
 	max-width:450px;
 	max-height:400px;
 }

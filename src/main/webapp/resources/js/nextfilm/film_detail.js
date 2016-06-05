@@ -1,5 +1,4 @@
 $(function(){
-
 	var Request = new Object();
 	Request = GetRequest();
 	function GetRequest() {
@@ -19,21 +18,17 @@ $(function(){
 		type: "GET",
 	    dataType: "jsonp",
 	    jsonpCallback: "ch",
-	    url: "http://172.18.43.152:8080/view_film?id="  + Request["id"],
+	    url: "/view_film?id="  + Request["id"],
 	    success: function(data) {
-	        
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
-	        
 				$("#film-container").loadTemplate($("#template"), data["data"]);
-	            
 	        } else {
-	            // DOM 操作
-	            alert("Network error")
+	            alert(data["reason"]);
 	        }
 	    },
 	    error: function() {
-	        alert("server error1")
+	        alert("server error")
 	    }
 	});
 
@@ -41,21 +36,17 @@ $(function(){
 		type: "GET",
 	    dataType: "jsonp",
 	    jsonpCallback: "ljy",
-	    url: "http://172.18.43.152:8080/get_showing2?filmId=" + Request["id"],
+	    url: "/get_showing2?filmId=" + Request["id"],
 	    success: function(data) {
-	        
 	        // 首先判断是否成功
 	        if (data["result"] == "success") {
-	        
 				$("#show-main-container").loadTemplate($("#show-t1"), data["data"]);
-	            
 	        } else {
-	            // DOM 操作
-	            alert("Network error")
+				alert(data["reason"]);
 	        }
 	    },
 	    error: function() {
-	        alert("server error1")
+	        alert("server error")
 	    }
 	});
 

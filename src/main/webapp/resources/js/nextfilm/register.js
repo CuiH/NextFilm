@@ -12,11 +12,10 @@ $(function(){
 				data = JSON.parse(data);
 				if (data["result"] == "success") {
 					$('#signin-btn').text("Success");
-
 					$("#mymodal").modal("show");
-
 					$(".modal-body").text("success");
-					window.location.replace("/next_film")
+
+					window.location.replace("/main")
 				} else {
 					$('#signin-btn').text("Sign in");
 					$('#signin-btn').removeAttr("disabled")

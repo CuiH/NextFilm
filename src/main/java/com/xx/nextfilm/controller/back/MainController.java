@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
-
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(ModelMap modelMap) {
         String username = MainController.getCurrentUsername();
@@ -23,7 +21,6 @@ public class MainController {
 
         return "home";
     }
-
 
 
     public static String getCurrentUsername() {

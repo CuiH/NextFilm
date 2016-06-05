@@ -49,7 +49,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-1 col-sm-10" style="margin: 0 auto;">
-                        <div id="signin-btn" type="button" class="btn btn-success" style="width: 90px; margin: 20px 10% 0 15%;">Sign in</div>
+                        <button id="signin-btn" type="submit" class="btn btn-success" style="width: 90px; margin: 20px 10% 0 15%;">Sign in</button>
                         <div id="signup-btn" type="button" class="btn btn-default" style="width: 90px; margin: 20px 0 0 0;">Sign up</div>
                     </div>
                 </div>

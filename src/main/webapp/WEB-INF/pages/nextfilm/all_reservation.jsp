@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2016/5/31
-  Time: 18:17
+  Date: 2016/6/3
+  Time: 14:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,16 +18,16 @@
 
     <script type="text/javascript" src="/res/js/nextfilm/jquery.loadTemplate-1.5.7.min.js"></script>
 
-    <script type="text/javascript" src="/res/js/nextfilm/main.js"></script>
+    <script type="text/javascript" src="/res/js/nextfilm/orders.js"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="/res/css/nextfilm/main.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/nextfilm/orders.css">
 </head>
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/home">
                 <img class="img-circle" alt="Brand" src="/res/image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
                 <p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
             </a>
@@ -72,88 +72,51 @@
     </div> <!-- container fluid -->
 </nav>
 
-<div id="main-container" style="min-height: 90%;">
-    <div id="ad-container-bg">
-        <div id="ad-container" class="row" style="padding: 10px;">
-            <div id="ad-left" class="col-md-9">
-                <div id="myCarousel" class="carousel slide">
-                    <!-- 轮播（Carousel）指标 -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                    </ol>
-                    <!-- 轮播（Carousel）项目 -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="/res/image/1.jpg" alt="First slide">
-                        </div>
-                        <div class="item">
-                            <img src="/res/image/2.jpg" alt="Second slide">
-                        </div>
-                        <div class="item">
-                            <img src="/res/image/3.jpg" alt="Third slide">
-                        </div>
-                    </div>
-                </div>
+<div id="main-container" style="min-height: 80%;">
+    <div id="film-container-bg">
+        <div id="film-container"></div>
+
+        <div id="show-container">
+            <div>
+                <h1>订单信息</h1>
+                <hr>
             </div>
-            <div id="ad-right" class="col-md-3">
-                <div id="coupon" style="background-color: white; padding: 6px;height:390px;">
-                    <p>优惠信息</p>
-                    <img src="/res/image/4.jpg">
-                    <span class="sspan">[苏州]2016迷笛电子音乐节(预售)</span>
-                    <span class="sspan">[广州]2015维纳斯音乐节(预售)</span>
-                    <hr>
-                    <span class="sspan">[苏州]2016迷笛电子音乐节(预售)</span>
-                    <span class="sspan">[广州]2015维纳斯音乐节(预售)</span>
+
+            <div id="show-container-bg" style="margin-bottom: 30px;">
+                <div class="row" id="show-container-header">
+                    <div class="col-md-4"><p>影片</p></div>
+                    <div class="col-md-2"><p>订票时间</p></div>
+                    <div class="col-md-2"><p>开始时间</p></div>
+                    <div class="col-md-1" style="text-indent: 10px;"><p>座位数</p> </div>
+                    <div class="col-md-1" style="text-indent: 10px;"><p>价格</p> </div>
+                    <div class="col-md-1" style="text-indent: 10px;"><p>状态</p></div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <div id="show-main-container">
+
                 </div>
             </div>
         </div>
+
     </div> <!-- ad-container -->
-
-    <div id="film-new-container-bg">
-        <div id="film-new-container" style="width: 1200px;margin: 0 auto;">
-            <p style="font-size: 12pt;">近期热门</p>
-            <hr>
-            <!-- Columns are always 25% wide, on mobile and desktop -->
-            <div id="film-new-list" class="row">
-
-            </div>
-        </div>
-    </div> <!-- film-new-container-bg -->
-
-    <div id="cinema-new-container-bg" style="margin-top: 45px;margin-bottom: 45px;">
-        <div id="cinema-new-container" style="width: 1200px;margin: 0 auto;">
-            <p style="font-size: 12pt;">推荐场馆</p>
-            <hr>
-            <!-- Columns are always 25% wide, on mobile and desktop -->
-            <div id="cinema-new-list" class="row">
-                <div class="col-md-6">
-                    <div>
-                        <img class="cinema-img">
-                        <span class="sspan"></span>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-                        <img class="cinema-img">
-                        <span class="sspan"></span>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<script type="text/html" id="template">
-    <div class="col-md-3">
-        <div>
-            <a data-link="id" data-format="LinkFomatter"><img data-src="imageUrl" class="show-img"></a>
-            <span data-content="name" class="sspan"></span>
-            <p data-content="brief" class="show-p"></p>
+<script type="text/html" id="show-t1">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-4">
+            <img data-src="filmImageUrl" style="width: 160px; height: 200px;margin-right: 20px;margin-left: 20px;">
+            <div style="display: inline-block;">
+                <p data-content="filmName"></p>
+                <p data-content="cinemaName"></p>
+            </div>
         </div>
+        <div class="col-md-2"><p style="margin-top: 50%" data-content="createTime"></p></div>
+        <div class="col-md-2"><p style="margin-top: 50%" data-content="startTime"></p></div>
+        <div class="col-md-1"><p style="margin-top: 115%" data-content="seatNum"></p> </div>
+        <div class="col-md-1"><p style="margin-top: 115%" data-content="totalPrice"></p> </div>
+        <div class="col-md-1"><p style="margin-top: 115%" data-content="status"></p></div>
+        <div class="col-md-1"></div>
     </div>
 </script>
 

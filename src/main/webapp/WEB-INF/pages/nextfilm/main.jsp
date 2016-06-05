@@ -1,12 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2016/6/1
-  Time: 20:04
+  Date: 2016/5/31
+  Time: 18:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
 
@@ -19,16 +18,14 @@
 
     <script type="text/javascript" src="/res/js/nextfilm/jquery.loadTemplate-1.5.7.min.js"></script>
 
-    <script type="text/javascript" src="/res/js/nextfilm/view_film.js"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="/res/css/nextfilm/view_film.css">
+    <script type="text/javascript" src="/res/js/nextfilm/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/res/css/nextfilm/main.css">
 </head>
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid" style="width: 1270px;margin: 0 auto;">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/home">
                 <img class="img-circle" alt="Brand" src="/res/image/social_19.png" style="display: inline-block;position: relative;top: -105%;left: 5%;">
                 <p style="display: inline-block;position: relative;top: -105%;">NextFilm</p>
             </a>
@@ -58,9 +55,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="register.html">登录|注册</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
+                    <a  id="user-name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的账号 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="user-name"><a href="#">Action</a></li>
+                        <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li role="separator" class="divider"></li>
@@ -74,114 +71,86 @@
 </nav>
 
 <div id="main-container" style="min-height: 90%;">
-    <div id="film-container-bg">
-        <div id="film-container"></div>
-
-        <div style="margin-top: 35px;" id="show-container">
-            <div>
-                <h1>场次信息</h1>
-                <hr>
-            </div>
-
-            <div id="show-container-bg" style="margin-bottom: 30px;">
-                <div class="row" id="show-container-header">
-                    <div class="col-md-6"><p>影片</p></div>
-                    <div class="col-md-2"><p>时间</p></div>
-                    <div class="col-md-1" style="text-indent: 10px;"><p>类型</p> </div>
-                    <div class="col-md-1" style="text-indent: 10px;"><p>价格</p> </div>
-                    <div class="col-md-2"></div>
+    <div id="ad-container-bg">
+        <div id="ad-container" class="row" style="padding: 10px;">
+            <div id="ad-left" class="col-md-9">
+                <div id="myCarousel" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="/res/image/1.jpg" alt="First slide">
+                        </div>
+                        <div class="item">
+                            <img src="/res/image/2.jpg" alt="Second slide">
+                        </div>
+                        <div class="item">
+                            <img src="/res/image/3.jpg" alt="Third slide">
+                        </div>
+                    </div>
                 </div>
-
-                <div id="show-main-container">
-
+            </div>
+            <div id="ad-right" class="col-md-3">
+                <div id="coupon" style="background-color: white; padding: 6px;height:390px;">
+                    <p>优惠信息</p>
+                    <img src="/res/image/4.jpg">
+                    <span class="sspan">[苏州]2016迷笛电子音乐节(预售)</span>
+                    <span class="sspan">[广州]2015维纳斯音乐节(预售)</span>
+                    <hr>
+                    <span class="sspan">[苏州]2016迷笛电子音乐节(预售)</span>
+                    <span class="sspan">[广州]2015维纳斯音乐节(预售)</span>
                 </div>
             </div>
         </div>
-
     </div> <!-- ad-container -->
+
+    <div id="film-new-container-bg">
+        <div id="film-new-container" style="width: 1200px;margin: 0 auto;">
+            <p style="font-size: 12pt;">近期热门</p>
+            <hr>
+            <!-- Columns are always 25% wide, on mobile and desktop -->
+            <div id="film-new-list" class="row">
+
+            </div>
+        </div>
+    </div> <!-- film-new-container-bg -->
+
+    <div id="cinema-new-container-bg" style="margin-top: 45px;margin-bottom: 45px;">
+        <div id="cinema-new-container" style="width: 1200px;margin: 0 auto;">
+            <p style="font-size: 12pt;">推荐场馆</p>
+            <hr>
+            <!-- Columns are always 25% wide, on mobile and desktop -->
+            <div id="cinema-new-list" class="row">
+                <div class="col-md-6">
+                    <div>
+                        <img class="cinema-img">
+                        <span class="sspan"></span>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <img class="cinema-img">
+                        <span class="sspan"></span>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script type="text/html" id="show-t1">
-    <div class="row" style="margin-top: 25px;">
-        <div data-content="cinema" data-format="nestedTemplateFormatter" data-format-options="#show-t2"></div>
-        <div data-content="showings" data-format="nestedTemplateFormatter" data-format-options="#show-t3"></div>
-    </div>
-</script>
-
-<script type="text/html" id="show-t4">
-    <p data-content="type"></p>
-</script>
-
-<script type="text/html" id="show-t3">
-    <div class="col-md-2"><p data-content="startTime"></p></div>
-    <div class="col-md-1" data-content="hall" data-format="nestedTemplateFormatter" data-format-options="#show-t4"></div>
-    <div class="col-md-1"><p data-content="priceManual"></p></div>
-    <div class="col-md-2"><button>购买</button></div>
-</script>
-
-
-<script type="text/html" id="show-t2">
-    <div class="col-md-6">
-        <img data-src="imageUrl" style="width: 160px; height: 100px;margin-right: 20px;margin-left: 20px;">
-        <div style="display: inline-block;">
-            <p data-content="name"></p>
-            <p data-content="address"></p>
-        </div>
-    </div>
-</script>
-
-<script type="text/html" id="t2">
-    <div style="display: inline-block;margin-right: 25px;">
-        <img class="avatar" data-src="imageUrl">
-        <p data-content="name">linxux</p>
-    </div>
-</script>
-
 <script type="text/html" id="template">
-    <div>
-        <h1 data-content="name"></h1>
-        <p data-content="alias"></p>
-        <hr>
-    </div>
-
-    <div class="row" style="padding: 10px;">
-        <div id="film-left" class="col-md-3">
-            <img class="show-img" data-src="imageUrl">
-        </div>
-
-        <div class="col-md-8" style="margin-top:25px;">
-        <div id="film-directors">
-            <p style="margin-right: 20px;display: inline-block;vertical-align: 45px;">导演:</p>
-            <div style="display: inline-block; margin-right: 20px;" id="director">
-                <div style="display: inline-block;" data-content="directors" data-format="nestedTemplateFormatter" data-format-options="#t2">
-
-                </div>
-            </div>
-            <hr>
-        </div>
-
-        <div id="film-actors">
-            <p style="margin-right: 20px;display: inline-block;vertical-align: 45px;">演员:</p>
-            <div style="display: inline-block; margin-right: 20px;">
-                <div data-content="actors" data-format="nestedTemplateFormatter" data-format-options="#t2"></div>
-
-            </div>
-            <hr>
-
-            <div id="film-brief">
-                <p style="display: inline-block;">剧情:</p>
-                <span style="display: block; margin-left: 40px;text-indent: 25px;width: 600px;" data-content="brief"></span>
-            </div>
-
-            <hr>
-            <div>
-                <p style="margin-right: 20px;display: inline-block;">分类:</p>
-                <span data-content="category" class="sspan">美国</span>
-                <span data-content="type" class="sspan">美国</span>
-                <span data-content="onDate" class="sspan">美国</span>
-                <span data-content="language" class="sspan">美国</span>
-                <span data-content="length" class="sspan">美国</span>
-            </div>
+    <div class="col-md-3">
+        <div>
+            <a data-link="id" data-format="LinkFomatter"><img data-src="imageUrl" class="show-img"></a>
+            <span data-content="name" class="sspan"></span>
+            <p data-content="brief" class="show-p"></p>
         </div>
     </div>
 </script>
