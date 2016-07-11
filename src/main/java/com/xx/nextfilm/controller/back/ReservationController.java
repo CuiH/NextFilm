@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -33,8 +34,11 @@ public class ReservationController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/make_reservation", method = RequestMethod.POST)
-    public String makeReservation(ReservationEditor reservation) {
+    @RequestMapping(value = "/make_reservation", method = RequestMethod.POST, produces = "application/javascript; charset=utf-8")
+    public String makeReservation(ReservationEditor reservation, HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "POST, GET");
+
         if (reservation.getSeats() == null || reservation.getSeats().isEmpty()) {
 
             return "{\"result\": \"fail\", \"reason\": \"no seat selected\"}";
@@ -84,8 +88,10 @@ public class ReservationController {
 
     // 当前用户的所有订单
     @ResponseBody
-    @RequestMapping(value = "/view_all_reservation", method = RequestMethod.GET, produces = "plain/text; charset=UTF-8")
-    public String viewAllReservation() {
+    @RequestMapping(value = "/view_all_reservation", method = RequestMethod.GET, produces = "application/javascript; charset=utf-8")
+    public String viewAllReservation(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+
         UserEntity userEntity;
         try {
             userEntity = getCurrentUser();
